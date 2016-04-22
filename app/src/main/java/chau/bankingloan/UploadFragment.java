@@ -55,8 +55,6 @@ public class UploadFragment extends Fragment
     final String FILE_UPLOAD_URL = "http://192.168.1.11/chauvu/up.php";
     final String FILE_STORE_URL = "http://192.168.1.11/chauvu/uploads";
 
-    private Button btnAddPhots;
-    private Button btnUpload;
     private ArrayList<String> imagesPathList;
     ProgressBar prgPercent;
     TextView tvPercent;
@@ -115,7 +113,6 @@ public class UploadFragment extends Fragment
                 act.switchTab(0);
             }
         });
-
         return rootView;
     }
 
