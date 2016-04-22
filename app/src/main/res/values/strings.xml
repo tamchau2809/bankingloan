@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Banking Loan</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_camera">Capture</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+    <string name="title_activity_upload">Upload&#8230;</string>
+    <string name="title_activity_custom_photo_gallery">CustomPhotoGalleryActivity</string>
+    <string name="MKH">Mã Khách Hàng</string>
+    <string name="MKH_hint">MKH&#8230;</string>
+    <string name="Add">Mã Nhân Viên:</string>
+    <string name="HoaDon">Số Hóa Đơn</string>
+    <string name="Add_hint">MNV&#8230;</string>
+    <string name="HoaDon_hint">số hóa đơn..</string>
+    <string name="description">aa</string>
+    <string name="addPhoto">Thêm Ảnh</string>
+    <string name="upload">Upload</string>
+    <string name="title_activity_loan_fragment">Loan</string>
+</resources>
