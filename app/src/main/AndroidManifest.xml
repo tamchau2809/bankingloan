@@ -28,12 +28,6 @@
         </activity>
 
         <activity
-            android:name=".UploadActivity"
-            android:label="@string/title_activity_upload"
-            android:screenOrientation="landscape"
-            ></activity>
-
-        <activity
             android:name=".CustomPhotoGalleryActivity"
             android:label="@string/title_activity_custom_photo_gallery"
             android:screenOrientation="landscape" >
