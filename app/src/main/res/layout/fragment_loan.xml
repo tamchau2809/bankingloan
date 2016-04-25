@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/my_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 <LinearLayout
@@ -9,63 +10,59 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/tvLoanDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="start"
+            android:text="@string/MKH"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="start"
+            android:text="@string/HoaDon"/>
+
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:baselineAligned="false"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
-        android:paddingTop="10dp">
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <Spinner
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:layout_weight="1"
+            android:id="@+id/spinnerMKH"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <EditText
+            android:layout_weight="1"
+            android:id="@+id/edContractNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/MKH"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/spinnerMKH"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/MKH_hint" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/HoaDon"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/edContractNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/HoaDon_hint"
-                android:inputType="text"
-                android:textSize="25sp" />
-
-        </LinearLayout>
+            android:hint="@string/HoaDon_hint"
+            android:inputType="text"
+            android:textSize="22sp" />
 
     </LinearLayout>
 
@@ -75,12 +72,15 @@
         android:layout_height="wrap_content"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
+        android:paddingBottom="10dp"
         android:text="@string/Add"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <Spinner
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
         android:id="@+id/spinnerMNV"
+        android:layout_gravity="start|center"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:layout_width="match_parent"

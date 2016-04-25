@@ -63,8 +63,14 @@ public class LoanFragment extends Fragment {
         final SharedPreferences pref = this.getActivity().getSharedPreferences("MKH", Context.MODE_PRIVATE);
         if(!pref.contains("MKH"))
         {
+            if(isConnectedToInternet(getContext())) {
                 new GetMKH().execute();
                 new GetMNV().execute();
+            }
+            else
+            {
+                showAlert("Xin Kiểm Tra Lại Kết Nối!");
+            }
         }
         else
         {

@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -46,30 +45,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-                switch(tab.getPosition())
-                {
-                    case 1:
-                        Toast.makeText(getBaseContext(), MAKH, Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                            Toast.makeText(getBaseContext(), "test", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                mViewPager.setCurrentItem(tab.getPosition());
+//                switch(tab.getPosition())
+//                {
+//                    case 1:
+//                        Toast.makeText(getBaseContext(), MAKH, Toast.LENGTH_SHORT).show();
+//                        break;
+//                    default:
+//                            Toast.makeText(getBaseContext(), "test", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 
         LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
         tabStrip.setEnabled(false);
@@ -104,7 +103,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 0:
                     return new LoanFragment();
                 case 1:
-                    return  new UploadFragment();
+                    return new UploadFragment();
+                case 2:
+                    return new LoanFragment2();
+                case 3:
+                    return new PersonalFragment();
+                case 4:
+                    return new ContactFragment();
+                case 5:
+                    return new EmploymentFragment();
                 default:
                     return new LoanFragment();
             }
@@ -113,16 +120,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 6;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "INFORMATION";
                 case 1:
-                    return "SECTION 2";
+                    return "UPLOAD";
+                case 2:
+                    return "TEST";
+                case 3:
+                    return "PERSONAL";
+                case 4:
+                    return "CONTACT";
+                case 5:
+                    return "EMPLOYMENT";
             }
             return null;
         }
