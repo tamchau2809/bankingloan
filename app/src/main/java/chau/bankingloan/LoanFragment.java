@@ -66,6 +66,13 @@ public class LoanFragment extends Fragment {
                 new GetMKH().execute();
                 new GetMNV().execute();
         }
+        else
+        {
+            populateSpinnerMKH();
+            populateSpinnerMNV();
+            spinner.setSelection(contractDetails.getInt("MKH_LOCA", 0));
+            spinerMNV.setSelection(contractDetails.getInt("MNV_LOCA", 0));
+        }
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -111,10 +118,7 @@ public class LoanFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        populateSpinnerMKH();
-        populateSpinnerMNV();
-        spinner.setSelection(contractDetails.getInt("MKH_LOCA", 0));
-        spinerMNV.setSelection(contractDetails.getInt("MNV_LOCA", 0));
+
     }
 
     public void storeMKHList(ArrayList<InfoFromServer> list)

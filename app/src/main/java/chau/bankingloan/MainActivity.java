@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private ViewPager mViewPager;
     TabLayout tabLayout;
+    NavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for(int i = 0; i < tabStrip.getChildCount(); i++) {
             tabStrip.getChildAt(i).setClickable(false);
         }
+
+        navigation = (NavigationView)findViewById(R.id.navigation);
+        navigation.setNavigationItemSelectedListener(this);
     }
 
     public void switchTab(int pos)
@@ -127,6 +131,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        return true;
+        int id = item.getItemId();
+        switch (id)
+        {
+            case R.id.navItem1:
+                Toast.makeText(getApplicationContext(), "HOme", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.navItem3:
+            case R.id.navItem4:
+                default:
+                break;
+        }
+        return false;
     }
 }
