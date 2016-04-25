@@ -51,12 +51,11 @@
             android:text="Loan Type"/>
 
         <Spinner
-            android:id="@+id/idLoanType"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
-            android:layout_gravity="end|center"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="@string/MKH_hint" />
+            android:layout_gravity="end|center" />
 
         <TextView
             android:layout_width="match_parent"
@@ -128,11 +127,11 @@
                 android:text="Maximum Interest"/>
 
             <Spinner
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_gravity="end|center"
-                android:hint="@string/MKH_hint" />
+                android:layout_gravity="end|center" />
         </LinearLayout>
 
         <EditText
@@ -164,6 +163,7 @@
                 android:text="Loan Purpose"/>
 
             <Spinner
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
