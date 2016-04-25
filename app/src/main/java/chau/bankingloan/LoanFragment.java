@@ -40,8 +40,8 @@ public class LoanFragment extends Fragment {
     SharedPreferences contractDetails;
 
     EditText  edNum;
-    Spinner spinner;
-    Spinner spinerMNV;
+    Spinner spinnerMKH;
+    Spinner spinnerMNV;
     ProgressDialog pDialog;
     ArrayList<InfoFromServer> listMKH = new ArrayList<InfoFromServer>();
     ArrayList<InfoFromServer> listMNV = new ArrayList<InfoFromServer>();
@@ -70,8 +70,8 @@ public class LoanFragment extends Fragment {
         {
             populateSpinnerMKH();
             populateSpinnerMNV();
-            spinner.setSelection(contractDetails.getInt("MKH_LOCA", 0));
-            spinerMNV.setSelection(contractDetails.getInt("MNV_LOCA", 0));
+            spinnerMKH.setSelection(contractDetails.getInt("MKH_LOCA", 0));
+            spinnerMNV.setSelection(contractDetails.getInt("MNV_LOCA", 0));
         }
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
@@ -97,13 +97,13 @@ public class LoanFragment extends Fragment {
                     edNum.setError("Chưa Nhập Số Hóa Đơn!");
                     edNum.requestFocus();
                 } else {
-                    MainActivity.MAKH = listMKH.get(spinner.getSelectedItemPosition()).getID();
+                    MainActivity.MAKH = listMKH.get(spinnerMKH.getSelectedItemPosition()).getID();
                     MainActivity.contractNum = edNum.getText().toString();
-                    MainActivity.MANV = listMNV.get(spinerMNV.getSelectedItemPosition()).getID();
+                    MainActivity.MANV = listMNV.get(spinnerMNV.getSelectedItemPosition()).getID();
 
                     SharedPreferences.Editor editor = contractDetails.edit();
-                    editor.putInt("MKH_LOCA", spinner.getSelectedItemPosition());
-                    editor.putInt("MNV_LOCA", spinerMNV.getSelectedItemPosition());
+                    editor.putInt("MKH_LOCA", spinnerMKH.getSelectedItemPosition());
+                    editor.putInt("MNV_LOCA", spinnerMNV.getSelectedItemPosition());
                     editor.putString("number", edNum.getText().toString());
                     editor.commit();
 
@@ -196,8 +196,8 @@ public class LoanFragment extends Fragment {
     {
 //        btnCapture = (ImageButton)rootView.findViewById(R.id.btnCapture);
         edNum = (EditText)rootView.findViewById(R.id.edContractNum);
-        spinner = (Spinner)rootView.findViewById(R.id.spinerMKH);
-        spinerMNV = (Spinner)rootView.findViewById(R.id.spinerMNV);
+        spinnerMKH = (Spinner)rootView.findViewById(R.id.spinnerMKH);
+        spinnerMNV = (Spinner)rootView.findViewById(R.id.spinnerMNV);
     }
 
     private class GetMKH extends AsyncTask<Void, Void, Void>
@@ -207,7 +207,7 @@ public class LoanFragment extends Fragment {
             // TODO Auto-generated method stub
             super.onPreExecute();
             pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage("Fetching food categories..");
+            pDialog.setMessage("Fetching Information...");
             pDialog.setCancelable(false);
             pDialog.show();
         }
@@ -308,7 +308,7 @@ public class LoanFragment extends Fragment {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
                 R.layout.custom_spinner_item, labels);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
+        spinnerMKH.setAdapter(spinnerAdapter);
     }
 
     private void populateSpinnerMNV()
@@ -322,7 +322,7 @@ public class LoanFragment extends Fragment {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
                 R.layout.custom_spinner_item, labels);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinerMNV.setAdapter(spinnerAdapter);
+        spinnerMNV.setAdapter(spinnerAdapter);
     }
 
     public boolean isConnectedToInternet(Context ctx)

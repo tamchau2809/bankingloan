@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/my_background"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/my_background"
+        android:baselineAligned="false"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="match_parent"
@@ -14,44 +13,40 @@
         <ScrollView
             android:id="@+id/scroll1"
             android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent" >
 
             <LinearLayout
                 android:id="@+id/lnrImages"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
             </LinearLayout>
         </ScrollView>
-
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_height="match_parent"
-            android:gravity="center|top"
-            android:layout_alignParentBottom="true" >
+            android:layout_height="wrap_content"
+            android:gravity="center|top" >
 
             <ProgressBar
                 android:id="@+id/progressBar1"
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/tvPercent"
-                android:layout_centerHorizontal="true"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:textColor="#DFC611"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="25sp"
-                android:text="test"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -84,6 +79,5 @@
                 android:src="@android:drawable/ic_media_previous" />
 
         </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
-</android.support.v4.widget.NestedScrollView>
