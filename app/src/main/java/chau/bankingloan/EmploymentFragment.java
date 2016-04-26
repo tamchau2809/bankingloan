@@ -16,7 +16,7 @@ public class EmploymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        rootView = inflater.inflate(R.layout.fragment_personal, container, false);
+        rootView = inflater.inflate(R.layout.fragment_employment, container, false);
 
 
         return rootView;

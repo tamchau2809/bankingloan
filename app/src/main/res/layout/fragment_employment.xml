@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/my_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
     android:orientation="vertical"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
@@ -18,21 +23,21 @@
         <TextView
             android:layout_weight="1"
             android:id="@+id/tvLoanDetails"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textStyle="bold"
-            android:gravity="right"
+            android:gravity="end"
             android:textSize="18sp"
-            android:text="Personal Information"/>
+            android:text="Employment Details"/>
 
         <TextView
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:gravity="right"
-            android:text="Dependents Infomation"/>
+            android:gravity="end"
+            android:text="Income Details"/>
 
     </LinearLayout>
 
@@ -47,8 +52,8 @@
             android:layout_height="match_parent"
             android:textSize="15sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Loan Type"/>
+            android:gravity="end|center"
+            android:text="Working Status"/>
 
         <Spinner
             style="@style/Base.Widget.AppCompat.Spinner.Underlined"
@@ -62,8 +67,8 @@
             android:layout_height="match_parent"
             android:textSize="18sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Monthly Payment"/>
+            android:gravity="end|center"
+            android:text="Designation"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -83,8 +88,8 @@
             android:layout_height="match_parent"
             android:textSize="15sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Maximum Interest"/>
+            android:gravity="end|center"
+            android:text="Employer"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -96,8 +101,80 @@
             android:layout_height="match_parent"
             android:textSize="18sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Last Payment"/>
+            android:gravity="end|center"
+            android:text="Salary Income"/>
+
+        <EditText
+            android:inputType="datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:gravity="end|center"
+            android:text="Employer Address"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:gravity="end|center"
+            android:text="Other Income"/>
+
+        <EditText
+            android:inputType="datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:gravity="end|center"
+            android:text="Company Type"/>
+
+        <Spinner
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="end|center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:gravity="end|center"
+            android:text="Total Income"/>
 
         <EditText
             android:inputType="datetime"
@@ -115,6 +192,7 @@
 
         <LinearLayout
             android:layout_weight="1"
+            android:weightSum="2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -123,8 +201,8 @@
                 android:layout_height="match_parent"
                 android:textSize="15sp"
                 android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Maximum Interest"/>
+                android:gravity="end|center"
+                android:text="Industry"/>
 
             <Spinner
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
@@ -145,35 +223,32 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_weight="1"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="15sp"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Loan Purpose"/>
-
-            <Spinner
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="end|center"
-                android:hint="@string/MKH_hint" />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:gravity="end|center"
+            android:text="Date Joined"/>
 
         <EditText
-            android:enabled="false"
-            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:gravity="end|center"
+            android:text="Employer Contact"/>
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -181,38 +256,26 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom|end"
+        android:layout_marginTop="20dp" >
 
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="15sp"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Maximum Interest"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <EditText
-            android:enabled="false"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_media_rew" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_media_ff" />
     </LinearLayout>
 
-
 </LinearLayout>
+    </ScrollView>

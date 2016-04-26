@@ -2,6 +2,7 @@ package chau.bankingloan;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,23 @@ public class PersonalFragment extends Fragment
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_personal, container, false);
 
+        FloatingActionButton fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabPersonalNext);
+        fabNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity act = (MainActivity)getActivity();
+                act.switchTab(4);
+            }
+        });
+
+        FloatingActionButton fabPre = (FloatingActionButton)rootView.findViewById(R.id.fabPersonalPre);
+        fabPre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity act = (MainActivity)getActivity();
+                act.switchTab(2);
+            }
+        });
 
         return rootView;
     }

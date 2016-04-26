@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 1:
                     return "UPLOAD";
                 case 2:
-                    return "TEST";
+                    return "LOAN";
                 case 3:
                     return "PERSONAL";
                 case 4:

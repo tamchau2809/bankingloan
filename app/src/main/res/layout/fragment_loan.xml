@@ -80,7 +80,6 @@
     <Spinner
         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
         android:id="@+id/spinnerMNV"
-        android:layout_gravity="start|center"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:layout_width="match_parent"
@@ -106,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_media_next" />
+            android:src="@android:drawable/ic_media_ff" />
     </LinearLayout>
 
 </LinearLayout>

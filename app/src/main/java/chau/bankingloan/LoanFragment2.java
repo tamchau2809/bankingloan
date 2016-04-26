@@ -43,6 +43,8 @@ public class LoanFragment2  extends Fragment
     ProgressDialog pDialog;
     ArrayList<InfoFromServer> listMKH = new ArrayList<InfoFromServer>();
 
+    String arrLoanType[] = {"UPL"};
+
     public LoanFragment2() {
         // TODO Auto-generated constructor stub
     }
@@ -73,6 +75,15 @@ public class LoanFragment2  extends Fragment
             populateSpinnerMKH();
             spinnerMKH.setSelection(contractDetails.getInt("MKH_LOCA", 0));
         }
+
+        FloatingActionButton fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabLoanNext);
+        fabNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity act = (MainActivity)getActivity();
+                act.switchTab(3);
+            }
+        });
         return rootView;
     }
 
@@ -187,7 +198,7 @@ public class LoanFragment2  extends Fragment
             labels.add(listMKH.get(i).getID());
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
-                R.layout.custom_spinner_item, labels);
+                R.layout.custom_spinner_item, arrLoanType);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMKH.setAdapter(spinnerAdapter);
     }

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/my_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
     android:orientation="vertical"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
@@ -51,12 +56,12 @@
             android:text="Loan Type"/>
 
         <Spinner
+            android:layout_gravity="center|end"
             android:id="@+id/idLoanType"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
-            android:layout_gravity="end|center"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/MKH_hint" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="match_parent"
@@ -128,11 +133,11 @@
                 android:text="Maximum Interest"/>
 
             <Spinner
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_gravity="end|center"
-                android:hint="@string/MKH_hint" />
+                android:layout_gravity="end|center" />
         </LinearLayout>
 
         <EditText
@@ -164,6 +169,7 @@
                 android:text="Loan Purpose"/>
 
             <Spinner
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -214,5 +220,27 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom|end"
+        android:layout_marginTop="20dp" >
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_media_rew" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabLoanNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_media_ff" />
+    </LinearLayout>
 
 </LinearLayout>
+    </ScrollView>
