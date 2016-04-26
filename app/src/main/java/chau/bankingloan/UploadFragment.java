@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -142,8 +144,10 @@ public class UploadFragment extends Fragment
         tvPercent.setVisibility(show ? View.VISIBLE : View.GONE);
         lnrImages.setEnabled(show ? false : true);
 
-        prgPercent.getIndeterminateDrawable().setColorFilter(0xFF008800,
-                android.graphics.PorterDuff.Mode.MULTIPLY);
+//        prgPercent.getIndeterminateDrawable().setColorFilter(Color.GREEN,
+//                android.graphics.PorterDuff.Mode.MULTIPLY);
+
+        prgPercent.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
 
         tvPercent.setText(String.valueOf((int)value) + "%");
     }
