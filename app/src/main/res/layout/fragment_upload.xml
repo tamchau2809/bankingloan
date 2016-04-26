@@ -1,86 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/my_background"
+    android:baselineAligned="false"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
+    <ScrollView
+        android:id="@+id/scroll1"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" >
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@drawable/my_background"
-        android:baselineAligned="false"
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="match_parent"
-        android:weightSum="1">
-
-        <ScrollView
-            android:id="@+id/scroll1"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" >
-
-            <LinearLayout
-                android:id="@+id/lnrImages"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-            </LinearLayout>
-        </ScrollView>
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
+            android:id="@+id/lnrImages"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|top" >
-
-            <ProgressBar
-                android:id="@+id/progressBar1"
-                android:indeterminate="true"
-                android:indeterminateTintMode="src_atop"
-                android:indeterminateTint="@color/colorPrimary"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvPercent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#008800"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@android:drawable/ic_menu_add" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@android:drawable/ic_menu_camera" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@android:drawable/ic_menu_upload" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@android:drawable/ic_media_previous" />
-
+            android:orientation="vertical" >
         </LinearLayout>
-        </ScrollView>
+    </ScrollView>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:gravity="center|top" >
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/colorPrimary"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#008800"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_menu_add" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_menu_camera" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_menu_upload" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_media_previous" />
+
     </LinearLayout>
+    </ScrollView>
+</LinearLayout>

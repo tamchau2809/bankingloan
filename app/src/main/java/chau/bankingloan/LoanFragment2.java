@@ -1,13 +1,8 @@
 package chau.bankingloan;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,35 +10,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by com08 on 25-Apr-16.
  */
-public class LoanFragment2  extends Fragment
+public class LoanFragment2  extends Fragment implements View.OnClickListener
 {
-    final String GET_MKH_URL = "http://192.168.1.11/chauvu/getMKH.php";
-    final String GET_MNV_URL = "http://192.168.1.11/chauvu/getMNV.php";
-
     View rootView;;
 
-    SharedPreferences contractDetails;
+    SharedPreferences LoanDetails;
 
-    Spinner spinnerMKH;
-    ProgressDialog pDialog;
-    ArrayList<InfoFromServer> listMKH = new ArrayList<InfoFromServer>();
+    Spinner spLoanType, spTenure, spLoanPurpose;
+    EditText edLoanAmount, edMonthlyPayment, edMaxInterest;
+    TextView tvLastPayment;
+    FloatingActionButton fabNext;
 
     String arrLoanType[] = {"UPL"};
+    String arrTenure[] = {"24"};
+    String arrLoanPurpose[] = {"Renovation"};
+
+    private DatePickerDialog mDatePickerDialog;
+    private SimpleDateFormat dateFormater;
 
     public LoanFragment2() {
         // TODO Auto-generated constructor stub
@@ -57,36 +53,73 @@ public class LoanFragment2  extends Fragment
         rootView = inflater.inflate(R.layout.fragment_loan_2, container, false);
 
         initWiget();
-        populateSpinnerMKH();
+        populateSpinner(spTenure, arrTenure);
+        populateSpinner(spLoanPurpose, arrLoanPurpose);
+        populateSpinner(spLoanType, arrLoanType);
 
-        FloatingActionButton fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabLoanNext);
+        LoanDetails = this.getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
+
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = LoanDetails.edit();
+                editor.putString("loan_type", spLoanType.getSelectedItem().toString());
+                editor.putString("loan_amount", edLoanAmount.getText().toString());
+                editor.putString("tenure", spTenure.getSelectedItem().toString());
+                editor.putString("loan_purpose", spLoanPurpose.getSelectedItem().toString());
+                editor.putString("max_interest", edMaxInterest.getText().toString());
+                editor.putString("monthly_payment", edMonthlyPayment.getText().toString());
+                editor.putString("last_payment", tvLastPayment.getText().toString());
+                editor.commit();
+
                 MainActivity act = (MainActivity)getActivity();
                 act.switchTab(3);
             }
         });
+
+        dateFormater = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        SetDateTime();
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
+    private void SetDateTime()
+    {
+        tvLastPayment.setOnClickListener(this);
+        Calendar calendar = Calendar.getInstance();
+        mDatePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                tvLastPayment.setText(dateFormater.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     public void initWiget()
     {
-//        btnCapture = (ImageButton)rootView.findViewById(R.id.btnCapture);
-        spinnerMKH = (Spinner)rootView.findViewById(R.id.idLoanType);
+        spLoanPurpose = (Spinner)rootView.findViewById(R.id.spLoanPurpose);
+        spTenure = (Spinner)rootView.findViewById(R.id.spTenure);
+        spLoanType = (Spinner)rootView.findViewById(R.id.spLoanType);
+        edLoanAmount = (EditText)rootView.findViewById(R.id.edLoanAmout);
+        edMonthlyPayment = (EditText)rootView.findViewById(R.id.edMonthlyPayment);
+        tvLastPayment = (TextView)rootView.findViewById(R.id.edLastPayment);
+        edMaxInterest = (EditText)rootView.findViewById(R.id.edMaxInterest);
+        fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabLoanNext);
     }
 
-    private void populateSpinnerMKH()
+    private void populateSpinner(Spinner spn, String[] arr)
     {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
-                R.layout.custom_spinner_item, arrLoanType);
+                R.layout.custom_spinner_item, arr);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerMKH.setAdapter(spinnerAdapter);
+        spn.setAdapter(spinnerAdapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == tvLastPayment) {
+            mDatePickerDialog.show();
+        }
     }
 }

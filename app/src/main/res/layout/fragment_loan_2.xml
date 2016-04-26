@@ -22,11 +22,10 @@
 
         <TextView
             android:layout_weight="1"
-            android:id="@+id/tvLoanDetails"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textStyle="bold"
-            android:gravity="right"
+            android:gravity="end"
             android:textSize="18sp"
             android:text="Loan Details"/>
 
@@ -36,7 +35,7 @@
             android:layout_height="match_parent"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:gravity="right"
+            android:gravity="end"
             android:text="Monthly Payment"/>
 
     </LinearLayout>
@@ -50,14 +49,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Loan Type"/>
+            android:gravity="end|center"
+            android:text="@string/loan_type"/>
 
         <Spinner
             android:layout_gravity="center|end"
-            android:id="@+id/idLoanType"
+            android:id="@+id/spLoanType"
             style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -68,10 +67,15 @@
             android:layout_height="match_parent"
             android:textSize="18sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Monthly Payment"/>
+            android:gravity="end|center"
+            android:text="@string/monthly_payment"/>
 
         <EditText
+            android:text="3 623 545"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/edMonthlyPayment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -87,12 +91,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Maximum Interest"/>
+            android:gravity="end|center"
+            android:text="@string/loan_amount"/>
 
         <EditText
+            android:textSize="22sp"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/edLoanAmout"
+            android:text="50 000 000"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -102,14 +111,20 @@
             android:layout_height="match_parent"
             android:textSize="18sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Last Payment"/>
+            android:gravity="end|center"
+            android:text="@string/last_payment"/>
 
-        <EditText
-            android:inputType="datetime"
+        <TextView
+            style="?android:listSeparatorTextViewStyle"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textStyle="normal"
+            android:id="@+id/edLastPayment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="22sp"
             android:layout_weight="1"/>
+
 
     </LinearLayout>
 
@@ -127,12 +142,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Maximum Interest"/>
+                android:gravity="end|center"
+                android:text="@string/tenure"/>
 
             <Spinner
+                android:id="@+id/spTenure"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -163,12 +179,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Loan Purpose"/>
+                android:gravity="end|center"
+                android:text="@string/loan_purpose"/>
 
             <Spinner
+                android:id="@+id/spLoanPurpose"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -200,12 +217,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Maximum Interest"/>
+                android:gravity="end|center"
+                android:text="@string/max_interest"/>
 
             <EditText
+                android:textSize="22sp"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:text="30%"
+                android:id="@+id/edMaxInterest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
@@ -224,11 +246,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="bottom|end"
-        android:layout_marginTop="20dp" >
+        android:gravity="end">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fabLoanPre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"

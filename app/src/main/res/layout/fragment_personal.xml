@@ -4,285 +4,301 @@
     android:background="@drawable/my_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-<LinearLayout
-    android:orientation="vertical"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:paddingStart="5dp"
-    android:paddingEnd="5dp"
-    android:background="@drawable/my_background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
     <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:background="@drawable/my_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_weight="1"
-            android:id="@+id/tvLoanDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:gravity="end"
-            android:textSize="18sp"
-            android:text="Personal Information"/>
-
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:gravity="end"
-            android:text="Dependents Infomation"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:gravity="end|center"
-            android:text="Name"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="18sp"
-            android:layout_weight="1"
-            android:gravity="end|center"
-            android:text="Marital Status"/>
-
-        <Spinner
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_gravity="end|center"
-            android:hint="@string/MKH_hint" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:gravity="end|center"
-            android:text="Date of Birth"/>
-
-        <EditText
-            android:inputType="datetime"
-            android:hint="dd/mm/yyyy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="18sp"
-            android:layout_weight="1"
-            android:gravity="end|center"
-            android:text="Number of Children"/>
-
-        <Spinner
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_gravity="end|center"
-            android:hint="@string/MKH_hint" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tvLoanDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:gravity="end"
+                android:textSize="18sp"
+                android:text="Personal Information"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:gravity="end"
+                android:text="Dependents Infomation"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Identity Card Number"/>
+                android:text="Name"/>
 
             <EditText
+                android:textSize="22sp"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/edName"
+                android:text="Nguyen Thi A"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
-        </LinearLayout>
-
-        <EditText
-            android:enabled="false"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Date of Issue"/>
+                android:text="Marital Status"/>
+
+            <Spinner
+                android:id="@+id/spMaritalStt"
+                android:layout_gravity="center|end"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:text="Date of Birth"/>
+
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:id="@+id/tvBirthDay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="22sp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:text="Number of Children"/>
 
             <EditText
-                android:inputType="datetime"
-                android:hint="dd/mm/yyyy"
+                android:id="@+id/edChildrenNum"
+                android:textSize="22sp"
+                android:textColor="@color/colorAccent"
+                android:text="2"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
+
         </LinearLayout>
 
-        <EditText
-            android:enabled="false"
-            android:visibility="invisible"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:gravity="end|center"
+                    android:text="Identity Card Num."/>
+
+                <EditText
+                    android:id="@+id/edIdenCard"
+                    android:textSize="22sp"
+                    android:textColor="@color/colorAccent"
+                    android:text="123456789"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+            <EditText
+                android:enabled="false"
+                android:visibility="invisible"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:gravity="end|center"
+                    android:text="Date of Issue"/>
+
+                <TextView
+                    style="?android:listSeparatorTextViewStyle"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center"
+                    android:textStyle="normal"
+                    android:id="@+id/tvDateOfIssue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="22sp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <EditText
+                android:enabled="false"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
-                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_weight="6"
                 android:gravity="end|center"
                 android:text="Education"/>
 
             <Spinner
+                android:id="@+id/spEducation"
+                android:layout_gravity="center|end"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="end|center"
-                android:hint="@string/MKH_hint" />
+                android:layout_weight="5" />
+
+            <EditText
+                android:enabled="false"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"/>
+
         </LinearLayout>
-
-        <EditText
-            android:enabled="false"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="15sp"
+            <LinearLayout
                 android:layout_weight="1"
-                android:gravity="end|center"
-                android:text="Gender"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Spinner
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:gravity="end|center"
+                    android:text="Gender"/>
+
+                <Spinner
+                    android:id="@+id/spGender"
+                    android:layout_gravity="center|end"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <EditText
+                android:enabled="false"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="end|center"
-                android:hint="@string/MKH_hint" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
         </LinearLayout>
 
-        <EditText
-            android:enabled="false"
-            android:visibility="invisible"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="bottom|end" >
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabPersonalPre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@android:drawable/ic_media_rew" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabPersonalNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@android:drawable/ic_media_ff" />
+        </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="bottom|end"
-        android:layout_marginTop="20dp" >
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabPersonalPre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_media_rew" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabPersonalNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_media_ff" />
-    </LinearLayout>
-
-</LinearLayout>
-
-    </ScrollView>
+</ScrollView>

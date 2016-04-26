@@ -39,7 +39,7 @@ public class LoanFragment extends Fragment {
 
     SharedPreferences contractDetails;
 
-    EditText  edNum;
+    EditText edNum;
     Spinner spinnerMKH;
     Spinner spinnerMNV;
     ProgressDialog pDialog;

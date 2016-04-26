@@ -16,4 +16,11 @@
     <string name="addPhoto">Thêm Ảnh</string>
     <string name="upload">Upload</string>
     <string name="title_activity_loan_fragment">Loan</string>
+    <string name="loan_type">Loan Type:</string>
+    <string name="monthly_payment">Monthly Payment:</string>
+    <string name="loan_amount">Loan Amount:</string>
+    <string name="last_payment">Last Payment:</string>
+    <string name="tenure">Tenure (Months):</string>
+    <string name="loan_purpose">Loan Purpose:</string>
+    <string name="max_interest">Maximum Interest:</string>
 </resources>
