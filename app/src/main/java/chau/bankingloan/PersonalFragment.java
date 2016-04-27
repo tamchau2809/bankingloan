@@ -1,6 +1,8 @@
 package chau.bankingloan;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -18,7 +20,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Created by com08 on 25-Apr-16.
+ * Created on 25-Apr-16 by com08
  */
 public class PersonalFragment extends Fragment implements View.OnClickListener
 {
@@ -35,6 +37,8 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
     String arrGender[] = {"N.A", "Male", "Female"};
     String arrMaritalStt[] = {"Married"};
 
+    SharedPreferences Personal;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -46,10 +50,24 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
         populateSpinner(spGender, arrGender);
         populateSpinner(spMaritalStt, arrMaritalStt);
 
+        Personal = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
+
+
         FloatingActionButton fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabPersonalNext);
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = Personal.edit();
+                editor.putString("name", edName.getText().toString());
+                editor.putString("birthday", tvBirthDay.getText().toString());
+                editor.putString("identityNum", edIdenCard.getText().toString());
+                editor.putString("dateOissue", tvDateOfIssue.getText().toString());
+                editor.putString("education", spEducation.getSelectedItem().toString());
+                editor.putString("gender", spGender.getSelectedItem().toString());
+                editor.putString("maritalStt", spMaritalStt.getSelectedItem().toString());
+                editor.putString("numOc", edChildrenNum.getText().toString());
+                editor.apply();
+
                 MainActivity act = (MainActivity)getActivity();
                 act.switchTab(4);
             }
@@ -108,7 +126,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
 
     private void populateSpinner(Spinner spn, String[] arr)
     {
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
                 R.layout.custom_spinner_item, arr);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn.setAdapter(spinnerAdapter);

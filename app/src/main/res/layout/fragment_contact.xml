@@ -26,9 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textStyle="bold"
-            android:gravity="right"
+            android:gravity="end"
             android:textSize="18sp"
-            android:text="Personal Information"/>
+            android:text="Contact Details"/>
 
         <TextView
             android:layout_weight="1"
@@ -37,7 +37,36 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:gravity="right"
-            android:text="Dependents Infomation"/>
+            android:text="Reference Details"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:layout_weight="6"
+            android:gravity="end|center"
+            android:text="Permanent Address:"/>
+
+        <EditText
+            android:id="@+id/edPerAdd1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"/>
+
+        <EditText
+            android:enabled="false"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"/>
 
     </LinearLayout>
 
@@ -47,51 +76,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Loan Type"/>
-
-        <Spinner
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_gravity="end|center" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="18sp"
-            android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Monthly Payment"/>
-
         <EditText
+            android:enabled="false"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Maximum Interest"/>
-
         <EditText
+            android:id="@+id/edPerAdd2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -101,11 +94,11 @@
             android:layout_height="match_parent"
             android:textSize="18sp"
             android:layout_weight="1"
-            android:gravity="right|center"
-            android:text="Last Payment"/>
+            android:gravity="end|center"
+            android:text="Reference Name:"/>
 
         <EditText
-            android:inputType="datetime"
+            android:id="@+id/edRefName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -116,35 +109,52 @@
         android:orientation="horizontal"
         android:weightSum="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_weight="1"
+            android:weightSum="5"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Maximum Interest"/>
+                android:gravity="end|center"
+                android:text="Current same as permanent"/>
+
+            <CheckBox
+                android:id="@+id/cbSame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:text="Relationship:"/>
 
             <Spinner
+                android:id="@+id/spRelationship"
+                android:layout_gravity="center|end"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="end|center" />
-        </LinearLayout>
+                android:layout_weight="1" />
 
-        <EditText
-            android:enabled="false"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -152,7 +162,7 @@
         android:orientation="horizontal"
         android:weightSum="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_weight="1"
@@ -162,49 +172,96 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Loan Purpose"/>
-
-            <Spinner
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="end|center"
-                android:hint="@string/MKH_hint" />
-        </LinearLayout>
-
-        <EditText
-            android:enabled="false"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="15sp"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Maximum Interest"/>
+                android:gravity="end|center"
+                android:text="Telephone:"/>
 
             <EditText
+                android:id="@+id/edTelephone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:gravity="end|center"
+            android:text="Contact Number:"/>
+
+            <EditText
+                android:id="@+id/edContactNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:text="Mobile:"/>
+
+            <EditText
+                android:id="@+id/edMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <EditText
+            android:enabled="false"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:text="Email:"/>
+
+            <EditText
+                android:id="@+id/edEmail"
+                android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
@@ -223,8 +280,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="bottom|end"
-        android:layout_marginTop="20dp" >
+        android:gravity="bottom|end" >
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabContactPre"

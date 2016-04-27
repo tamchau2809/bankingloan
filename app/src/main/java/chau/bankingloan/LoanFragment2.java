@@ -14,18 +14,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Created by com08 on 25-Apr-16.
+ * Created on 25-Apr-16 by com08
  */
 public class LoanFragment2  extends Fragment implements View.OnClickListener
 {
-    View rootView;;
+    View rootView;
 
     SharedPreferences LoanDetails;
 
@@ -70,7 +69,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
                 editor.putString("max_interest", edMaxInterest.getText().toString());
                 editor.putString("monthly_payment", edMonthlyPayment.getText().toString());
                 editor.putString("last_payment", tvLastPayment.getText().toString());
-                editor.commit();
+                editor.apply();
 
                 MainActivity act = (MainActivity)getActivity();
                 act.switchTab(3);
@@ -94,6 +93,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
                 tvLastPayment.setText(dateFormater.format(newDate.getTime()));
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        mDatePickerDialog.setTitle("Please Choose The Day Of Your Last Pay");
     }
 
     public void initWiget()
@@ -110,7 +110,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
 
     private void populateSpinner(Spinner spn, String[] arr)
     {
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
                 R.layout.custom_spinner_item, arr);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn.setAdapter(spinnerAdapter);
