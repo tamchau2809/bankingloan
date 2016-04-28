@@ -71,8 +71,7 @@
             android:text="@string/monthly_payment"/>
 
         <EditText
-            android:text="3 623 545"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:gravity="center"
             android:textColor="@color/colorAccent"
             android:id="@+id/edMonthlyPayment"
@@ -97,10 +96,9 @@
             android:text="@string/loan_amount"/>
 
         <EditText
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textColor="@color/colorAccent"
             android:id="@+id/edLoanAmout"
-            android:text="50 000 000"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,7 +120,7 @@
             android:id="@+id/edLastPayment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:layout_weight="1"/>
 
 
@@ -223,10 +221,10 @@
                 android:text="@string/max_interest"/>
 
             <EditText
-                android:textSize="22sp"
+                android:textSize="18sp"
+                android:inputType="number"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
-                android:text="30%"
                 android:id="@+id/edMaxInterest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

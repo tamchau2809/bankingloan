@@ -29,13 +29,13 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by com08 on 20/04/2016.
+ * Created on 20/04/2016 by com08.
  */
 public class LoanFragment extends Fragment {
-    final String GET_MKH_URL = "http://192.168.1.11/chauvu/getMKH.php";
-    final String GET_MNV_URL = "http://192.168.1.11/chauvu/getMNV.php";
+    final String GET_MKH_URL = "http://192.168.1.18/chauvu/getMKH.php";
+    final String GET_MNV_URL = "http://192.168.1.18/chauvu/getMNV.php";
 
-    View rootView;;
+    View rootView;
 
     SharedPreferences contractDetails;
 
@@ -43,8 +43,8 @@ public class LoanFragment extends Fragment {
     Spinner spinnerMKH;
     Spinner spinnerMNV;
     ProgressDialog pDialog;
-    ArrayList<InfoFromServer> listMKH = new ArrayList<InfoFromServer>();
-    ArrayList<InfoFromServer> listMNV = new ArrayList<InfoFromServer>();
+    ArrayList<InfoFromServer> listMKH = new ArrayList<>();
+    ArrayList<InfoFromServer> listMNV = new ArrayList<>();
 
     public LoanFragment() {
         // TODO Auto-generated constructor stub

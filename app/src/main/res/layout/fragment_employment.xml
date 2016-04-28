@@ -63,6 +63,10 @@
                 android:gravity="end|center"
                 android:text="Designation:"/>
             <EditText
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:textSize="18sp"
                 android:id="@+id/edDesignation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,6 +85,10 @@
                 android:gravity="end|center"
                 android:text="Employer:"/>
             <EditText
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:textSize="18sp"
                 android:id="@+id/edEmployer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,6 +101,10 @@
                 android:gravity="end|center"
                 android:text="Salary Income:"/>
             <EditText
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:textSize="18sp"
                 android:id="@+id/edSalaryIncome"
                 android:inputType="datetime"
                 android:layout_width="match_parent"
@@ -112,6 +124,10 @@
                 android:gravity="end|center"
                 android:text="Employer Address:"/>
             <EditText
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:textSize="18sp"
                 android:id="@+id/edEmployerAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,6 +140,10 @@
                 android:gravity="end|center"
                 android:text="Other Income:"/>
             <EditText
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:textSize="18sp"
                 android:id="@+id/edOtherIncome"
                 android:inputType="datetime"
                 android:layout_width="match_parent"
@@ -160,6 +180,10 @@
                 android:text="Total Income:"/>
 
             <EditText
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:textSize="18sp"
                 android:id="@+id/edTotalIncome"
                 android:inputType="datetime"
                 android:layout_width="match_parent"
@@ -228,7 +252,7 @@
                 android:id="@+id/tvDateJonied"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -240,6 +264,11 @@
                 android:text="Employer Contact:"/>
 
             <EditText
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:textSize="18sp"
+                android:inputType="number"
                 android:id="@+id/edEmployerContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

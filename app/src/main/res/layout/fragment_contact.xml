@@ -56,7 +56,11 @@
             android:text="Permanent Address:"/>
 
         <EditText
+            android:textSize="18sp"
             android:id="@+id/edPerAdd1"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textStyle="normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"/>
@@ -84,6 +88,10 @@
             android:layout_weight="1"/>
 
         <EditText
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textStyle="normal"
             android:id="@+id/edPerAdd2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,6 +106,10 @@
             android:text="Reference Name:"/>
 
         <EditText
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textStyle="normal"
             android:id="@+id/edRefName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -178,6 +190,11 @@
                 android:text="Telephone:"/>
 
             <EditText
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:inputType="phone"
                 android:id="@+id/edTelephone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -197,6 +214,10 @@
             android:text="Contact Number:"/>
 
             <EditText
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
                 android:id="@+id/edContactNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -225,7 +246,12 @@
                 android:text="Mobile:"/>
 
             <EditText
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
                 android:id="@+id/edMobile"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
@@ -260,6 +286,10 @@
                 android:text="Email:"/>
 
             <EditText
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textStyle="normal"
                 android:id="@+id/edEmail"
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"

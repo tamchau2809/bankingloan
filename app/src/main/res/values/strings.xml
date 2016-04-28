@@ -22,5 +22,5 @@
     <string name="last_payment">Last Payment:</string>
     <string name="tenure">Tenure (Months):</string>
     <string name="loan_purpose">Loan Purpose:</string>
-    <string name="max_interest">Maximum Interest:</string>
+    <string name="max_interest">Max Interest (%):</string>
 </resources>

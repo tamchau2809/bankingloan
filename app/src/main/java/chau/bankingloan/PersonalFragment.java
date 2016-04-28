@@ -51,7 +51,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
         populateSpinner(spMaritalStt, arrMaritalStt);
 
         Personal = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
-
+        loadFromSharedPreference(Personal);
 
         FloatingActionButton fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabPersonalNext);
         fabNext.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +62,9 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
                 editor.putString("birthday", tvBirthDay.getText().toString());
                 editor.putString("identityNum", edIdenCard.getText().toString());
                 editor.putString("dateOissue", tvDateOfIssue.getText().toString());
-                editor.putString("education", spEducation.getSelectedItem().toString());
-                editor.putString("gender", spGender.getSelectedItem().toString());
-                editor.putString("maritalStt", spMaritalStt.getSelectedItem().toString());
+                editor.putInt("education", spEducation.getSelectedItemPosition());
+                editor.putInt("gender", spGender.getSelectedItemPosition());
+                editor.putInt("maritalStt", spMaritalStt.getSelectedItemPosition());
                 editor.putString("numOc", edChildrenNum.getText().toString());
                 editor.apply();
 
@@ -130,6 +130,21 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
                 R.layout.custom_spinner_item, arr);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn.setAdapter(spinnerAdapter);
+    }
+
+    public void loadFromSharedPreference(SharedPreferences test)
+    {
+        if(test.contains("name"))
+        {
+            edName.setText(test.getString("name", ""));
+            tvBirthDay.setText(test.getString("birthday", ""));
+            edIdenCard.setText(test.getString("identityNum", ""));
+            tvDateOfIssue.setText(test.getString("dateOissue", ""));
+            spEducation.setSelection(test.getInt("education", 0));
+            spGender.setSelection(test.getInt("gender", 0));
+            spMaritalStt.setSelection(test.getInt("maritalStt", 0));
+            edChildrenNum.setText(test.getString("numOc", ""));
+        }
     }
 
     @Override

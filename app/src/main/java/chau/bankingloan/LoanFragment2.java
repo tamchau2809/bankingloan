@@ -57,6 +57,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         populateSpinner(spLoanType, arrLoanType);
 
         LoanDetails = this.getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
+        loadFromSharedPreference(LoanDetails);
 
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +70,9 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
                 editor.putString("max_interest", edMaxInterest.getText().toString());
                 editor.putString("monthly_payment", edMonthlyPayment.getText().toString());
                 editor.putString("last_payment", tvLastPayment.getText().toString());
+                editor.putInt("loanTypeLoca", spLoanType.getSelectedItemPosition());
+                editor.putInt("tenureLoca", spTenure.getSelectedItemPosition());
+                editor.putInt("loanPurposeLoca", spLoanPurpose.getSelectedItemPosition());
                 editor.apply();
 
                 MainActivity act = (MainActivity)getActivity();
@@ -94,6 +98,20 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         mDatePickerDialog.setTitle("Please Choose The Day Of Your Last Pay");
+    }
+
+    public void loadFromSharedPreference(SharedPreferences test)
+    {
+        if(test.contains("loan_type"))
+        {
+            edLoanAmount.setText(test.getString("loan_amount", ""));
+            edMaxInterest.setText(test.getString("max_interest", ""));
+            edMonthlyPayment.setText(test.getString("monthly_payment", ""));
+            tvLastPayment.setText(test.getString("last_payment", ""));
+            spLoanType.setSelection(test.getInt("loanTypeLoca", 0));
+            spLoanPurpose.setSelection(test.getInt("loanPurposeLoca", 0));
+            spTenure.setSelection(test.getInt("tenureLoca", 0));
+        }
     }
 
     public void initWiget()

@@ -12,7 +12,7 @@
         android:paddingEnd="5dp"
         android:background="@drawable/my_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -56,10 +56,9 @@
                 android:text="Name"/>
 
             <EditText
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textColor="@color/colorAccent"
                 android:id="@+id/edName"
-                android:text="Nguyen Thi A"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +104,7 @@
                 android:id="@+id/tvBirthDay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -118,9 +117,9 @@
 
             <EditText
                 android:id="@+id/edChildrenNum"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textColor="@color/colorAccent"
-                android:text="2"
+                android:inputType="number"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,9 +148,9 @@
 
                 <EditText
                     android:id="@+id/edIdenCard"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:textColor="@color/colorAccent"
-                    android:text="123456789"
+                    android:inputType="number"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -161,7 +160,7 @@
             <EditText
                 android:enabled="false"
                 android:visibility="invisible"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:gravity="center"
                 android:textColor="@color/colorAccent"
                 android:layout_width="match_parent"
@@ -198,7 +197,7 @@
                     android:id="@+id/tvDateOfIssue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:layout_weight="1"/>
             </LinearLayout>
 
