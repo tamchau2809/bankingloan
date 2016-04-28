@@ -121,7 +121,7 @@ public class DocumentFragment extends Fragment {
 
     public File saveImage(Bitmap myBitmap, String name, Context context) {
 
-        File myDir=new File( Environment.getExternalStorageDirectory(), context.getPackageName());
+        File myDir = new File( Environment.getExternalStorageDirectory(), context.getPackageName());
         if(!myDir.exists()){
             myDir.mkdir();
         }
