@@ -103,7 +103,7 @@
             android:textSize="18sp"
             android:layout_weight="1"
             android:gravity="end|center"
-            android:text="Reference Name:"/>
+            android:text="@string/reference_name"/>
 
         <EditText
             android:textSize="18sp"
@@ -135,7 +135,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Current same as permanent"/>
+                android:text="@string/current_same_as_permanent"/>
 
             <CheckBox
                 android:id="@+id/cbSame"
@@ -156,7 +156,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Relationship:"/>
+                android:text="@string/relationship"/>
 
             <Spinner
                 android:id="@+id/spRelationship"
@@ -187,7 +187,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Telephone:"/>
+                android:text="@string/telephone"/>
 
             <EditText
                 android:textSize="18sp"
@@ -211,7 +211,7 @@
             android:textSize="18sp"
             android:layout_weight="1"
             android:gravity="end|center"
-            android:text="Contact Number:"/>
+            android:text="@string/contact_number"/>
 
             <EditText
                 android:textSize="18sp"
@@ -243,7 +243,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Mobile:"/>
+                android:text="@string/mobile"/>
 
             <EditText
                 android:textSize="18sp"
@@ -283,7 +283,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Email:"/>
+                android:text="@string/email"/>
 
             <EditText
                 android:textSize="18sp"
