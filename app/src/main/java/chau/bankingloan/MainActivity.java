@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return new ContactFragment();
                 case 5:
                     return new EmploymentFragment();
+                case 6:
+                    return new DocumentFragment();
                 default:
                     return new LoanFragment();
             }
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 6;
+            return 7;
         }
 
         @Override
@@ -138,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return "CONTACT";
                 case 5:
                     return "EMPLOYMENT";
+                case 6:
+                    return "DOCUMENT";
             }
             return null;
         }

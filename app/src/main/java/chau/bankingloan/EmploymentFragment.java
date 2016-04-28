@@ -69,8 +69,10 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                 editor.putString("otherIncome", edOtherIncome.getText().toString());
                 editor.putString("totalIncome", edTotalIncome.getText().toString());
                 editor.putString("employerContact", edEmployerContact.getText().toString());
+                editor.apply();
 
-                Toast.makeText(getContext(), "Updating...", Toast.LENGTH_SHORT).show();
+                MainActivity act = (MainActivity)getActivity();
+                act.switchTab(6);
             }
         });
 
@@ -88,7 +90,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
 
     public void loadFromSharedPreference(SharedPreferences test)
     {
-        if(test.contains("workingStt"))
+        if(test.contains("employer"))
         {
             edEmployer.setText(test.getString("employer", ""));
             edEmployerAdd.setText(test.getString("employerAdd", ""));

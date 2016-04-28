@@ -57,6 +57,8 @@ public class UploadFragment extends Fragment
     final String FILE_UPLOAD_URL = "http://192.168.1.18/chauvu/up.php";
     final String FILE_STORE_URL = "http://192.168.1.11/chauvu/uploads";
 
+    FloatingActionButton fab2, fab3, fab4, fab5;
+
     private ArrayList<String> imagesPathList;
     ProgressBar prgPercent;
     TextView tvPercent;
@@ -64,17 +66,12 @@ public class UploadFragment extends Fragment
     private final int PICK_IMAGE_MULTIPLE =1;
     File sourceFile;
 
-    long totalSize = 0;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         rootView = inflater.inflate(R.layout.fragment_upload, container, false);
         initWiget();
-//        btnAddPhots.setOnClickListener(this);
-//        btnUpload.setOnClickListener(this);
 
-        FloatingActionButton fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +80,6 @@ public class UploadFragment extends Fragment
             }
         });
 
-        FloatingActionButton fab3 = (FloatingActionButton) rootView.findViewById(R.id.fab3);
         fab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +88,6 @@ public class UploadFragment extends Fragment
             }
         });
 
-        FloatingActionButton fab4 = (FloatingActionButton) rootView.findViewById(R.id.fab4);
         fab4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +102,6 @@ public class UploadFragment extends Fragment
             }
         });
 
-        FloatingActionButton fab5 = (FloatingActionButton) rootView.findViewById(R.id.fab5);
         fab5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,6 +117,10 @@ public class UploadFragment extends Fragment
         lnrImages = (LinearLayout)rootView.findViewById(R.id.lnrImages);
         tvPercent = (TextView)rootView.findViewById(R.id.tvPercent);
         prgPercent = (ProgressBar)rootView.findViewById(R.id.progressBar1);
+        fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
+        fab3 = (FloatingActionButton) rootView.findViewById(R.id.fab3);
+        fab4 = (FloatingActionButton) rootView.findViewById(R.id.fab4);
+        fab5 = (FloatingActionButton) rootView.findViewById(R.id.fab5);
     }
 
     private void showAlert(String message) {
@@ -143,6 +141,10 @@ public class UploadFragment extends Fragment
         prgPercent.setVisibility(show ? View.VISIBLE : View.GONE);
         tvPercent.setVisibility(show ? View.VISIBLE : View.GONE);
         lnrImages.setEnabled(show ? false : true);
+        fab2.setEnabled(show ? false : true);
+        fab3.setEnabled(show ? false : true);
+        fab4.setEnabled(show ? false : true);
+        fab5.setEnabled(show ? false : true);
 
 //        prgPercent.getIndeterminateDrawable().setColorFilter(Color.GREEN,
 //                android.graphics.PorterDuff.Mode.MULTIPLY);
