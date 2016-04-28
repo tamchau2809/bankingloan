@@ -41,10 +41,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        if(mViewPager != null)
+            mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        if(tabLayout != null) {
+            tabLayout.setupWithViewPager(mViewPager);
 //        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //            @Override
 //            public void onTabSelected(TabLayout.Tab tab) {
@@ -70,14 +72,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            }
 //        });
 
-        LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
-        tabStrip.setEnabled(false);
-        for(int i = 0; i < tabStrip.getChildCount(); i++) {
-            tabStrip.getChildAt(i).setClickable(false);
+            LinearLayout tabStrip = ((LinearLayout) tabLayout.getChildAt(0));
+            tabStrip.setEnabled(false);
+            for (int i = 0; i < tabStrip.getChildCount(); i++) {
+                tabStrip.getChildAt(i).setClickable(false);
+            }
         }
 
         navigation = (NavigationView)findViewById(R.id.navigation);
-        navigation.setNavigationItemSelectedListener(this);
+        if(navigation != null)
+            navigation.setNavigationItemSelectedListener(this);
     }
 
     public void switchTab(int pos)
@@ -153,10 +157,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id)
         {
             case R.id.navItem1:
-                Toast.makeText(getApplicationContext(), "HOme", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.navItem3:
+                Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.navItem4:
+                Toast.makeText(getApplicationContext(), "Contact", Toast.LENGTH_SHORT).show();
+                break;
                 default:
                 break;
         }

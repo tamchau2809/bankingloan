@@ -62,7 +62,6 @@ public class CustomPhotoGalleryActivity extends Activity {
         imageAdapter = new ImageAdapter();
         grdImages.setAdapter(imageAdapter);
 
-
         btnSelect.setOnClickListener(new View.OnClickListener() {
 			
             public void onClick(View v) {
@@ -109,16 +108,6 @@ public class CustomPhotoGalleryActivity extends Activity {
         super.onBackPressed();
     }
 
-    /**
-     * Class method
-     */
-
-    /**
-     * This method used to set bitmap.
-     * @param iv represented ImageView 
-     * @param id represented id
-     */
-
     private void setBitmap(final ImageView iv, final int id) {
 
         new AsyncTask<Void, Void, Bitmap>() {
@@ -136,12 +125,6 @@ public class CustomPhotoGalleryActivity extends Activity {
             }
         }.execute();
     }
-
-
-    /**
-     * List adapter
-     * @author tasol
-     */
 
     @SuppressLint("InflateParams")
 	public class ImageAdapter extends BaseAdapter {
@@ -214,11 +197,6 @@ public class CustomPhotoGalleryActivity extends Activity {
         }
     }
 
-
-    /**
-     * Inner class
-     * @author tasol
-     */
     class ViewHolder {
         ImageView imgThumb;
         CheckBox chkImage;

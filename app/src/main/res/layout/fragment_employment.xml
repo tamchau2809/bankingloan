@@ -12,7 +12,7 @@
         android:paddingEnd="5dp"
         android:background="@drawable/my_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="horizontal"
             android:weightSum="2"
@@ -26,7 +26,7 @@
                 android:textStyle="bold"
                 android:gravity="end"
                 android:textSize="18sp"
-                android:text="Employment Details"/>
+                android:text="@string/employment_details"/>
             <TextView
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:gravity="end"
-                android:text="Income Details"/>
+                android:text="@string/income_details"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -44,10 +44,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Working Status:"/>
+                android:text="@string/working_status"/>
             <Spinner
                 android:id="@+id/spWorkingStt"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
@@ -61,7 +61,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Designation:"/>
+                android:text="@string/designation"/>
             <EditText
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
@@ -80,10 +80,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Employer:"/>
+                android:text="@string/employer"/>
             <EditText
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
@@ -99,7 +99,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Salary Income:"/>
+                android:text="@string/salary_income"/>
             <EditText
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
@@ -119,10 +119,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Employer Address:"/>
+                android:text="@string/employer_address"/>
             <EditText
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
@@ -138,7 +138,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Other Income:"/>
+                android:text="@string/other_income"/>
             <EditText
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
@@ -158,10 +158,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Company Type:"/>
+                android:text="@string/company_type"/>
 
             <Spinner
                 android:id="@+id/spCompanyType"
@@ -177,7 +177,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Total Income:"/>
+                android:text="@string/total_income"/>
 
             <EditText
                 android:textColor="@color/colorAccent"
@@ -199,25 +199,26 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:layout_weight="1"
                     android:gravity="end|center"
-                    android:text="Industry:"/>
+                    android:text="@string/industry"/>
 
                 <Spinner
                     android:id="@+id/spIndustry"
                     style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:layout_gravity="end|center" />
             </LinearLayout>
 
@@ -239,10 +240,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Date Joined:" />
+                android:text="@string/date_joined" />
 
             <TextView
                 style="?android:listSeparatorTextViewStyle"
@@ -261,7 +262,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Employer Contact:"/>
+                android:text="@string/employer_contact"/>
 
             <EditText
                 android:textColor="@color/colorAccent"

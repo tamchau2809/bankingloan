@@ -53,7 +53,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Name"/>
+                android:text="@string/name"/>
 
             <EditText
                 android:textSize="18sp"
@@ -70,7 +70,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Marital Status"/>
+                android:text="@string/marital_status"/>
 
             <Spinner
                 android:id="@+id/spMaritalStt"
@@ -94,7 +94,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Date of Birth"/>
+                android:text="@string/date_of_birth"/>
 
             <TextView
                 style="?android:listSeparatorTextViewStyle"
@@ -113,7 +113,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end|center"
-                android:text="Number of Children"/>
+                android:text="@string/number_of_children"/>
 
             <EditText
                 android:id="@+id/edChildrenNum"
@@ -144,7 +144,7 @@
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:gravity="end|center"
-                    android:text="Identity Card Num."/>
+                    android:text="@string/identity_card_num"/>
 
                 <EditText
                     android:id="@+id/edIdenCard"
@@ -187,7 +187,7 @@
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:gravity="end|center"
-                    android:text="Date of Issue"/>
+                    android:text="@string/date_of_issue"/>
 
                 <TextView
                     style="?android:listSeparatorTextViewStyle"
@@ -222,7 +222,7 @@
                 android:textSize="18sp"
                 android:layout_weight="6"
                 android:gravity="end|center"
-                android:text="Education"/>
+                android:text="@string/education"/>
 
             <Spinner
                 android:id="@+id/spEducation"
@@ -258,7 +258,7 @@
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:gravity="end|center"
-                    android:text="Gender"/>
+                    android:text="@string/gender"/>
 
                 <Spinner
                     android:id="@+id/spGender"
