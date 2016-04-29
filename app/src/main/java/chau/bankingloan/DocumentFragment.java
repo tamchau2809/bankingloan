@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -57,7 +56,6 @@ public class DocumentFragment extends Fragment {
     private ArrayList<String> imagesPathList;
     ProgressBar prgPercent;
     TextView tvPercent;
-    private Bitmap yourbitmap;
     private final int PICK_IMAGE_MULTIPLE =1;
     File sourceFile;
 
@@ -157,7 +155,7 @@ public class DocumentFragment extends Fragment {
                     BitmapFactory.Options opt = new BitmapFactory.Options();
                     opt.inSampleSize = 2;
                     imagesPathList.add(imagesPath[i]);
-                    yourbitmap = BitmapFactory.decodeFile(imagesPath[i], opt);
+                    Bitmap yourbitmap = BitmapFactory.decodeFile(imagesPath[i], opt);
                     ImageView imageView = new ImageView(getContext());
                     imageView.setImageBitmap(yourbitmap);
                     imageView.setAdjustViewBounds(true);
@@ -184,11 +182,11 @@ public class DocumentFragment extends Fragment {
     {
         prgPercent.setVisibility(show ? View.VISIBLE : View.GONE);
         tvPercent.setVisibility(show ? View.VISIBLE : View.GONE);
-        lnrImages.setEnabled(show ? false : true);
-        fabBack.setEnabled(show ? false : true);
-        fabUpload.setEnabled(show ? false : true);
-        fabAddImg.setEnabled(show ? false : true);
-        fabCamera.setEnabled(show ? false : true);
+        lnrImages.setEnabled(!show);
+        fabBack.setEnabled(!show);
+        fabUpload.setEnabled(!show);
+        fabAddImg.setEnabled(!show);
+        fabCamera.setEnabled(!show);
 
         prgPercent.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
 
@@ -261,14 +259,10 @@ public class DocumentFragment extends Fragment {
                 {
                     response = "Error: + " + statusCode;
                 }
-            }
-            catch (ClientProtocolException e) {
+            } catch (IOException e) {
                 response = e.toString();
             }
-            catch (IOException e) {
-                response = e.toString();
-            }
-            catch(Exception e)
+            catch(Exception ignored)
             {}
             return response;
         }

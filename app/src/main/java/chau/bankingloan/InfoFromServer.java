@@ -6,9 +6,7 @@ import org.json.JSONObject;
 public class InfoFromServer {
 	private String id;
 	private String name;
-	
-	public InfoFromServer(){}
-	
+
 	public InfoFromServer(String id, String name){
 		this.id = id;
 		this.name = name;

@@ -124,7 +124,6 @@ public class LoanFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     public void storeMKHList(ArrayList<InfoFromServer> list)
@@ -144,7 +143,7 @@ public class LoanFragment extends Fragment {
         SharedPreferences sharedPrefs = this.getActivity().getSharedPreferences("MNV", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
-        Set<String> set = new HashSet<String>();
+        Set<String> set = new HashSet<>();
         for (int i = 0; i < list.size(); i++) {
             set.add(list.get(i).getJSONObject().toString());
         }
