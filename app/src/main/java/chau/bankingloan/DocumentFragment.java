@@ -56,7 +56,7 @@ public class DocumentFragment extends Fragment {
     private ArrayList<String> imagesPathList;
     ProgressBar prgPercent;
     TextView tvPercent;
-    private final int PICK_IMAGE_MULTIPLE =1;
+    private final int PICK_IMAGE_MULTIPLE = 1;
     File sourceFile;
 
     @Override
