@@ -71,6 +71,8 @@
             android:text="@string/monthly_payment"/>
 
         <EditText
+            android:inputType="number"
+            android:imeOptions="flagNoExtractUi"
             android:textSize="18sp"
             android:gravity="center"
             android:textColor="@color/colorAccent"
@@ -96,6 +98,8 @@
             android:text="@string/loan_amount"/>
 
         <EditText
+            android:inputType="text"
+            android:imeOptions="flagNoExtractUi"
             android:textSize="18sp"
             android:textColor="@color/colorAccent"
             android:id="@+id/edLoanAmout"
@@ -221,6 +225,7 @@
                 android:text="@string/max_interest"/>
 
             <EditText
+                android:imeOptions="flagNoExtractUi"
                 android:textSize="18sp"
                 android:inputType="number"
                 android:textColor="@color/colorAccent"

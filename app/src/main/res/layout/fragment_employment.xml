@@ -63,6 +63,8 @@
                 android:gravity="end|center"
                 android:text="@string/designation"/>
             <EditText
+                android:inputType="text"
+                android:imeOptions="flagNoExtractUi"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textStyle="normal"
@@ -85,6 +87,8 @@
                 android:gravity="end|center"
                 android:text="@string/employer"/>
             <EditText
+                android:inputType="text"
+                android:imeOptions="flagNoExtractUi"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textStyle="normal"
@@ -101,12 +105,13 @@
                 android:gravity="end|center"
                 android:text="@string/salary_income"/>
             <EditText
+                android:imeOptions="flagNoExtractUi"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textStyle="normal"
                 android:textSize="18sp"
                 android:id="@+id/edSalaryIncome"
-                android:inputType="datetime"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
@@ -124,6 +129,7 @@
                 android:gravity="end|center"
                 android:text="@string/employer_address"/>
             <EditText
+                android:inputType="textEmailAddress"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textStyle="normal"
@@ -140,12 +146,13 @@
                 android:gravity="end|center"
                 android:text="@string/other_income"/>
             <EditText
+                android:imeOptions="flagNoExtractUi"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textStyle="normal"
                 android:textSize="18sp"
                 android:id="@+id/edOtherIncome"
-                android:inputType="datetime"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
@@ -180,12 +187,13 @@
                 android:text="@string/total_income"/>
 
             <EditText
+                android:imeOptions="flagNoExtractUi"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textStyle="normal"
                 android:textSize="18sp"
                 android:id="@+id/edTotalIncome"
-                android:inputType="datetime"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
@@ -265,6 +273,7 @@
                 android:text="@string/employer_contact"/>
 
             <EditText
+                android:imeOptions="flagNoExtractUi"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textStyle="normal"

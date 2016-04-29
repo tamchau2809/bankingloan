@@ -23,10 +23,6 @@ import android.widget.ImageView;
 
 public class CustomPhotoGalleryActivity extends Activity {
 
-    private GridView grdImages;
-    private Button btnSelect;
-
-    private ImageAdapter imageAdapter;
     private String[] arrPath;
     private boolean[] thumbnailsselection;
     private int ids[];
@@ -40,8 +36,8 @@ public class CustomPhotoGalleryActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_custom_gallery);
-        grdImages= (GridView) findViewById(R.id.grdImages);
-        btnSelect= (Button) findViewById(R.id.btnSelect);
+        GridView grdImages = (GridView) findViewById(R.id.grdImages);
+        Button btnSelect = (Button) findViewById(R.id.btnSelect);
 
         final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
         final String orderBy = MediaStore.Images.Media._ID;
@@ -59,7 +55,7 @@ public class CustomPhotoGalleryActivity extends Activity {
             arrPath[i] = imagecursor.getString(dataColumnIndex);
         }
 
-        imageAdapter = new ImageAdapter();
+        ImageAdapter imageAdapter = new ImageAdapter();
         grdImages.setAdapter(imageAdapter);
 
         btnSelect.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +186,7 @@ public class CustomPhotoGalleryActivity extends Activity {
             try {
                 setBitmap(holder.imgThumb, ids[position]);
             } catch (Throwable e) {
+                e.printStackTrace();
             }
             holder.chkImage.setChecked(thumbnailsselection[position]);
             holder.id = position;
