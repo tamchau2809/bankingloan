@@ -35,7 +35,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
     Spinner spEducation, spGender, spMaritalStt;
     String arrEducation[] = {"Undergraduate"};
     String arrGender[] = {"N.A", "Male", "Female"};
-    String arrMaritalStt[] = {"Married"};
+    String arrMaritalStt[] = {"Single","Married", "Divorced", "Widowed"};
 
     SharedPreferences Personal;
 
