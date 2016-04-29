@@ -12,6 +12,7 @@
 
     <LinearLayout
         android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingTop="10dp"
         android:orientation="horizontal"
         android:weightSum="2"

@@ -1,5 +1,7 @@
 package chau.bankingloan;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -158,14 +160,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.navItem1:
                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+                Uri uri = Uri.parse("http://www.vpbank.com.vn/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
             case R.id.navItem3:
                 Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
+                Uri uri1 = Uri.parse("http://www.vpbank.com.vn/bai-viet/gioi-thieu-vpbank");
+                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
+                startActivity(intent1);
                 break;
             case R.id.navItem4:
                 Toast.makeText(getApplicationContext(), "Contact", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.fromParts("mailto","customercare@vpb.com.vn", null));
+                startActivity(i);
                 break;
-                default:
+            default:
                 break;
         }
         return false;
