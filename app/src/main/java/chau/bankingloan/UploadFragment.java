@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -264,14 +263,10 @@ public class UploadFragment extends Fragment
                 {
                     response = "Error: + " + statusCode;
                 }
-            }
-            catch (ClientProtocolException e) {
+            } catch (IOException e) {
                 response = e.toString();
             }
-            catch (IOException e) {
-                response = e.toString();
-            }
-            catch(Exception e)
+            catch(Exception ignored)
             {}
             return response;
         }
