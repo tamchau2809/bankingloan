@@ -1,6 +1,8 @@
 package chau.bankingloan;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -158,19 +161,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id)
         {
-            case R.id.navItem1:
+            case R.id.navHome:
                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                 Uri uri = Uri.parse("http://www.vpbank.com.vn/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 break;
-            case R.id.navItem3:
+            case R.id.navAbout:
                 Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
                 Uri uri1 = Uri.parse("http://www.vpbank.com.vn/bai-viet/gioi-thieu-vpbank");
                 Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
                 startActivity(intent1);
                 break;
-            case R.id.navItem4:
+            case R.id.navTel:
+                if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:0439288869"));
+                    startActivity(callIntent);
+                    break;
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.navEmail:
                 Toast.makeText(getApplicationContext(), "Contact", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.fromParts("mailto","customercare@vpb.com.vn", null));
