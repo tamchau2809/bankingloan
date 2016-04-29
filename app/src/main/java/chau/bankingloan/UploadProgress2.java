@@ -22,7 +22,7 @@ public class UploadProgress2 extends HttpEntityWrapper
 		super.writeTo(new CountingOutputStream(outstream, this.listener, this.getContentLength()));
 	}
 
-	public static interface ProgressListener {
+	public interface ProgressListener {
 //		void transferred(long num);
 		/**
 		 * Giá trị đã up lên được

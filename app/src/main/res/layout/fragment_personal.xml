@@ -28,7 +28,7 @@
                 android:textStyle="bold"
                 android:gravity="end"
                 android:textSize="18sp"
-                android:text="Personal Information"/>
+                android:text="@string/personal_information"/>
 
             <TextView
                 android:layout_weight="1"
@@ -37,7 +37,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:gravity="end"
-                android:text="Dependents Infomation"/>
+                android:text="@string/dependents_infomation"/>
 
         </LinearLayout>
 

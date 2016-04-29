@@ -12,7 +12,7 @@
     android:paddingEnd="5dp"
     android:background="@drawable/my_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -27,7 +27,7 @@
             android:textStyle="bold"
             android:gravity="end"
             android:textSize="18sp"
-            android:text="Loan Details"/>
+            android:text="@string/loan_details"/>
 
         <TextView
             android:layout_weight="1"
@@ -36,7 +36,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:gravity="end"
-            android:text="Monthly Payment"/>
+            android:text="@string/monthly_payment1"/>
 
     </LinearLayout>
 
