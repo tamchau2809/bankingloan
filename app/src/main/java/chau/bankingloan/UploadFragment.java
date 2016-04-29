@@ -18,12 +18,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -46,7 +44,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by com08 on 21/04/2016.
+ * Created on 21/04/2016 by com08.
  */
 public class UploadFragment extends Fragment
 {
@@ -54,7 +52,7 @@ public class UploadFragment extends Fragment
 
     private LinearLayout lnrImages;
 
-    final String FILE_UPLOAD_URL = "http://192.168.1.18/chauvu/up.php";
+    final String FILE_UPLOAD_URL = "http://192.168.1.11/chauvu/up.php";
     final String FILE_STORE_URL = "http://192.168.1.11/chauvu/uploads";
 
     FloatingActionButton fab2, fab3, fab4, fab5;
@@ -62,7 +60,6 @@ public class UploadFragment extends Fragment
     private ArrayList<String> imagesPathList;
     ProgressBar prgPercent;
     TextView tvPercent;
-    private Bitmap yourbitmap;
     private final int PICK_IMAGE_MULTIPLE =1;
     File sourceFile;
 
@@ -140,11 +137,11 @@ public class UploadFragment extends Fragment
     {
         prgPercent.setVisibility(show ? View.VISIBLE : View.GONE);
         tvPercent.setVisibility(show ? View.VISIBLE : View.GONE);
-        lnrImages.setEnabled(show ? false : true);
-        fab2.setEnabled(show ? false : true);
-        fab3.setEnabled(show ? false : true);
-        fab4.setEnabled(show ? false : true);
-        fab5.setEnabled(show ? false : true);
+        lnrImages.setEnabled(!show);
+        fab2.setEnabled(!show);
+        fab3.setEnabled(!show);
+        fab4.setEnabled(!show);
+        fab5.setEnabled(!show);
 
 //        prgPercent.getIndeterminateDrawable().setColorFilter(Color.GREEN,
 //                android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -179,7 +176,7 @@ public class UploadFragment extends Fragment
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if(requestCode == PICK_IMAGE_MULTIPLE){
-                imagesPathList = new ArrayList<String>();
+                imagesPathList = new ArrayList<>();
                 String[] imagesPath = data.getStringExtra("data").split("\\|");
                 try{
                     lnrImages.removeAllViews();
@@ -187,12 +184,11 @@ public class UploadFragment extends Fragment
                     e.printStackTrace();
                 }
 
-                for (int i=0;i<imagesPath.length;i++)
-                {
+                for (String anImagesPath : imagesPath) {
                     BitmapFactory.Options opt = new BitmapFactory.Options();
                     opt.inSampleSize = 2;
-                    imagesPathList.add(imagesPath[i]);
-                    yourbitmap = BitmapFactory.decodeFile(imagesPath[i], opt);
+                    imagesPathList.add(anImagesPath);
+                    Bitmap yourbitmap = BitmapFactory.decodeFile(anImagesPath, opt);
                     ImageView imageView = new ImageView(getContext());
                     imageView.setImageBitmap(yourbitmap);
                     imageView.setAdjustViewBounds(true);

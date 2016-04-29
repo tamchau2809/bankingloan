@@ -32,8 +32,8 @@ import java.util.Set;
  * Created on 20/04/2016 by com08.
  */
 public class LoanFragment extends Fragment {
-    final String GET_MKH_URL = "http://192.168.1.18/chauvu/getMKH.php";
-    final String GET_MNV_URL = "http://192.168.1.18/chauvu/getMNV.php";
+    final String GET_MKH_URL = "http://192.168.1.11/chauvu/getMKH.php";
+    final String GET_MNV_URL = "http://192.168.1.11/chauvu/getMNV.php";
 
     View rootView;
 
@@ -99,7 +99,7 @@ public class LoanFragment extends Fragment {
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edNum.getText().toString() == null || edNum.getText().toString().length() == 0) {
+                if (edNum.getText().toString().length() == 0) {
                     edNum.setError("Chưa Nhập Số Hóa Đơn!");
                     edNum.requestFocus();
                 } else {
@@ -111,7 +111,7 @@ public class LoanFragment extends Fragment {
                     editor.putInt("MKH_LOCA", spinnerMKH.getSelectedItemPosition());
                     editor.putInt("MNV_LOCA", spinnerMNV.getSelectedItemPosition());
                     editor.putString("number", edNum.getText().toString());
-                    editor.commit();
+                    editor.apply();
 
                     MainActivity act = (MainActivity) getActivity();
                     act.switchTab(1);
@@ -132,12 +132,12 @@ public class LoanFragment extends Fragment {
         SharedPreferences sharedPrefs = this.getActivity().getSharedPreferences("MKH", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
-        Set<String> set= new HashSet<String>();
+        Set<String> set= new HashSet<>();
         for (int i = 0; i < list.size(); i++) {
             set.add(list.get(i).getJSONObject().toString());
         }
         editor.putStringSet("MKH", set);
-        editor.commit();
+        editor.apply();
     }
 
     public void storeMNVList(ArrayList<InfoFromServer> list) {
@@ -149,7 +149,7 @@ public class LoanFragment extends Fragment {
             set.add(list.get(i).getJSONObject().toString());
         }
         editor.putStringSet("MNV", set);
-        editor.commit();
+        editor.apply();
     }
 
 	public ArrayList<InfoFromServer> loadMKHFromSharePreferences()
@@ -200,7 +200,6 @@ public class LoanFragment extends Fragment {
 
     public void initWiget()
     {
-//        btnCapture = (ImageButton)rootView.findViewById(R.id.btnCapture);
         edNum = (EditText)rootView.findViewById(R.id.edContractNum);
         spinnerMKH = (Spinner)rootView.findViewById(R.id.spinnerMKH);
         spinnerMNV = (Spinner)rootView.findViewById(R.id.spinnerMNV);
@@ -229,15 +228,12 @@ public class LoanFragment extends Fragment {
                 try
                 {
                     JSONObject jsonObject = new JSONObject(json);
-                    if(jsonObject != null)
+                    JSONArray MKH = jsonObject.getJSONArray("tbkhachhang");
+                    for(int i = 0; i < MKH.length(); i++)
                     {
-                        JSONArray MKH = jsonObject.getJSONArray("tbkhachhang");
-                        for(int i = 0; i < MKH.length(); i++)
-                        {
-                            JSONObject catObj = (JSONObject)MKH.get(i);
-                            InfoFromServer info = new InfoFromServer(catObj.getString("MKH"), catObj.getString("TenKH"));
-                            listMKH.add(info);
-                        }
+                        JSONObject catObj = (JSONObject)MKH.get(i);
+                        InfoFromServer info = new InfoFromServer(catObj.getString("MKH"), catObj.getString("TenKH"));
+                        listMKH.add(info);
                     }
                 }
                 catch(JSONException e)
@@ -273,15 +269,12 @@ public class LoanFragment extends Fragment {
                 try
                 {
                     JSONObject jsonObject = new JSONObject(json);
-                    if(jsonObject != null)
+                    JSONArray MKH = jsonObject.getJSONArray("tbnhanvien");
+                    for(int i = 0; i < MKH.length(); i++)
                     {
-                        JSONArray MKH = jsonObject.getJSONArray("tbnhanvien");
-                        for(int i = 0; i < MKH.length(); i++)
-                        {
-                            JSONObject catObj = (JSONObject)MKH.get(i);
-                            InfoFromServer info = new InfoFromServer(catObj.getString("MNV"), catObj.getString("TenNV"));
-                            listMNV.add(info);
-                        }
+                        JSONObject catObj = (JSONObject)MKH.get(i);
+                        InfoFromServer info = new InfoFromServer(catObj.getString("MNV"), catObj.getString("TenNV"));
+                        listMNV.add(info);
                     }
                 }
                 catch(JSONException e)
@@ -306,12 +299,12 @@ public class LoanFragment extends Fragment {
     private void populateSpinnerMKH()
     {
 		listMKH = loadMKHFromSharePreferences();
-        List<String> labels = new ArrayList<String>();
+        List<String> labels = new ArrayList<>();
         for(int i = 0; i < listMKH.size(); i++)
         {
             labels.add(listMKH.get(i).getID() + " - " + listMKH.get(i).getName());
         }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
                 R.layout.custom_spinner_item, labels);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMKH.setAdapter(spinnerAdapter);
@@ -320,12 +313,12 @@ public class LoanFragment extends Fragment {
     private void populateSpinnerMNV()
     {
         listMNV = loadMNVFromSharePreferences();
-        List<String> labels = new ArrayList<String>();
+        List<String> labels = new ArrayList<>();
         for(int i = 0; i < listMNV.size(); i++)
         {
             labels.add(listMNV.get(i).getID() + " - " + listMNV.get(i).getName());
         }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
                 R.layout.custom_spinner_item, labels);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMNV.setAdapter(spinnerAdapter);
@@ -335,8 +328,7 @@ public class LoanFragment extends Fragment {
     {
         ConnectivityManager cm = (ConnectivityManager)ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();
-        boolean b = info != null && info.isConnectedOrConnecting();
-        return b;
+        return info != null && info.isConnectedOrConnecting();
     }
 
     private void showAlert(String message) {
