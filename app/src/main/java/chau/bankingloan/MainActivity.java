@@ -179,9 +179,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(callIntent);
                     break;
                 }
-                else
+                else {
                     Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
-                break;
+                    break;
+                }
             case R.id.navEmail:
                 Toast.makeText(getApplicationContext(), "Contact", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Intent.ACTION_VIEW);
