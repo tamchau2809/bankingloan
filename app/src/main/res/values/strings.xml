@@ -63,4 +63,5 @@
     <string name="about">About Us</string>
     <string name="contact_us">Contact Us</string>
     <string name="emailUs">Email</string>
+    <string name="approved">Nearly there. Based on information provided you have been approved for the loan</string>
 </resources>

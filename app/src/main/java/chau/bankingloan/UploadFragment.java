@@ -51,7 +51,7 @@ public class UploadFragment extends Fragment
 
     private LinearLayout lnrImages;
 
-    final String FILE_UPLOAD_URL = "http://192.168.1.11/chauvu/up.php";
+    final String FILE_UPLOAD_URL = "http://192.168.0.111/chauvu/up.php";
     final String FILE_STORE_URL = "http://192.168.1.11/chauvu/uploads";
 
     FloatingActionButton fab2, fab3, fab4, fab5;
