@@ -6,7 +6,8 @@
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@drawable/my_background">
 
     <TextView
         android:layout_width="match_parent"
@@ -213,6 +214,39 @@
                         android:text="@string/employer"/>
                     <TextView
                         android:id="@+id/confirmEmployer"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/employer_address"/>
+                    <TextView
+                        android:text="ndlasnd askdn asdi ksbakbd asd ahsdh asd uas"
+                        android:id="@+id/confirmEmployerAdd"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="test"/>
+                    <TextView
+                        android:text="ndlasnd askdn asdi ksbakbd asd ahsdh asd uas"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
