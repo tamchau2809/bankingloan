@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/name_confirm"/>
                     <TextView
-                        android:id="@+id/confirmName"
+                        android:id="@+id/tvConfirmName"
                         android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/dob"/>
                     <TextView
-                        android:id="@+id/confirmDoB"
+                        android:id="@+id/tvConfirmDoB"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/id"/>
                     <TextView
-                        android:id="@+id/confirmId"
+                        android:id="@+id/tvConfirmId"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/address"/>
                     <TextView
-                        android:id="@+id/confirmAdd"
+                        android:id="@+id/tvConfirmAdd"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/telephone"/>
                     <TextView
-                        android:id="@+id/confirmTelephone"
+                        android:id="@+id/tvConfirmTelephone"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/mobile"/>
                     <TextView
-                        android:id="@+id/confirMobile"
+                        android:id="@+id/tvConfirmMobile"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -175,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/email"/>
                     <TextView
-                        android:id="@+id/confirmEmail"
+                        android:id="@+id/tvConfirmEmail"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -197,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/working_status"/>
                     <TextView
-                        android:id="@+id/comfirmWorkingStt"
+                        android:id="@+id/tvComfirmWorkingStt"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -213,7 +213,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/employer"/>
                     <TextView
-                        android:id="@+id/confirmEmployer"
+                        android:id="@+id/tvConfirmEmployer"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -281,12 +281,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <CheckBox
+            android:id="@+id/cbCorrect"
             android:textSize="18sp"
             android:text="@string/confirm_details_are_correct"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <CheckBox
+            android:id="@+id/cbAccept"
             android:textSize="18sp"
             android:text="@string/i_accept"
             android:layout_weight="1"
@@ -300,12 +302,14 @@
         android:gravity="bottom|end" >
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabConfirmPre"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/fab_margin"
             android:src="@android:drawable/ic_media_rew" />
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabConfirmNext"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/fab_margin"
