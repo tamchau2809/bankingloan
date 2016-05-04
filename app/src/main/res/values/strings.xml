@@ -64,4 +64,9 @@
     <string name="contact_us">Contact Us</string>
     <string name="emailUs">Email</string>
     <string name="approved">Nearly there. Based on information provided you have been approved for the loan</string>
+    <string name="loan_details_confirm">Loan Details</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="confirm_details_are_correct">Confirm Details are correct</string>
+    <string name="i_accept">I accept</string>
+    <string name="name_confirm">Name:</string>
 </resources>
