@@ -69,4 +69,10 @@
     <string name="confirm_details_are_correct">Confirm Details are correct</string>
     <string name="i_accept">I accept</string>
     <string name="name_confirm">Name:</string>
+    <string name="dob">DoB:</string>
+    <string name="personal">Personnal</string>
+    <string name="id">ID:</string>
+    <string name="address">Address</string>
+    <string name="employment">Employment</string>
+    <string name="full_terms_and_conditions">Full Terms and Conditions</string>
 </resources>

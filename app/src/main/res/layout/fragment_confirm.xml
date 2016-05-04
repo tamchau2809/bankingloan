@@ -44,6 +44,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:isScrollContainer="true"
         android:weightSum="2"
@@ -63,7 +64,7 @@
                     style="?android:listSeparatorTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Personnal:"/>
+                    android:text="@string/personal"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,12 +92,12 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:text="@string/dob"/>
                     <TextView
+                        android:id="@+id/confirmDoB"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,12 +108,12 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:text="@string/id"/>
                     <TextView
+                        android:id="@+id/confirmId"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -123,12 +124,12 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:text="@string/address"/>
                     <TextView
+                        android:id="@+id/confirmAdd"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -139,12 +140,12 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:text="@string/telephone"/>
                     <TextView
+                        android:id="@+id/confirmTelephone"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -155,12 +156,12 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:text="@string/mobile"/>
                     <TextView
+                        android:id="@+id/confirMobile"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -171,12 +172,34 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:text="@string/email"/>
+                    <TextView
+                        android:id="@+id/confirmEmail"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <TextView
+                    style="?android:listSeparatorTextViewStyle"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/employment"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:text="@string/working_status"/>
+                    <TextView
+                        android:id="@+id/comfirmWorkingStt"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -187,12 +210,12 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:text="@string/employer"/>
                     <TextView
+                        android:id="@+id/confirmEmployer"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Personnal:"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -211,7 +234,7 @@
                     style="?android:listSeparatorTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Personnal:"/>
+                    android:text="@string/full_terms_and_conditions"/>
 
             </LinearLayout>
         </ScrollView>
@@ -246,7 +269,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/refresh" />
+            android:src="@android:drawable/ic_media_rew" />
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="match_parent"
