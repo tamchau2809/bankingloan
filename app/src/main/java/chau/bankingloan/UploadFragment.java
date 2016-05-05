@@ -1,5 +1,6 @@
 package chau.bankingloan;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -52,7 +53,6 @@ public class UploadFragment extends Fragment
     private LinearLayout lnrImages;
 
     final String FILE_UPLOAD_URL = "http://192.168.1.11/chauvu/up.php";
-    final String FILE_STORE_URL = "http://192.168.1.11/chauvu/uploads";
 
     FloatingActionButton fab2, fab3, fab4, fab5;
 
@@ -132,6 +132,7 @@ public class UploadFragment extends Fragment
         alert.show();
     }
 
+    @SuppressLint("SetTextI18n")
     public void showProgress(final boolean show, float value)
     {
         prgPercent.setVisibility(show ? View.VISIBLE : View.GONE);
