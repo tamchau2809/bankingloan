@@ -22,10 +22,9 @@ public class ConfirmFragment extends Fragment
     View rootView;
     CheckBox cbCorrect, cbAccept;
     TextView tvConfirmName, tvConfirmDoB, tvConfirmId, tvConfirmAdd, tvConfirmTelephone,
-            tvConfirmMobile, tvConfirmEmail, tvComfirmWorkingStt, tvConfirmEmployer;
+            tvConfirmMobile, tvConfirmEmail, tvComfirmWorkingStt, tvConfirmEmployer, tvConfirmEmployerAdd;
     FloatingActionButton fabConfirmPre, fabConfirmNext;
-    SharedPreferences personalPreferences;
-    SharedPreferences contactPreferences;
+    SharedPreferences personalPreferences, contactPreferences, employmentPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -38,6 +37,8 @@ public class ConfirmFragment extends Fragment
         loadFromPersonal(personalPreferences);
         contactPreferences = this.getActivity().getSharedPreferences("CONTACT", Context.MODE_APPEND);
         loadFromContact(contactPreferences);
+        employmentPreferences = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
+        loadFromEmployment(employmentPreferences);
 
         cbCorrect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -65,7 +66,7 @@ public class ConfirmFragment extends Fragment
             @Override
             public void onClick(View v) {
                 if(cbCorrect.isChecked() && cbAccept.isChecked())
-                    Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Okay", Toast.LENGTH_SHORT).show();
                 else if(!cbCorrect.isChecked() && !cbAccept.isChecked()) {
                     cbCorrect.setError("Please Check Your Details!");
                     cbAccept.setError("Please Read The Terms and Conditions!");
@@ -100,6 +101,13 @@ public class ConfirmFragment extends Fragment
                 + contact.getString("city", ""));
     }
 
+    public void loadFromEmployment(SharedPreferences employment)
+    {
+        tvComfirmWorkingStt.setText(employment.getString("workingStt", ""));
+        tvConfirmEmployer.setText(employment.getString("employer", ""));
+        tvConfirmEmployerAdd.setText(employment.getString("employerAdd", ""));
+    }
+
     public void initWiget()
     {
         cbAccept = (CheckBox)rootView.findViewById(R.id.cbAccept);
@@ -113,6 +121,7 @@ public class ConfirmFragment extends Fragment
         tvConfirmEmail = (TextView)rootView.findViewById(R.id.tvConfirmEmail);
         tvComfirmWorkingStt = (TextView)rootView.findViewById(R.id.tvComfirmWorkingStt);
         tvConfirmEmployer = (TextView)rootView.findViewById(R.id.tvConfirmEmployer);
+        tvConfirmEmployerAdd = (TextView)rootView.findViewById(R.id.tvConfirmEmployerAdd);
         fabConfirmPre = (FloatingActionButton) rootView.findViewById(R.id.fabConfirmPre);
 //        fabConfirmPre.setEnabled(false);
         fabConfirmNext = (FloatingActionButton) rootView.findViewById(R.id.fabConfirmNext);

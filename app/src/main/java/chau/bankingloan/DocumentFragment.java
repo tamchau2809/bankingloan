@@ -1,5 +1,6 @@
 package chau.bankingloan;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -51,7 +52,7 @@ public class DocumentFragment extends Fragment {
     private LinearLayout lnrImages;
 
     final String FILE_UPLOAD_URL = "http://192.168.1.18/chauvu/up.php";
-    FloatingActionButton fabAddImg, fabCamera, fabUpload, fabBack;
+    FloatingActionButton fabAddImg, fabCamera, fabUpload, fabBack, fabNext;
 
     private ArrayList<String> imagesPathList;
     ProgressBar prgPercent;
@@ -103,6 +104,14 @@ public class DocumentFragment extends Fragment {
             }
         });
 
+        fabNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity act = (MainActivity) getActivity();
+                act.switchTab(7);
+            }
+        });
+
         return rootView;
     }
 
@@ -114,7 +123,8 @@ public class DocumentFragment extends Fragment {
         fabAddImg = (FloatingActionButton) rootView.findViewById(R.id.fabAddImg);
         fabCamera = (FloatingActionButton) rootView.findViewById(R.id.fabTakePic);
         fabUpload = (FloatingActionButton) rootView.findViewById(R.id.fabUpload);
-        fabBack = (FloatingActionButton) rootView.findViewById(R.id.fabPre);
+        fabBack = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentPre);
+        fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabDocumentNext);
     }
 
     public File saveImage(Bitmap myBitmap, String name, Context context) {
@@ -150,12 +160,11 @@ public class DocumentFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                for (int i=0;i<imagesPath.length;i++)
-                {
+                for (String anImagesPath : imagesPath) {
                     BitmapFactory.Options opt = new BitmapFactory.Options();
                     opt.inSampleSize = 2;
-                    imagesPathList.add(imagesPath[i]);
-                    Bitmap yourbitmap = BitmapFactory.decodeFile(imagesPath[i], opt);
+                    imagesPathList.add(anImagesPath);
+                    Bitmap yourbitmap = BitmapFactory.decodeFile(anImagesPath, opt);
                     ImageView imageView = new ImageView(getContext());
                     imageView.setImageBitmap(yourbitmap);
                     imageView.setAdjustViewBounds(true);
@@ -178,6 +187,7 @@ public class DocumentFragment extends Fragment {
         alert.show();
     }
 
+    @SuppressLint("SetTextI18n")
     public void showProgress(final boolean show, float value)
     {
         prgPercent.setVisibility(show ? View.VISIBLE : View.GONE);

@@ -57,7 +57,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = employment.edit();
-                editor.putInt("workingStt", spWorkingStt.getSelectedItemPosition());
+                editor.putInt("workingSttLoca", spWorkingStt.getSelectedItemPosition());
                 editor.putInt("companyType", spCompanyType.getSelectedItemPosition());
                 editor.putInt("industry", spIndustry.getSelectedItemPosition());
                 editor.putString("employer", edEmployer.getText().toString());
@@ -68,6 +68,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                 editor.putString("otherIncome", edOtherIncome.getText().toString());
                 editor.putString("totalIncome", edTotalIncome.getText().toString());
                 editor.putString("employerContact", edEmployerContact.getText().toString());
+                editor.putString("workingStt", spWorkingStt.getSelectedItem().toString());
                 editor.apply();
 
                 MainActivity act = (MainActivity)getActivity();
@@ -99,7 +100,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             edOtherIncome.setText(test.getString("otherIncome", ""));
             edTotalIncome.setText(test.getString("totalIncome", ""));
             edEmployerContact.setText(test.getString("employerContact", ""));
-            spWorkingStt.setSelection(test.getInt("workingStt", 0));
+            spWorkingStt.setSelection(test.getInt("workingSttLoca", 0));
             spCompanyType.setSelection(test.getInt("companyType", 0));
             spIndustry.setSelection(test.getInt("industry", 0));
         }
