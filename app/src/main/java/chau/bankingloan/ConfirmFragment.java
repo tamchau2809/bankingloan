@@ -1,5 +1,6 @@
 package chau.bankingloan;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,7 +38,6 @@ public class ConfirmFragment extends Fragment
         loadFromPersonal(personalPreferences);
         contactPreferences = this.getActivity().getSharedPreferences("CONTACT", Context.MODE_APPEND);
         loadFromContact(contactPreferences);
-
 
         cbCorrect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -90,6 +90,7 @@ public class ConfirmFragment extends Fragment
         tvConfirmId.setText(personal.getString("identityNum", ""));
     }
 
+    @SuppressLint("SetTextI18n")
     public void loadFromContact(SharedPreferences contact)
     {
         tvConfirmTelephone.setText(contact.getString("telephone", ""));
