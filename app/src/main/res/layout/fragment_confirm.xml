@@ -90,11 +90,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/dob"/>
                     <TextView
+                        android:textSize="16sp"
                         android:id="@+id/tvConfirmDoB"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -106,11 +108,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/id"/>
                     <TextView
+                        android:textSize="16sp"
                         android:id="@+id/tvConfirmId"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -122,11 +126,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/address"/>
                     <TextView
+                        android:textSize="16sp"
                         android:id="@+id/tvConfirmAdd"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -138,11 +144,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/telephone"/>
                     <TextView
+                        android:textSize="16sp"
                         android:id="@+id/tvConfirmTelephone"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -154,11 +162,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/mobile"/>
                     <TextView
+                        android:textSize="16sp"
                         android:id="@+id/tvConfirmMobile"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -170,11 +180,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/email"/>
                     <TextView
+                        android:textSize="16sp"
                         android:id="@+id/tvConfirmEmail"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -192,11 +204,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/working_status"/>
                     <TextView
+                        android:textSize="16sp"
                         android:id="@+id/tvComfirmWorkingStt"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -208,11 +222,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/employer"/>
                     <TextView
+                        android:textSize="16sp"
                         android:id="@+id/tvConfirmEmployer"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -224,12 +240,13 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/employer_address"/>
                     <TextView
-                        android:text="ndlasnd askdn asdi ksbakbd asd ahsdh asd uas"
+                        android:textSize="16sp"
                         android:id="@+id/confirmEmployerAdd"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -241,12 +258,12 @@
                     android:weightSum="2"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="test"/>
+                        android:layout_height="wrap_content"/>
                     <TextView
-                        android:text="ndlasnd askdn asdi ksbakbd asd ahsdh asd uas"
+                        android:textSize="16sp"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -274,8 +291,6 @@
         </ScrollView>
     </LinearLayout>
     <LinearLayout
-        android:paddingStart="17dp"
-        android:paddingEnd="0dp"
         android:orientation="horizontal"
         android:weightSum="2"
         android:layout_width="match_parent"
@@ -285,14 +300,14 @@
             android:textSize="18sp"
             android:text="@string/confirm_details_are_correct"
             android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <CheckBox
             android:id="@+id/cbAccept"
             android:textSize="18sp"
             android:text="@string/i_accept"
             android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout

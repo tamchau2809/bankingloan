@@ -1,5 +1,7 @@
 package chau.bankingloan;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -21,6 +23,8 @@ public class ConfirmFragment extends Fragment
     TextView tvConfirmName, tvConfirmDoB, tvConfirmId, tvConfirmAdd, tvConfirmTelephone,
             tvConfirmMobile, tvConfirmEmail, tvComfirmWorkingStt, tvConfirmEmployer;
     FloatingActionButton fabConfirmPre, fabConfirmNext;
+    SharedPreferences personalPreferences;
+    SharedPreferences contactPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -29,12 +33,31 @@ public class ConfirmFragment extends Fragment
         rootView = inflater.inflate(R.layout.fragment_confirm, container, false);
 
         initWiget();
-        final int count = 0;
+        personalPreferences = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
+        loadFromPersonal(personalPreferences);
+        contactPreferences = this.getActivity().getSharedPreferences("CONTACT", Context.MODE_APPEND);
+        loadFromContact(contactPreferences);
 
 
         cbCorrect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if ( isChecked ) {
+                    cbCorrect.setError(null);
+                } else {
+                    cbCorrect.setError("Please Check Your Details!");
+                }
+            }
+        });
+
+        cbAccept.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if ( isChecked ) {
+                    cbAccept.setError(null);
+                } else {
+                    cbAccept.setError("Please Read The Terms and Conditions!");
+                }
             }
         });
 
@@ -43,8 +66,10 @@ public class ConfirmFragment extends Fragment
             public void onClick(View v) {
                 if(cbCorrect.isChecked() && cbAccept.isChecked())
                     Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getContext(), "Please Check Your Details and Read Terms and Conditions!", Toast.LENGTH_SHORT).show();
+                else if(!cbCorrect.isChecked() && !cbAccept.isChecked()) {
+                    cbCorrect.setError("Please Check Your Details!");
+                    cbAccept.setError("Please Read The Terms and Conditions!");
+                }
             }
         });
 
@@ -56,6 +81,22 @@ public class ConfirmFragment extends Fragment
             }
         });
         return rootView;
+    }
+
+    public void loadFromPersonal(SharedPreferences personal)
+    {
+        tvConfirmName.setText(personal.getString("name", ""));
+        tvConfirmDoB.setText(personal.getString("birthday", ""));
+        tvConfirmId.setText(personal.getString("identityNum", ""));
+    }
+
+    public void loadFromContact(SharedPreferences contact)
+    {
+        tvConfirmTelephone.setText(contact.getString("telephone", ""));
+        tvConfirmMobile.setText(contact.getString("mobile", ""));
+        tvConfirmEmail.setText(contact.getString("email", ""));
+        tvConfirmAdd.setText(contact.getString("street", "") + ", "
+                + contact.getString("city", ""));
     }
 
     public void initWiget()
