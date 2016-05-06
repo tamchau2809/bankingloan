@@ -65,8 +65,11 @@ public class ConfirmFragment extends Fragment
         fabConfirmNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cbCorrect.isChecked() && cbAccept.isChecked())
+                if(cbCorrect.isChecked() && cbAccept.isChecked()) {
                     Toast.makeText(getContext(), "Okay", Toast.LENGTH_SHORT).show();
+                    MainActivity act = (MainActivity) getActivity();
+                    act.switchTab(8);
+                }
                 else if(!cbCorrect.isChecked() && !cbAccept.isChecked()) {
                     cbCorrect.setError("Please Check Your Details!");
                     cbAccept.setError("Please Read The Terms and Conditions!");
