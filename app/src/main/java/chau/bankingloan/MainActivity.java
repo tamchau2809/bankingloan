@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return new DocumentFragment();
                 case 7:
                     return new ConfirmFragment();
+                case 8:
+                    return new PrintFragment();
                 default:
                     return new LoanFragment();
             }
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 8;
+            return 9;
         }
 
         @Override
@@ -153,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return "DOCUMENT";
                 case 7:
                     return "CONFIRM";
+                case 8:
+                    return "PRINT";
             }
             return null;
         }
