@@ -25,7 +25,6 @@ public class PrintFragment extends Fragment
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_print, container, false);
         test = (JustifyTextView) rootView.findViewById(R.id.test);
-        test.setText("Please wait while we process your application." + "\r\n" + "This may take a few minutes...");
         return rootView;
     }
 }

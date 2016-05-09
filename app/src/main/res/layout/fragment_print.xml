@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:baselineAligned="false"
         android:layout_weight="0.95"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,6 +43,7 @@
                 android:paddingStart="0dp"
                 android:id="@+id/test"
                 android:textSize="18sp"
+                android:text="@string/please_wait"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
