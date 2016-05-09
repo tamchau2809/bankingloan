@@ -1,5 +1,7 @@
 package chau.bankingloan;
 
+import android.support.annotation.NonNull;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.HttpEntityWrapper;
 
@@ -26,8 +28,6 @@ public class UploadProgress2 extends HttpEntityWrapper
 //		void transferred(long num);
 		/**
 		 * Giá trị đã up lên được
-		 * @author com08
-		 * @param num Giá trị hiện tại
 		 */
 		void transferred(float num);
 	}
@@ -46,7 +46,7 @@ public class UploadProgress2 extends HttpEntityWrapper
 			this.total = total;
 		}
 
-		public void write(byte[] b, int off, int len) throws IOException {
+		public void write(@NonNull byte[] b, int off, int len) throws IOException {
 			out.write(b, off, len);
 			this.transferred += len;
 			this.listener.transferred(this._getCurrentProgress());
