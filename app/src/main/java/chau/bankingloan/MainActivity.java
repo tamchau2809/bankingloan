@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -125,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return new ConfirmFragment();
                 case 8:
                     return new PrintFragment();
+                case 9:
+                    return new InsuranceDetailsFragment();
+                case 10:
+                    return new ApproveFragment();
                 default:
                     return new LoanFragment();
             }
@@ -133,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 9;
+            return 11;
         }
 
         @Override
@@ -157,6 +162,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return "CONFIRM";
                 case 8:
                     return "PRINT";
+                case 9:
+                    return "SOCIAL INSURANCE";
+                case 10:
+                    return "APPROVE";
             }
             return null;
         }
