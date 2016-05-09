@@ -162,6 +162,7 @@
 
             </LinearLayout>
             <EditText
+                android:inputType="number"
                 android:enabled="false"
                 android:visibility="invisible"
                 android:textSize="18sp"
@@ -206,6 +207,7 @@
             </LinearLayout>
 
             <EditText
+                android:inputType="number"
                 android:enabled="false"
                 android:visibility="invisible"
                 android:layout_width="match_parent"
@@ -237,6 +239,7 @@
                 android:layout_weight="5" />
 
             <EditText
+                android:inputType="number"
                 android:enabled="false"
                 android:visibility="invisible"
                 android:layout_width="match_parent"
@@ -274,6 +277,7 @@
             </LinearLayout>
 
             <EditText
+                android:inputType="number"
                 android:enabled="false"
                 android:visibility="invisible"
                 android:layout_width="match_parent"
