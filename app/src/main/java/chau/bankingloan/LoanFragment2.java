@@ -34,7 +34,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
     FloatingActionButton fabNext;
 
     String arrLoanType[] = {"UPL"};
-    String arrTenure[] = {"24"};
+    String arrTenure[] = {"12", "24", "48"};
     String arrLoanPurpose[] = {"Renovation"};
 
     private DatePickerDialog mDatePickerDialog;
