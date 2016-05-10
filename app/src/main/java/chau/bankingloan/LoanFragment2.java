@@ -85,6 +85,9 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         return rootView;
     }
 
+    /**
+     * Set day trên textview. Click vào để chọn ngày
+     */
     private void SetDateTime()
     {
         tvLastPayment.setOnClickListener(this);

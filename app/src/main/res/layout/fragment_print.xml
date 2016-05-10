@@ -33,10 +33,33 @@
             android:layout_weight="3"
             android:weightSum="2">
             <ProgressBar
+                android:id="@+id/prgPrint"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+            <chau.bankingloan.JustifyTextView
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:paddingEnd="10dp"
+                android:paddingStart="0dp"
+                android:textSize="18sp"
+                android:text="áođá áod áuh á ádoa sda óh áuha sgháo idá díah dà áod àha oha odfhá fá fàhà hàoa sf"
+                android:id="@+id/tvPrintCongra"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+            <chau.bankingloan.JustifyTextView
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:paddingEnd="10dp"
+                android:paddingStart="0dp"
+                android:textSize="18sp"
+                android:text="áođá áod áuh á ádoa sda óh áuha sgháo idá díah dà áod àha oha odfhá fá fàhà hàoa sf"
+                android:id="@+id/tvPrintInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
             <chau.bankingloan.JustifyTextView
                 android:textStyle="bold"
                 android:paddingEnd="10dp"
@@ -60,7 +83,7 @@
         android:orientation="horizontal" >
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabPrint"
+            android:id="@+id/fabPrintPre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
