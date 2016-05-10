@@ -75,6 +75,6 @@
     <string name="address">Address:</string>
     <string name="employment">Employment</string>
     <string name="full_terms_and_conditions">Full Terms and Conditions</string>
-    <string name="please_share_a_few_last_details_to_complete_your_application">Please share a few last details to complete your application...</string>
-    <string name="please_wait">Please wait while we process your application. \nThis may take a few minutes...</string>
+    <string name="please_share">Please share a few last details to complete your application…</string>
+    <string name="please_wait">Please wait while we process your application. \nThis may take a few minutes…</string>
 </resources>

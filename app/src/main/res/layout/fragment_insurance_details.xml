@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:baselineAligned="false"
         android:layout_weight="0.95"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,11 +26,10 @@
                 android:textStyle="bold"
                 android:id="@+id/test1"
                 android:textSize="18sp"
-                android:text="@string/please_share_a_few_last_details_to_complete_your_application"
+                android:text="@string/please_share"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
             </chau.bankingloan.JustifyTextView>
 
             <ProgressBar
@@ -38,7 +38,6 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
 
         </LinearLayout>
 
