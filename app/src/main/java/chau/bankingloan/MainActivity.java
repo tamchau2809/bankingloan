@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 0:
                     return new LoanFragment();
                 case 1:
-                    return new UploadFragment2();
+                    return new UploadFragment();
                 case 2:
                     return new LoanFragment2();
                 case 3:
