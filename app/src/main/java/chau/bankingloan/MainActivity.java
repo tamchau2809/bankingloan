@@ -15,7 +15,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 0:
                     return new LoanFragment();
                 case 1:
-                    return new UploadFragment();
+                    return new UploadFragment2();
                 case 2:
                     return new LoanFragment2();
                 case 3:
