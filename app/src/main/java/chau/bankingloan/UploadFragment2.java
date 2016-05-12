@@ -3,6 +3,7 @@ package chau.bankingloan;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -58,6 +59,7 @@ public class UploadFragment2 extends Fragment
 
     private ArrayList<String> imagesPathList;
     ProgressBar prgPercent;
+    ProgressDialog pDialog;
     TextView tvPercent;
     private final int PICK_IMAGE_MULTIPLE =1;
     File sourceFile;
@@ -112,7 +114,7 @@ public class UploadFragment2 extends Fragment
     {
         lnrImages = (LinearLayout)rootView.findViewById(R.id.lnrImages);
         tvPercent = (TextView)rootView.findViewById(R.id.tvPercent);
-        prgPercent = (ProgressBar)rootView.findViewById(R.id.progressBar1);
+//        prgPercent = (ProgressBar)rootView.findViewById(R.id.progressBar1);
         fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
         fab3 = (FloatingActionButton) rootView.findViewById(R.id.fab3);
         fab4 = (FloatingActionButton) rootView.findViewById(R.id.fab4);
@@ -135,7 +137,7 @@ public class UploadFragment2 extends Fragment
     @SuppressLint("SetTextI18n")
     public void showProgress(final boolean show, float value)
     {
-        prgPercent.setVisibility(show ? View.VISIBLE : View.GONE);
+//        prgPercent.setVisibility(show ? View.VISIBLE : View.GONE);
         tvPercent.setVisibility(show ? View.VISIBLE : View.GONE);
         lnrImages.setEnabled(!show);
         fab2.setEnabled(!show);
@@ -146,7 +148,7 @@ public class UploadFragment2 extends Fragment
 //        prgPercent.getIndeterminateDrawable().setColorFilter(Color.GREEN,
 //                android.graphics.PorterDuff.Mode.MULTIPLY);
 
-        prgPercent.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+//        prgPercent.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
 
         tvPercent.setText(String.valueOf((int)value) + "%");
     }
@@ -203,7 +205,11 @@ public class UploadFragment2 extends Fragment
         @Override
         protected void onPreExecute() {
             // setting progress bar to zero
-            prgPercent.setProgress(0);
+            pDialog = new ProgressDialog(getContext());
+            pDialog.setMessage("Uploading...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+//            prgPercent.setProgress(0);
             super.onPreExecute();
         }
 
@@ -211,6 +217,7 @@ public class UploadFragment2 extends Fragment
         protected void onProgressUpdate(Float... values) {
             // TODO Auto-generated method stub
             showProgress(true, values[0]);
+            pDialog.setMessage("Uploading...\n" + String.valueOf(values[0]));
         }
 
         @Override
@@ -292,6 +299,8 @@ public class UploadFragment2 extends Fragment
                 showAlert("Thất Bại!" + result);
             }
             showProgress(false, 0);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
             super.onPostExecute(result);
         }
     }

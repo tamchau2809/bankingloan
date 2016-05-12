@@ -81,7 +81,7 @@ public class UploadFragment extends Fragment {
                 if (imagesPathList == null) {
                     showAlert("Không Có Hình Ảnh Để Upload!");
                 } else {
-//                    new BackgroundUploader(FILE_UPLOAD_URL, imagesPathList[0])
+                    new BackgroundUploader(FILE_UPLOAD_URL).execute();
                 }
             }
         });
@@ -99,7 +99,7 @@ public class UploadFragment extends Fragment {
     public void initWiget() {
         lnrImages = (LinearLayout) rootView.findViewById(R.id.lnrImages);
         tvPercent = (TextView) rootView.findViewById(R.id.tvPercent);
-        prgPercent = (ProgressBar) rootView.findViewById(R.id.progressBar1);
+//        prgPercent = (ProgressBar) rootView.findViewById(R.id.progressBar1);
         fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
         fab3 = (FloatingActionButton) rootView.findViewById(R.id.fab3);
         fab4 = (FloatingActionButton) rootView.findViewById(R.id.fab4);
@@ -183,7 +183,7 @@ public class UploadFragment extends Fragment {
             }
         }
     }
-    private class BackgroundUploader extends AsyncTask<Void, Integer, Void> implements DialogInterface.OnCancelListener {
+    class BackgroundUploader extends AsyncTask<Void, Integer, Void> implements DialogInterface.OnCancelListener {
 
         private ProgressDialog progressDialog;
         private String url;
@@ -192,6 +192,12 @@ public class UploadFragment extends Fragment {
         public BackgroundUploader(String url, File file) {
             this.url = url;
             this.file = file;
+        }
+
+        public BackgroundUploader(String url) {
+            this.url = url;
+            Bitmap bitmap = BitmapFactory.decodeFile(imagesPathList.get(0));
+            file = saveImage(bitmap, "test", getContext());
         }
 
         @Override
