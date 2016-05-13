@@ -126,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 8:
                     return new PrintFragment();
                 case 9:
-                    return new InsuranceDetailsFragment();
-                case 10:
                     return new ApproveFragment();
                 default:
                     return new LoanFragment();
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 11;
+            return 10;
         }
 
         @Override
@@ -162,8 +160,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 8:
                     return "PRINT";
                 case 9:
-                    return "SOCIAL INSURANCE";
-                case 10:
                     return "APPROVE";
             }
             return null;
