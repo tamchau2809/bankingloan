@@ -71,9 +71,6 @@ public class ConfirmFragment extends Fragment
             @Override
             public void onClick(View v) {
                 if(cbCorrect.isChecked() && cbAccept.isChecked()) {
-                    Toast.makeText(getContext(), "Okay", Toast.LENGTH_SHORT).show();
-//                    MainActivity act = (MainActivity) getActivity();
-//                    act.switchTab(8);
                     showDialog();
                 }
                 else if(!cbCorrect.isChecked() && !cbAccept.isChecked()) {
@@ -124,7 +121,6 @@ public class ConfirmFragment extends Fragment
     {
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View alertDialogView = factory.inflate(R.layout.otp_dialog, null);
-        TextView tv = (TextView)alertDialogView.findViewById(R.id.calladdress_edit);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle(getString(R.string.please_enter_the_number_you_ve_been_received))
                 .setView(alertDialogView)
@@ -132,6 +128,12 @@ public class ConfirmFragment extends Fragment
                         android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
 
+                                EditText tv = (EditText) alertDialogView.findViewById(R.id.calladdress_edit);
+                                if(tv.getText().toString() == "TINHTHO")
+                                {
+                                    MainActivity act = (MainActivity) getActivity();
+                                    act.switchTab(8);
+                                }
                             }
                         })
                 .setNegativeButton(

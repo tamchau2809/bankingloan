@@ -203,10 +203,8 @@ public class UploadFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(getContext());
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.setMessage("Uploading...");
             progressDialog.setCancelable(false);
-            progressDialog.setMax((int) file.length());
             progressDialog.show();
         }
 
@@ -218,33 +216,33 @@ public class UploadFragment extends Fragment {
             try {
                 connection = (HttpURLConnection) new URL(url).openConnection();
                 connection.setRequestMethod("POST");
-                String boundary = "---------------------------boundary";
-                String tail = "\r\n--" + boundary + "--\r\n";
-                connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+//                String boundary = "---------------------------boundary";
+//                String tail = "\r\n--" + boundary + "--\r\n";
+//                connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
                 connection.setDoOutput(true);
 
-                String metadataPart = "--" + boundary + "\r\n"
-                        + "Content-Disposition: form-data; name=\"metadata\"\r\n\r\n"
-                        + "" + "\r\n";
+//                String metadataPart = "--" + boundary + "\r\n"
+//                        + "Content-Disposition: form-data; name=\"metadata\"\r\n\r\n"
+//                        + "" + "\r\n";
 
-                String fileHeader1 = "--" + boundary + "\r\n"
-                        + "Content-Disposition: form-data; name=\"uploadfile\"; filename=\""
-                        + fileName + "\"\r\n"
-                        + "Content-Type: application/octet-stream\r\n"
-                        + "Content-Transfer-Encoding: binary\r\n";
+//                String fileHeader1 = "--" + boundary + "\r\n"
+//                        + "Content-Disposition: form-data; name=\"uploadfile\"; filename=\""
+//                        + fileName + "\"\r\n"
+//                        + "Content-Type: application/octet-stream\r\n"
+//                        + "Content-Transfer-Encoding: binary\r\n";
 
-                long fileLength = file.length() + tail.length();
-                String fileHeader2 = "Content-length: " + fileLength + "\r\n";
-                String fileHeader = fileHeader1 + fileHeader2 + "\r\n";
-                String stringData = metadataPart + fileHeader;
+//                long fileLength = file.length() + tail.length();
+//                String fileHeader2 = "Content-length: " + fileLength + "\r\n";
+//                String fileHeader = fileHeader1 + fileHeader2 + "\r\n";
+//                String stringData = metadataPart + fileHeader;
 
-                long requestLength = stringData.length() + fileLength;
-                connection.setRequestProperty("Content-length", "" + requestLength);
-                connection.setFixedLengthStreamingMode((int) requestLength);
+//                long requestLength = stringData.length() + fileLength;
+//                connection.setRequestProperty("Content-length", "" + requestLength);
+//                connection.setFixedLengthStreamingMode((int) requestLength);
                 connection.connect();
 
                 DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-                out.writeBytes(stringData);
+//                out.writeBytes(stringData);
                 out.flush();
 
                 int progress = 0;
@@ -261,7 +259,7 @@ public class UploadFragment extends Fragment {
                 }
 
                 // Write closing boundary and close stream
-                out.writeBytes(tail);
+//                out.writeBytes(tail);
                 out.flush();
                 out.close();
 
@@ -284,7 +282,7 @@ public class UploadFragment extends Fragment {
 
         @Override
         protected void onProgressUpdate(Integer... progress) {
-            progressDialog.setProgress((int) (progress[0]));
+            progressDialog.setProgress(progress[0]);
         }
 
         @Override

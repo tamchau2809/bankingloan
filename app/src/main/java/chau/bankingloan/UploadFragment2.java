@@ -34,6 +34,8 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import java.io.File;
@@ -217,7 +219,7 @@ public class UploadFragment2 extends Fragment
         protected void onProgressUpdate(Float... values) {
             // TODO Auto-generated method stub
             showProgress(true, values[0]);
-            pDialog.setMessage("Uploading...\n" + String.valueOf(values[0]));
+            pDialog.setMessage("Uploading... " + String.valueOf(values[0]) + "%");
         }
 
         @Override
@@ -230,6 +232,9 @@ public class UploadFragment2 extends Fragment
         {
             String response = null;
             HttpClient httpClient = new DefaultHttpClient();
+            HttpParams test = httpClient.getParams();
+            HttpConnectionParams.setConnectionTimeout(test, 5000);
+            HttpConnectionParams.setSoTimeout(test, 5000);
             HttpPost httpPost = new HttpPost(FILE_UPLOAD_URL);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             try
@@ -293,6 +298,8 @@ public class UploadFragment2 extends Fragment
             else if(result.equals("111") || result.equals("11") || result.equals("1"))
             {
                 showAlert("Hoàn Thành!");
+                MainActivity act = (MainActivity) getActivity();
+                act.switchTab(8);
             }
             else
             {
