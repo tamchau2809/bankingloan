@@ -32,8 +32,8 @@ import java.util.Set;
  * Created on 20/04/2016 by com08.
  */
 public class LoanFragment extends Fragment {
-    final String GET_MKH_URL = "http://192.168.1.11/chauvu/getMKH.php";
-    final String GET_MNV_URL = "http://192.168.1.11/chauvu/getMNV.php";
+    final String GET_MKH_URL = "http://192.168.1.12/chauvu/getMKH.php";
+    final String GET_MNV_URL = "http://192.168.1.12/chauvu/getMNV.php";
 
     View rootView;
 
