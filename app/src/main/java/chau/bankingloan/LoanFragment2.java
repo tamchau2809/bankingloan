@@ -44,7 +44,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
     String arrLoanPurpose[] = {"Renovation"};
 
     private DatePickerDialog mDatePickerDialog;
-    private SimpleDateFormat dateFormater;
+    private SimpleDateFormat dateFormatter;
 
     ArrayList<LoanDetails> details = new ArrayList<>();
 
@@ -88,7 +88,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             }
         });
 
-        dateFormater = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         SetDateTime();
         return rootView;
     }
@@ -110,25 +110,27 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         SharedPreferences mPrefs = this.getActivity().getSharedPreferences("LOAN", Context.MODE_PRIVATE);
         ArrayList<LoanDetails> items = new ArrayList<>();
         Set<String> set = mPrefs.getStringSet("LOAN", null);
-        for(String s : set)
-        {
-            try
+        if (set != null) {
+            for(String s : set)
             {
-                JSONObject jsonObject = new JSONObject(s);
-                String loanType = jsonObject.getString("loanType");
-                String loanAmount = jsonObject.getString("loanAmount");
-                String tenure = jsonObject.getString("tenure");
-                String loanPurpose = jsonObject.getString("loanPurpose");
-                String maxInterest = jsonObject.getString("maxInterest");
-                String monthlyPayment = jsonObject.getString("monthlyPayment");
-                String lastPayment = jsonObject.getString("lastPayment");
-                LoanDetails details = new LoanDetails(loanType, loanAmount,
-                        tenure, loanPurpose, maxInterest, monthlyPayment, lastPayment);
-                items.add(details);
-            }
-            catch(JSONException e)
-            {
-                e.printStackTrace();
+                try
+                {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String loanType = jsonObject.getString("loanType");
+                    String loanAmount = jsonObject.getString("loanAmount");
+                    String tenure = jsonObject.getString("tenure");
+                    String loanPurpose = jsonObject.getString("loanPurpose");
+                    String maxInterest = jsonObject.getString("maxInterest");
+                    String monthlyPayment = jsonObject.getString("monthlyPayment");
+                    String lastPayment = jsonObject.getString("lastPayment");
+                    LoanDetails details = new LoanDetails(loanType, loanAmount,
+                            tenure, loanPurpose, maxInterest, monthlyPayment, lastPayment);
+                    items.add(details);
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
         return items;
@@ -146,7 +148,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                tvLastPayment.setText(dateFormater.format(newDate.getTime()));
+                tvLastPayment.setText(dateFormatter.format(newDate.getTime()));
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         mDatePickerDialog.setTitle("Please Choose The Day Of Your Last Pay");

@@ -225,7 +225,7 @@
             <EditText
                 android:imeOptions="flagNoExtractUi"
                 android:textSize="18sp"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:id="@+id/edMaxInterest"
