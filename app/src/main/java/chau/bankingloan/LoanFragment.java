@@ -57,7 +57,7 @@ public class LoanFragment extends Fragment {
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_loan, container, false);
 
-        initWiget();
+        initWidget();
         contractDetails = this.getActivity().getSharedPreferences("contractDetails", Context.MODE_APPEND);
 
         final SharedPreferences pref = this.getActivity().getSharedPreferences("MKH", Context.MODE_PRIVATE);
@@ -133,7 +133,7 @@ public class LoanFragment extends Fragment {
 
         Set<String> set= new HashSet<>();
         for (int i = 0; i < list.size(); i++) {
-            set.add(list.get(i).getJSONObject().toString());
+            set.add(list.get(i).getJSONInfo().toString());
         }
         editor.putStringSet("MKH", set);
         editor.apply();
@@ -145,7 +145,7 @@ public class LoanFragment extends Fragment {
 
         Set<String> set = new HashSet<>();
         for (int i = 0; i < list.size(); i++) {
-            set.add(list.get(i).getJSONObject().toString());
+            set.add(list.get(i).getJSONInfo().toString());
         }
         editor.putStringSet("MNV", set);
         editor.apply();
@@ -197,7 +197,7 @@ public class LoanFragment extends Fragment {
         return items;
     }
 
-    public void initWiget()
+    public void initWidget()
     {
         edNum = (EditText)rootView.findViewById(R.id.edContractNum);
         spinnerMKH = (Spinner)rootView.findViewById(R.id.spinnerMKH);

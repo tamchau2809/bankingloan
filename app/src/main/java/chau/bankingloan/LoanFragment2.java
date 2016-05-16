@@ -15,9 +15,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Created on 25-Apr-16 by com08
@@ -40,6 +46,8 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
     private DatePickerDialog mDatePickerDialog;
     private SimpleDateFormat dateFormater;
 
+    ArrayList<LoanDetails> details = new ArrayList<>();
+
     public LoanFragment2() {
         // TODO Auto-generated constructor stub
     }
@@ -51,7 +59,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_loan_2, container, false);
 
-        initWiget();
+        initWidget();
         populateSpinner(spTenure, arrTenure);
         populateSpinner(spLoanPurpose, arrLoanPurpose);
         populateSpinner(spLoanType, arrLoanType);
@@ -83,6 +91,47 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         dateFormater = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         SetDateTime();
         return rootView;
+    }
+
+    public void storeLoanType(ArrayList<LoanDetails> list)
+    {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LOAN", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Set<String> set= new HashSet<>();
+        for (int i = 0; i < list.size(); i++) {
+            set.add(list.get(i).getJSONInfo().toString());
+        }
+        editor.putStringSet("LOAN", set);
+        editor.apply();
+    }
+
+    public ArrayList<LoanDetails> loadLOANFromSharePreferences()
+    {
+        SharedPreferences mPrefs = this.getActivity().getSharedPreferences("LOAN", Context.MODE_PRIVATE);
+        ArrayList<LoanDetails> items = new ArrayList<>();
+        Set<String> set = mPrefs.getStringSet("LOAN", null);
+        for(String s : set)
+        {
+            try
+            {
+                JSONObject jsonObject = new JSONObject(s);
+                String loanType = jsonObject.getString("loanType");
+                String loanAmount = jsonObject.getString("loanAmount");
+                String tenure = jsonObject.getString("tenure");
+                String loanPurpose = jsonObject.getString("loanPurpose");
+                String maxInterest = jsonObject.getString("maxInterest");
+                String monthlyPayment = jsonObject.getString("monthlyPayment");
+                String lastPayment = jsonObject.getString("lastPayment");
+                LoanDetails details = new LoanDetails(loanType, loanAmount,
+                        tenure, loanPurpose, maxInterest, monthlyPayment, lastPayment);
+                items.add(details);
+            }
+            catch(JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return items;
     }
 
     /**
@@ -117,7 +166,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         }
     }
 
-    public void initWiget()
+    public void initWidget()
     {
         spLoanPurpose = (Spinner)rootView.findViewById(R.id.spLoanPurpose);
         spTenure = (Spinner)rootView.findViewById(R.id.spTenure);

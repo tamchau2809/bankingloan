@@ -28,7 +28,7 @@ public class InfoFromServer {
 		return this.name;
 	}
 
-	public JSONObject getJSONObject()
+	public JSONObject getJSONInfo()
 	{
 		JSONObject obj = new JSONObject();
 		try
