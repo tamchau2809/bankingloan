@@ -246,7 +246,7 @@ public class UploadFragment extends Fragment {
                 out.flush();
 
                 int progress = 0;
-                int bytesRead = 0;
+                int bytesRead;
                 byte buf[] = new byte[1024];
                 BufferedInputStream bufInput = new BufferedInputStream(new FileInputStream(file));
                 while ((bytesRead = bufInput.read(buf)) != -1) {
@@ -265,7 +265,7 @@ public class UploadFragment extends Fragment {
 
                 // Get server response
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
+                String line;
                 StringBuilder builder = new StringBuilder();
                 while((line = reader.readLine()) != null) {
                     builder.append(line);

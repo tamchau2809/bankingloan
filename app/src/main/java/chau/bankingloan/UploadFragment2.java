@@ -7,10 +7,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
@@ -60,7 +57,6 @@ public class UploadFragment2 extends Fragment
     FloatingActionButton fab2, fab3, fab4, fab5;
 
     private ArrayList<String> imagesPathList;
-    ProgressBar prgPercent;
     ProgressDialog pDialog;
     TextView tvPercent;
     private final int PICK_IMAGE_MULTIPLE =1;
@@ -70,7 +66,7 @@ public class UploadFragment2 extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         rootView = inflater.inflate(R.layout.fragment_upload, container, false);
-        initWiget();
+        initWidget();
 
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +108,7 @@ public class UploadFragment2 extends Fragment
         return rootView;
     }
 
-    public void initWiget()
+    public void initWidget()
     {
         lnrImages = (LinearLayout)rootView.findViewById(R.id.lnrImages);
         tvPercent = (TextView)rootView.findViewById(R.id.tvPercent);
@@ -299,7 +295,7 @@ public class UploadFragment2 extends Fragment
             {
                 showAlert("Hoàn Thành!");
                 MainActivity act = (MainActivity) getActivity();
-                act.switchTab(8);
+                act.switchTab(2);
             }
             else
             {
