@@ -58,7 +58,6 @@ public class JustifyTextView extends TextView {
             canvas.drawText(blanks, x, mLineY, getPaint());
             float bw = StaticLayout.getDesiredWidth(blanks, getPaint());
             x += bw;
-
             line = line.substring(3);
         }
 
@@ -78,5 +77,4 @@ public class JustifyTextView extends TextView {
     private boolean needScale(String line) {
         return line.length() != 0 && line.charAt(line.length() - 1) != '\n';
     }
-
 }

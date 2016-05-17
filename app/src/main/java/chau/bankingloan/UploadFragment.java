@@ -57,7 +57,7 @@ public class UploadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_upload, container, false);
-        initWiget();
+        initWidget();
 
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +96,7 @@ public class UploadFragment extends Fragment {
         return rootView;
     }
 
-    public void initWiget() {
+    public void initWidget() {
         lnrImages = (LinearLayout) rootView.findViewById(R.id.lnrImages);
         tvPercent = (TextView) rootView.findViewById(R.id.tvPercent);
 //        prgPercent = (ProgressBar) rootView.findViewById(R.id.progressBar1);

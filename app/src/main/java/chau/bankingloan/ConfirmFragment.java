@@ -2,12 +2,10 @@ package chau.bankingloan;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created on 04-May-16 by com08.
@@ -37,7 +34,7 @@ public class ConfirmFragment extends Fragment
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_confirm, container, false);
 
-        initWiget();
+        initWidget();
         personalPreferences = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
         loadFromPersonal(personalPreferences);
         contactPreferences = this.getActivity().getSharedPreferences("CONTACT", Context.MODE_APPEND);
@@ -112,10 +109,7 @@ public class ConfirmFragment extends Fragment
         tvComfirmWorkingStt.setText(employment.getString("workingStt", ""));
         tvConfirmEmployer.setText(employment.getString("employer", ""));
         tvConfirmEmployerAdd.setText(employment.getString("employerAdd", ""));
-
     }
-
-
 
     public void showDialog()
     {
@@ -147,7 +141,7 @@ public class ConfirmFragment extends Fragment
         alertDialog.show();
     }
 
-    public void initWiget()
+    public void initWidget()
     {
         cbAccept = (CheckBox)rootView.findViewById(R.id.cbAccept);
         cbCorrect = (CheckBox)rootView.findViewById(R.id.cbCorrect);
