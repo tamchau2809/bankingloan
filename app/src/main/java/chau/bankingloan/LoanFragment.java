@@ -151,28 +151,28 @@ public class LoanFragment extends Fragment {
         editor.apply();
     }
 
-	public ArrayList<InfoFromServer> loadMKHFromSharePreferences()
-	{
-		SharedPreferences mPrefs = this.getActivity().getSharedPreferences("MKH", Context.MODE_PRIVATE);
-		ArrayList<InfoFromServer> items = new ArrayList<>();
+    public ArrayList<InfoFromServer> loadMKHFromSharePreferences()
+    {
+        SharedPreferences mPrefs = this.getActivity().getSharedPreferences("MKH", Context.MODE_PRIVATE);
+        ArrayList<InfoFromServer> items = new ArrayList<>();
         Set<String> set = mPrefs.getStringSet("MKH", null);
-		for(String s : set)
-		{
-			try
-			{
-				JSONObject jsonObject = new JSONObject(s);
-				String id = jsonObject.getString("id");
-				String name = jsonObject.getString("name");
-				InfoFromServer info = new InfoFromServer(id, name);
-				items.add(info);
-			}
-			catch(JSONException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return items;
-	}
+        for(String s : set)
+        {
+            try
+            {
+                JSONObject jsonObject = new JSONObject(s);
+                String id = jsonObject.getString("id");
+                String name = jsonObject.getString("name");
+                InfoFromServer info = new InfoFromServer(id, name);
+                items.add(info);
+            }
+            catch(JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return items;
+    }
 
     public ArrayList<InfoFromServer> loadMNVFromSharePreferences()
     {
@@ -297,7 +297,7 @@ public class LoanFragment extends Fragment {
 
     private void populateSpinnerMKH()
     {
-		listMKH = loadMKHFromSharePreferences();
+        listMKH = loadMKHFromSharePreferences();
         List<String> labels = new ArrayList<>();
         for(int i = 0; i < listMKH.size(); i++)
         {
