@@ -1,4 +1,4 @@
-package chau.bankingloan;
+package chau.bankingloan.customview;
 
 /**
  * Created on 06-May-16 by com08.

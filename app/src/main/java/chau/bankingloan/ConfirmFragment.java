@@ -67,12 +67,16 @@ public class ConfirmFragment extends Fragment
         fabConfirmNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cbCorrect.isChecked() && cbAccept.isChecked()) {
-                    showDialog();
-                }
-                else if(!cbCorrect.isChecked() && !cbAccept.isChecked()) {
+                if(!cbCorrect.isChecked()) {
                     cbCorrect.setError("Please Check Your Details!");
+                }
+                else if (!cbAccept.isChecked())
+                {
                     cbAccept.setError("Please Read The Terms and Conditions!");
+                }
+                else
+                {
+                    showDialog();
                 }
             }
         });
@@ -81,7 +85,7 @@ public class ConfirmFragment extends Fragment
             @Override
             public void onClick(View v) {
                 MainActivity act = (MainActivity) getActivity();
-                act.switchTab(6);
+                act.switchTab(4);
             }
         });
         return rootView;
@@ -115,15 +119,15 @@ public class ConfirmFragment extends Fragment
     {
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View alertDialogView = factory.inflate(R.layout.otp_dialog, null);
+        final EditText tv = (EditText) alertDialogView.findViewById(R.id.calladdress_edit);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle(getString(R.string.please_enter_the_number_you_ve_been_received))
                 .setView(alertDialogView)
                 .setPositiveButton(
                         android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-
-                                EditText tv = (EditText) alertDialogView.findViewById(R.id.calladdress_edit);
-                                if(tv.getText().toString() == "TINHTHO")
+                            public void onClick(DialogInterface dialog, int whichButton)
+                            {
+                                if(tv.getText().toString().trim() == "TINHTHO")
                                 {
                                     MainActivity act = (MainActivity) getActivity();
                                     act.switchTab(8);
@@ -133,7 +137,6 @@ public class ConfirmFragment extends Fragment
                 .setNegativeButton(
                         android.R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-
                             }
                         })
                 .create();

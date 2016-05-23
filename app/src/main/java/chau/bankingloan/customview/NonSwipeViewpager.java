@@ -1,4 +1,4 @@
-package chau.bankingloan;
+package chau.bankingloan.customview;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

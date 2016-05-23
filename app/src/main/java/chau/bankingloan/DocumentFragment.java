@@ -100,7 +100,7 @@ public class DocumentFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MainActivity act = (MainActivity) getActivity();
-                act.switchTab(5);
+                act.switchTab(3);
             }
         });
 
@@ -108,7 +108,7 @@ public class DocumentFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MainActivity act = (MainActivity) getActivity();
-                act.switchTab(7);
+                act.switchTab(5);
             }
         });
 

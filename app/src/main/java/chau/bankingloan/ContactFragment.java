@@ -29,7 +29,7 @@ public class ContactFragment extends Fragment{
     SharedPreferences contact;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_contact, container, false);
 
@@ -44,20 +44,57 @@ public class ContactFragment extends Fragment{
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = contact.edit();
-                editor.putString("street", edPerAdd1.getText().toString());
-                editor.putString("city", edPerAdd2.getText().toString());
-                editor.putBoolean("isChecked", cbSame.isChecked());
-                editor.putString("telephone", edTelephone.getText().toString());
-                editor.putString("mobile", edMobile.getText().toString());
-                editor.putString("email", edEmail.getText().toString());
-                editor.putString("refname", edRefName.getText().toString());
-                editor.putInt("relationship", spRelationship.getSelectedItemPosition());
-                editor.putString("contactNum", edContactNum.getText().toString());
-                editor.apply();
+                if (edPerAdd1.getText().length() == 0)
+                {
+                    edPerAdd1.setError("Please Enter Your Address!");
+                    edPerAdd1.requestFocus();
+                }
+                else if (edPerAdd2.getText().toString().length() == 0)
+                {
+                    edPerAdd2.setError("Please Enter Your Address!");
+                    edPerAdd2.requestFocus();
+                }
+                else if (edTelephone.getText().toString().length() == 0)
+                {
+                    edTelephone.setError("Please Enter Your Phone Number!");
+                    edTelephone.requestFocus();
+                }
+                else if (edMobile.getText().toString().length() == 0)
+                {
+                    edMobile.setError("Please Enter Your Number!");
+                    edMobile.requestFocus();
+                }
+                else if (edEmail.getText().toString().length() == 0)
+                {
+                    edEmail.setError("Please Enter Your Email Address!");
+                    edEmail.requestFocus();
+                }
+                else if (edRefName.getText().toString().length() == 0)
+                {
+                    edRefName.setError("Please Enter The Reference Name!");
+                    edRefName.requestFocus();
+                }
+                else if (edContactNum.getText().toString().length() == 0)
+                {
+                    edContactNum.setError("Please Enter The Reference Number!");
+                    edContactNum.requestFocus();
+                }
+                else {
+                    SharedPreferences.Editor editor = contact.edit();
+                    editor.putString("street", edPerAdd1.getText().toString());
+                    editor.putString("city", edPerAdd2.getText().toString());
+                    editor.putBoolean("isChecked", cbSame.isChecked());
+                    editor.putString("telephone", edTelephone.getText().toString());
+                    editor.putString("mobile", edMobile.getText().toString());
+                    editor.putString("email", edEmail.getText().toString());
+                    editor.putString("refname", edRefName.getText().toString());
+                    editor.putInt("relationship", spRelationship.getSelectedItemPosition());
+                    editor.putString("contactNum", edContactNum.getText().toString());
+                    editor.apply();
 
-                MainActivity act = (MainActivity)getActivity();
-                act.switchTab(3);
+                    MainActivity act = (MainActivity) getActivity();
+                    act.switchTab(3);
+                }
             }
         });
 
