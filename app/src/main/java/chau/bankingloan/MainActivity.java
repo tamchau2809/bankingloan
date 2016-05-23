@@ -107,25 +107,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
+//                case 0:
+//                    return new LoanFragment();
+//                case 1:
+//                    return new UploadFragment2();
                 case 0:
-                    return new LoanFragment();
-                case 1:
-                    return new UploadFragment2();
-                case 2:
                     return new LoanFragment2();
-                case 3:
+                case 1:
                     return new PersonalFragment();
-                case 4:
+                case 2:
                     return new ContactFragment();
-                case 5:
+                case 3:
                     return new EmploymentFragment();
-                case 6:
+                case 4:
                     return new DocumentFragment();
-                case 7:
+                case 5:
                     return new ConfirmFragment();
-                case 8:
+                case 6:
                     return new PrintFragment();
-                case 9:
+                case 7:
                     return new ApproveFragment();
                 default:
                     return new LoanFragment();
@@ -135,31 +135,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 10;
+            return 8;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
+//                case 0:
+//                    return "INFORMATION";
+//                case 1:
+//                    return "UPLOAD";
                 case 0:
-                    return "INFORMATION";
-                case 1:
-                    return "UPLOAD";
-                case 2:
                     return "LOAN";
-                case 3:
+                case 1:
                     return "PERSONAL";
-                case 4:
+                case 2:
                     return "CONTACT";
-                case 5:
+                case 3:
                     return "EMPLOYMENT";
-                case 6:
+                case 4:
                     return "DOCUMENT";
-                case 7:
+                case 5:
                     return "CONFIRM";
-                case 8:
+                case 6:
                     return "PRINT";
-                case 9:
+                case 7:
                     return "APPROVE";
             }
             return null;

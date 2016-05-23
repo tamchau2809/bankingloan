@@ -40,8 +40,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
 {
     View rootView;
 
-    final String GET_TYPE_URL = "http://192.168.1.17/chauvu/loanGetType.php";
-    final String GET_TENURE_URL = "http://192.168.1.17/chauvu/loanGetTenure.php";
+    final String GET_DATA = "http://192.168.1.17/chauvu/loanData.php";
 
     SharedPreferences LoanDetails;
     ProgressDialog pDialog;
@@ -53,12 +52,14 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
 
 //    String arrLoanType[] = {"UPL"};
 //    String arrTenure[] = {"12", "24", "48"};
-    String arrLoanPurpose[] = {"Renovation"};
+//    String arrLoanPurpose[] = {"Renovation"};
 
     private DatePickerDialog mDatePickerDialog;
     private SimpleDateFormat dateFormatter;
 
-    ArrayList<InfoFromServer> details = new ArrayList<>();
+    ArrayList<InfoFromServer> type = new ArrayList<>();
+    ArrayList<InfoFromServer> tenure = new ArrayList<>();
+    ArrayList<InfoFromServer> purpose = new ArrayList<>();
 
     public LoanFragment2() {
         // TODO Auto-generated constructor stub
@@ -72,17 +73,21 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         rootView = inflater.inflate(R.layout.fragment_loan_2, container, false);
         initWidget();
 //        populateSpinner(spTenure, arrTenure);
-        populateSpinner(spLoanPurpose, arrLoanPurpose);
+//        populateSpinner(spLoanPurpose, arrLoanPurpose);
 //        populateSpinner(spLoanType, arrLoanType);
 
         LoanDetails = this.getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
         loadFromSharedPreference(LoanDetails);
 
-        final SharedPreferences pref = this.getActivity().getSharedPreferences("TYPE", Context.MODE_PRIVATE);
-        if(!pref.contains("TYPE"))
+        final SharedPreferences prefTYPE = this.getActivity().getSharedPreferences("TYPE", Context.MODE_PRIVATE);
+        final SharedPreferences prefTENURE = this.getActivity().getSharedPreferences("TENURE", Context.MODE_PRIVATE);
+        final SharedPreferences prefPURPOSE = this.getActivity().getSharedPreferences("PURPOSE", Context.MODE_PRIVATE);
+        if(!prefTYPE.contains("TYPE") || !prefTENURE.contains("TENURE") || !prefPURPOSE.contains("PURPOSE"))
         {
             if(isConnectedToInternet(getContext())) {
                 new GetTYPE().execute();
+                new GetTENURE().execute();
+                new GetPURPOSE().execute();
             }
             else
             {
@@ -92,15 +97,19 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         else
         {
             populateSpinnerType();
-            spLoanType.setSelection(LoanDetails.getInt("loanTypeLoca", 0));
+            populateSpinnerTenure();
+            populateSpinnerPurpose();
         }
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabLoanRefresh);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(isConnectedToInternet(getContext())) {
                     new GetTYPE().execute();
+                    new GetTENURE().execute();
+                    new GetPURPOSE().execute();
                 }
                 else
                 {
@@ -112,26 +121,46 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = LoanDetails.edit();
-//                editor.putString("loan_type", spLoanType.getSelectedItem().toString());
-                editor.putString("loan_amount", edLoanAmount.getText().toString());
-                editor.putString("tenure", spTenure.getSelectedItem().toString());
-                editor.putString("loan_purpose", spLoanPurpose.getSelectedItem().toString());
-                editor.putString("max_interest", edMaxInterest.getText().toString());
-                editor.putString("monthly_payment", edMonthlyPayment.getText().toString());
-                editor.putString("last_payment", tvLastPayment.getText().toString());
-                editor.putInt("loanTypeLoca", spLoanType.getSelectedItemPosition());
-                editor.putInt("tenureLoca", spTenure.getSelectedItemPosition());
-                editor.putInt("loanPurposeLoca", spLoanPurpose.getSelectedItemPosition());
-                editor.apply();
+                if(edLoanAmount.getText().toString().length() == 0) {
+                    edLoanAmount.setError("asd");
+                    edLoanAmount.requestFocus();
+                }
+                else if(edMaxInterest.getText().toString().length() == 0) {
+                    edMaxInterest.setError("asd");
+                    edMaxInterest.requestFocus();
+                }
+                else if(edMonthlyPayment.getText().toString().length() == 0)
+                {
+                    edMonthlyPayment.setError("asd");
+                    edMonthlyPayment.requestFocus();
+                }
+                else if(tvLastPayment.getText().toString().length() == 0)
+                {
+                    tvLastPayment.setError("ad");
+                }
+                else {
+                    SharedPreferences.Editor editor = LoanDetails.edit();
+                    editor.putString("loan_type", spLoanType.getSelectedItem().toString());
+                    editor.putString("loan_amount", edLoanAmount.getText().toString());
+                    editor.putString("tenure", spTenure.getSelectedItem().toString());
+                    editor.putString("loan_purpose", spLoanPurpose.getSelectedItem().toString());
+                    editor.putString("max_interest", edMaxInterest.getText().toString());
+                    editor.putString("monthly_payment", edMonthlyPayment.getText().toString());
+                    editor.putString("last_payment", tvLastPayment.getText().toString());
+                    editor.putInt("loanTypeLoca", spLoanType.getSelectedItemPosition());
+                    editor.putInt("tenureLoca", spTenure.getSelectedItemPosition());
+                    editor.putInt("loanPurposeLoca", spLoanPurpose.getSelectedItemPosition());
+                    editor.apply();
 
-                MainActivity act = (MainActivity)getActivity();
-                act.switchTab(3);
+                    MainActivity act = (MainActivity) getActivity();
+                    act.switchTab(1);
+                }
             }
         });
 
         dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         SetDateTime();
+
         return rootView;
     }
 
@@ -155,7 +184,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
 
     public void loadFromSharedPreference(SharedPreferences test)
     {
-        if(test.contains("tenure"))
+        if(test.contains("loan_amount"))
         {
             edLoanAmount.setText(test.getString("loan_amount", ""));
             edMaxInterest.setText(test.getString("max_interest", ""));
@@ -196,11 +225,11 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
 
     private void populateSpinnerType()
     {
-        details = loadMKHFromSharePreferences();
+        type = loadTYPEFromSharePreferences();
         List<String> labels = new ArrayList<>();
-        for(int i = 0; i < details.size(); i++)
+        for(int i = 0; i < type.size(); i++)
         {
-            labels.add(details.get(i).getID());
+            labels.add(type.get(i).getID());
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
                 R.layout.custom_spinner_item, labels);
@@ -208,7 +237,81 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         spLoanType.setAdapter(spinnerAdapter);
     }
 
-    public ArrayList<InfoFromServer> loadMKHFromSharePreferences()
+    private void populateSpinnerTenure()
+    {
+        tenure = loadTENUREFromSharePreferences();
+        List<String> labels = new ArrayList<>();
+        for(int i = 0; i < tenure.size(); i++)
+        {
+            labels.add(tenure.get(i).getID());
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+                R.layout.custom_spinner_item, labels);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spTenure.setAdapter(spinnerAdapter);
+    }
+
+    private void populateSpinnerPurpose()
+    {
+        purpose = loadPURPOSEFromSharePreferences();
+        List<String> labels = new ArrayList<>();
+        for(int i = 0; i < purpose.size(); i++)
+        {
+            labels.add(purpose.get(i).getID());
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+                R.layout.custom_spinner_item, labels);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spLoanPurpose.setAdapter(spinnerAdapter);
+    }
+
+    public ArrayList<InfoFromServer> loadTENUREFromSharePreferences()
+    {
+        SharedPreferences mPrefs = this.getActivity().getSharedPreferences("TENURE", Context.MODE_PRIVATE);
+        ArrayList<InfoFromServer> items = new ArrayList<>();
+        Set<String> set = mPrefs.getStringSet("TENURE", null);
+        for(String s : set)
+        {
+            try
+            {
+                JSONObject jsonObject = new JSONObject(s);
+                String id = jsonObject.getString("id");
+                String name = jsonObject.getString("name");
+                InfoFromServer info = new InfoFromServer(id, name);
+                items.add(info);
+            }
+            catch(JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return items;
+    }
+
+    public ArrayList<InfoFromServer> loadPURPOSEFromSharePreferences()
+    {
+        SharedPreferences mPrefs = this.getActivity().getSharedPreferences("PURPOSE", Context.MODE_PRIVATE);
+        ArrayList<InfoFromServer> items = new ArrayList<>();
+        Set<String> set = mPrefs.getStringSet("PURPOSE", null);
+        for(String s : set)
+        {
+            try
+            {
+                JSONObject jsonObject = new JSONObject(s);
+                String id = jsonObject.getString("id");
+                String name = jsonObject.getString("name");
+                InfoFromServer info = new InfoFromServer(id, name);
+                items.add(info);
+            }
+            catch(JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return items;
+    }
+
+    public ArrayList<InfoFromServer> loadTYPEFromSharePreferences()
     {
         SharedPreferences mPrefs = this.getActivity().getSharedPreferences("TYPE", Context.MODE_PRIVATE);
         ArrayList<InfoFromServer> items = new ArrayList<>();
@@ -244,12 +347,82 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         editor.apply();
     }
 
+    public void storeTENUREList(ArrayList<InfoFromServer> list)
+    {
+        SharedPreferences sharedPrefs = this.getActivity().getSharedPreferences("TENURE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        Set<String> set= new HashSet<>();
+        for (int i = 0; i < list.size(); i++) {
+            set.add(list.get(i).getJSONInfo().toString());
+        }
+        editor.putStringSet("TENURE", set);
+        editor.apply();
+    }
+
+    public void storePURPOSEList(ArrayList<InfoFromServer> list)
+    {
+        SharedPreferences sharedPrefs = this.getActivity().getSharedPreferences("PURPOSE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        Set<String> set= new HashSet<>();
+        for (int i = 0; i < list.size(); i++) {
+            set.add(list.get(i).getJSONInfo().toString());
+        }
+        editor.putStringSet("PURPOSE", set);
+        editor.apply();
+    }
+
+    private class GetTENURE extends AsyncTask<Void, Void, Void>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            tenure.clear();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            // TODO Auto-generated method stub
+            ServiceHandler jsonParser = new ServiceHandler();
+            String json = jsonParser.makeServiceCall(GET_DATA, ServiceHandler.GET);
+            if(json != null)
+            {
+                try
+                {
+                    JSONObject jsonObject = new JSONObject(json);
+                    JSONArray MKH = jsonObject.getJSONArray("tbtenure");
+                    for(int i = 0; i < MKH.length(); i++)
+                    {
+                        JSONObject catObj = (JSONObject)MKH.get(i);
+                        InfoFromServer info = new InfoFromServer(catObj.getString("TENURE"), catObj.getString("DETAILS"));
+                        tenure.add(info);
+                    }
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+                storeTENUREList(tenure);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            populateSpinnerTenure();
+        }
+    }
+
     private class GetTYPE extends AsyncTask<Void, Void, Void>
     {
         @Override
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
+            type.clear();
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Fetching Information...");
             pDialog.setCancelable(false);
@@ -261,7 +434,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             // TODO Auto-generated method stub
 
             ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(GET_TYPE_URL, ServiceHandler.GET);
+            String json = jsonParser.makeServiceCall(GET_DATA, ServiceHandler.GET);
             if(json != null)
             {
                 try
@@ -272,14 +445,14 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
                     {
                         JSONObject catObj = (JSONObject)MKH.get(i);
                         InfoFromServer info = new InfoFromServer(catObj.getString("TYPE"), catObj.getString("DETAILS"));
-                        details.add(info);
+                        type.add(info);
                     }
                 }
                 catch(JSONException e)
                 {
                     e.printStackTrace();
                 }
-                storeTYPEList(details);
+                storeTYPEList(type);
             }
 
             return null;
@@ -292,6 +465,50 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             if (pDialog.isShowing())
                 pDialog.dismiss();
             populateSpinnerType();
+        }
+    }
+
+    private class GetPURPOSE extends AsyncTask<Void, Void, Void>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            purpose.clear();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            // TODO Auto-generated method stub
+
+            ServiceHandler jsonParser = new ServiceHandler();
+            String json = jsonParser.makeServiceCall(GET_DATA, ServiceHandler.GET);
+            if(json != null)
+            {
+                try
+                {
+                    JSONObject jsonObject = new JSONObject(json);
+                    JSONArray MKH = jsonObject.getJSONArray("tbpurpose");
+                    for(int i = 0; i < MKH.length(); i++)
+                    {
+                        JSONObject catObj = (JSONObject)MKH.get(i);
+                        InfoFromServer info = new InfoFromServer(catObj.getString("PURPOSE"), catObj.getString("DETAILS"));
+                        purpose.add(info);
+                    }
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+                storePURPOSEList(purpose);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            populateSpinnerPurpose();
         }
     }
 

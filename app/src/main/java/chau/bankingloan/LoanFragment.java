@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,8 +33,8 @@ import java.util.Set;
  * Created on 20/04/2016 by com08.
  */
 public class LoanFragment extends Fragment {
-    final String GET_MKH_URL = "http://192.168.1.12/chauvu/getMKH.php";
-    final String GET_MNV_URL = "http://192.168.1.12/chauvu/getMNV.php";
+    final String GET_MKH_URL = "http://192.168.1.17/chauvu/getMKH.php";
+    final String GET_MNV_URL = "http://192.168.1.17/chauvu/getMNV.php";
 
     View rootView;
 
@@ -303,6 +304,7 @@ public class LoanFragment extends Fragment {
         {
             labels.add(listMKH.get(i).getID() + " - " + listMKH.get(i).getName());
         }
+        Collections.sort(labels);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
                 R.layout.custom_spinner_item, labels);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -317,6 +319,7 @@ public class LoanFragment extends Fragment {
         {
             labels.add(listMNV.get(i).getID() + " - " + listMNV.get(i).getName());
         }
+        Collections.sort(labels);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
                 R.layout.custom_spinner_item, labels);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

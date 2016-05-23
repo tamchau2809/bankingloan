@@ -1,8 +1,14 @@
 package chau.bankingloan;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,9 +21,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Created on 25-Apr-16 by com08.
@@ -25,29 +41,38 @@ import java.util.Locale;
 public class EmploymentFragment extends Fragment implements View.OnClickListener{
     View rootView;
 
-    SharedPreferences employment;
+    ProgressDialog pDialog;
+    final String GET_DATA = "http://192.168.1.17/chauvu/loanData.php";
+
+    SharedPreferences employment, spinnerStorage;
 
     private DatePickerDialog mDatePickerDialog;
-    private SimpleDateFormat dateFormater;
+    private SimpleDateFormat dateFormatter;
 
-    String arrWorkingStt[] = {"Full-time", "Part-time"};
-    String arrCompanyType[] = {"Public"};
-    String arrIndustry[] = {"Cosmetics"};
+//    String arrWorkingStt[] = {"Full-time", "Part-time"};
+//    String arrCompanyType[] = {"Public"};
+//    String arrIndustry[] = {"Cosmetics"};
 
     TextView tvDateJoined;
     Spinner spWorkingStt, spCompanyType, spIndustry;
     EditText edEmployer, edDesignation, edSalaryIncome, edEmployerAdd, edOtherIncome, edTotalIncome, edEmployerContact;
+
+    ArrayList<InfoFromServer> arrWorkingStt = new ArrayList<>();
+    ArrayList<InfoFromServer> arrCompanyType = new ArrayList<>();
+    ArrayList<InfoFromServer> arrIndustry = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_employment, container, false);
 
-        initWiget();
-        dateFormater = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        populateSpinner(spWorkingStt, arrWorkingStt);
-        populateSpinner(spCompanyType, arrCompanyType);
-        populateSpinner(spIndustry, arrIndustry);
+        initWidget();
+        spinnerStorage = this.getActivity().getSharedPreferences("SPINNER", Context.MODE_APPEND);
+        dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+
+//        populateSpinner(spWorkingStt, arrWorkingStt);
+//        populateSpinner(spCompanyType, arrCompanyType);
+//        populateSpinner(spIndustry, arrIndustry);
 
         employment = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
         loadFromSharedPreference(employment);
@@ -72,7 +97,39 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                 editor.apply();
 
                 MainActivity act = (MainActivity)getActivity();
-                act.switchTab(6);
+                act.switchTab(4);
+            }
+        });
+
+        if(!spinnerStorage.contains("WorkingStt") ||
+                !spinnerStorage.contains("CompanyType") ||
+                !spinnerStorage.contains("Industry"))
+        {
+            if(isConnectedToInternet(getContext()))
+            {
+                new getDataForSpinner().execute();
+            }
+            else {
+                showAlert("Xin Kiểm Tra Lại Kết Nối!");
+            }
+        }
+        else {
+            populateSpinner(spWorkingStt, "WorkingStt");
+            populateSpinner(spCompanyType, "CompanyType");
+            populateSpinner(spIndustry, "Industry");
+        }
+
+        FloatingActionButton fabRefresh = (FloatingActionButton)rootView.findViewById(R.id.fabEmployRefresh);
+        fabRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isConnectedToInternet(getContext())) {
+                    new getDataForSpinner().execute();
+                }
+                else
+                {
+                    showAlert("Xin Kiểm Tra Lại Kết Nối!");
+                }
             }
         });
 
@@ -81,7 +138,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 MainActivity act = (MainActivity)getActivity();
-                act.switchTab(4);
+                act.switchTab(2);
             }
         });
         SetDateTime();
@@ -106,7 +163,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    public void initWiget()
+    public void initWidget()
     {
         spWorkingStt = (Spinner)rootView.findViewById(R.id.spWorkingStt);
         spCompanyType = (Spinner)rootView.findViewById(R.id.spCompanyType);
@@ -123,14 +180,6 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         tvDateJoined = (TextView)rootView.findViewById(R.id.tvDateJonied);
     }
 
-    private void populateSpinner(Spinner spn, String[] arr)
-    {
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
-                R.layout.custom_spinner_item, arr);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spn.setAdapter(spinnerAdapter);
-    }
-
     private void SetDateTime()
     {
         tvDateJoined.setOnClickListener(this);
@@ -140,7 +189,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                tvDateJoined.setText(dateFormater.format(newDate.getTime()));
+                tvDateJoined.setText(dateFormatter.format(newDate.getTime()));
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -150,5 +199,136 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         if(view == tvDateJoined) {
             mDatePickerDialog.show();
         }
+    }
+
+    public void storeSpinnerData(ArrayList<InfoFromServer> list, String key)
+    {
+        SharedPreferences.Editor editor = spinnerStorage.edit();
+        Set<String> set = new HashSet<>();
+        for(int i = 0; i < list.size(); i++)
+        {
+            set.add(list.get(i).getJSONInfo().toString());
+        }
+        editor.putStringSet(key, set);
+        editor.apply();
+    }
+
+    public ArrayList<InfoFromServer> loadFromSharedPreferences(String key)
+    {
+        ArrayList<InfoFromServer> items = new ArrayList<>();
+        Set<String> set = spinnerStorage.getStringSet(key, null);
+        if (set != null) {
+            for(String s : set)
+            {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String id = jsonObject.getString("id");
+                    String name = jsonObject.getString("name");
+                    InfoFromServer info = new InfoFromServer(id, name);
+                    items.add(info);
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return items;
+    }
+
+    private void populateSpinner(Spinner sp, String key)
+    {
+        ArrayList<InfoFromServer> list = loadFromSharedPreferences(key);
+        List<String> labels = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++)
+        {
+            labels.add(list.get(i).getID());
+        }
+        Collections.sort(labels);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+                R.layout.custom_spinner_item, labels);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(spinnerAdapter);
+    }
+
+    private class getDataForSpinner extends AsyncTask<Void, Void, Void>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            arrWorkingStt.clear();
+            arrWorkingStt.clear();
+            spinnerStorage.edit().clear().apply();
+            pDialog = new ProgressDialog(getContext());
+            pDialog.setMessage("Fetching Information...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ServiceHandler serviceHandler = new ServiceHandler();
+            String json = serviceHandler.makeServiceCall(GET_DATA, ServiceHandler.GET);
+            if(json != null)
+            {
+                getIt(json, "tbworkingstatus", "STATUS", "DETAILS", arrWorkingStt);
+                getIt(json, "tbcompanytype", "COMPANY_TYPE", "DETAILS", arrCompanyType);
+                getIt(json, "tbindustry", "INDUSTRY", "DETAILS", arrIndustry);
+
+                storeSpinnerData(arrWorkingStt, "WorkingStt");
+                storeSpinnerData(arrCompanyType, "CompanyType");
+                storeSpinnerData(arrIndustry, "Industry");
+            }
+            return null;
+        }
+
+        private void getIt(String json, String key, String data1, String data2, ArrayList<InfoFromServer> list)
+        {
+            try {
+                JSONObject object = new JSONObject(json);
+                JSONArray array = object.getJSONArray(key);
+                for(int i = 0; i < array.length(); i++)
+                {
+                    JSONObject jsonObject = (JSONObject)array.get(i);
+                    InfoFromServer info = new InfoFromServer(jsonObject.getString(data1),
+                            jsonObject.getString(data2));
+                    list.add(info);
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            populateSpinner(spWorkingStt, "WorkingStt");
+            populateSpinner(spCompanyType, "CompanyType");
+            populateSpinner(spIndustry, "Industry");
+        }
+    }
+
+    public boolean isConnectedToInternet(Context ctx)
+    {
+        ConnectivityManager cm = (ConnectivityManager)ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cm.getActiveNetworkInfo();
+        return info != null && info.isConnectedOrConnecting();
+    }
+
+    private void showAlert(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(message).setTitle("Thông Báo!!")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // do nothing
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

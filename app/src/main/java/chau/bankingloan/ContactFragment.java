@@ -57,7 +57,7 @@ public class ContactFragment extends Fragment{
                 editor.apply();
 
                 MainActivity act = (MainActivity)getActivity();
-                act.switchTab(5);
+                act.switchTab(3);
             }
         });
 
@@ -66,7 +66,7 @@ public class ContactFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 MainActivity act = (MainActivity)getActivity();
-                act.switchTab(3);
+                act.switchTab(1);
             }
         });
         return rootView;

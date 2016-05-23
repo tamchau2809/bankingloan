@@ -57,19 +57,43 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = Personal.edit();
-                editor.putString("name", edName.getText().toString());
-                editor.putString("birthday", tvBirthDay.getText().toString());
-                editor.putString("identityNum", edIdenCard.getText().toString());
-                editor.putString("dateOissue", tvDateOfIssue.getText().toString());
-                editor.putInt("education", spEducation.getSelectedItemPosition());
-                editor.putInt("gender", spGender.getSelectedItemPosition());
-                editor.putInt("maritalStt", spMaritalStt.getSelectedItemPosition());
-                editor.putString("numOc", edChildrenNum.getText().toString());
-                editor.apply();
+                if(edName.getText().length() == 0)
+                {
+                    edName.setError("Please Enter Your Name!");
+                    edName.requestFocus();
+                }
+                else if (tvBirthDay.getText().length() == 0)
+                {
+                    tvBirthDay.setError("Please Enter Your Birthday!");
+                }
+                else if (edIdenCard.getText().length() == 0)
+                {
+                    edIdenCard.setError("Please Enter Your Identity Card's Number!");
+                    edIdenCard.requestFocus();
+                }
+                else if (tvDateOfIssue.getText().length() == 0)
+                {
+                    tvDateOfIssue.setError("What's Your Day of Issue?");
+                }
+                else if (edChildrenNum.getText().length() == 0)
+                {
+                    edChildrenNum.setError("How Many Children Do You Have?A");
+                }
+                else {
+                    SharedPreferences.Editor editor = Personal.edit();
+                    editor.putString("name", edName.getText().toString());
+                    editor.putString("birthday", tvBirthDay.getText().toString());
+                    editor.putString("identityNum", edIdenCard.getText().toString());
+                    editor.putString("dateOissue", tvDateOfIssue.getText().toString());
+                    editor.putInt("education", spEducation.getSelectedItemPosition());
+                    editor.putInt("gender", spGender.getSelectedItemPosition());
+                    editor.putInt("maritalStt", spMaritalStt.getSelectedItemPosition());
+                    editor.putString("numOc", edChildrenNum.getText().toString());
+                    editor.apply();
 
-                MainActivity act = (MainActivity)getActivity();
-                act.switchTab(4);
+                    MainActivity act = (MainActivity) getActivity();
+                    act.switchTab(2);
+                }
             }
         });
 
@@ -78,7 +102,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 MainActivity act = (MainActivity)getActivity();
-                act.switchTab(2);
+                act.switchTab(0);
             }
         });
 
