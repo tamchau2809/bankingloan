@@ -129,6 +129,7 @@
                 android:gravity="end|center"
                 android:text="@string/employer_address"/>
             <EditText
+                android:imeOptions="flagNoExtractUi"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"

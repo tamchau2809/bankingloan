@@ -49,10 +49,6 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
     private DatePickerDialog mDatePickerDialog;
     private SimpleDateFormat dateFormatter;
 
-//    String arrWorkingStt[] = {"Full-time", "Part-time"};
-//    String arrCompanyType[] = {"Public"};
-//    String arrIndustry[] = {"Cosmetics"};
-
     TextView tvDateJoined;
     Spinner spWorkingStt, spCompanyType, spIndustry;
     EditText edEmployer, edDesignation, edSalaryIncome, edEmployerAdd, edOtherIncome, edTotalIncome, edEmployerContact;
@@ -70,10 +66,6 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         spinnerStorage = this.getActivity().getSharedPreferences("SPINNER", Context.MODE_APPEND);
         dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
-//        populateSpinner(spWorkingStt, arrWorkingStt);
-//        populateSpinner(spCompanyType, arrCompanyType);
-//        populateSpinner(spIndustry, arrIndustry);
-
         employment = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
         loadFromSharedPreference(employment);
 
@@ -81,23 +73,55 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = employment.edit();
-                editor.putInt("workingSttLoca", spWorkingStt.getSelectedItemPosition());
-                editor.putInt("companyType", spCompanyType.getSelectedItemPosition());
-                editor.putInt("industry", spIndustry.getSelectedItemPosition());
-                editor.putString("employer", edEmployer.getText().toString());
-                editor.putString("employerAdd", edEmployerAdd.getText().toString());
-                editor.putString("dateJoined", tvDateJoined.getText().toString());
-                editor.putString("designation", edDesignation.getText().toString());
-                editor.putString("salaryIncome", edSalaryIncome.getText().toString());
-                editor.putString("otherIncome", edOtherIncome.getText().toString());
-                editor.putString("totalIncome", edTotalIncome.getText().toString());
-                editor.putString("employerContact", edEmployerContact.getText().toString());
-                editor.putString("workingStt", spWorkingStt.getSelectedItem().toString());
-                editor.apply();
+                if (edEmployer.getText().toString().length() == 0)
+                {
+                    edEmployer.setError("Please Enter Employer's Name!");
+                    edEmployer.requestFocus();
+                }
+                else if (edEmployerAdd.getText().toString().length() == 0)
+                {
+                    edEmployerAdd.setError("Please Enter Employer's Address!");
+                    edEmployerAdd.requestFocus();
+                }
+                else if (edDesignation.getText().toString().length() == 0)
+                {
+                    edDesignation.setError("Please Enter Designation!");
+                    edDesignation.requestFocus();
+                }
+                else if (edSalaryIncome.getText().toString().length() == 0)
+                {
+                    edSalaryIncome.setError("Please Enter Salary Income!");
+                    edSalaryIncome.requestFocus();
+                }
+                else if (edOtherIncome.getText().toString().length() == 0)
+                {
+                    edOtherIncome.setError("Please Enter Other Income!");
+                    edOtherIncome.requestFocus();
+                }
+                else if (edTotalIncome.getText().toString().length() == 0)
+                {
+                    edTotalIncome.setError("Please Enter Salary Income!");
+                    edSalaryIncome.requestFocus();
+                }
+                else {
+                    SharedPreferences.Editor editor = employment.edit();
+                    editor.putInt("workingSttLoca", spWorkingStt.getSelectedItemPosition());
+                    editor.putInt("companyType", spCompanyType.getSelectedItemPosition());
+                    editor.putInt("industry", spIndustry.getSelectedItemPosition());
+                    editor.putString("employer", edEmployer.getText().toString());
+                    editor.putString("employerAdd", edEmployerAdd.getText().toString());
+                    editor.putString("dateJoined", tvDateJoined.getText().toString());
+                    editor.putString("designation", edDesignation.getText().toString());
+                    editor.putString("salaryIncome", edSalaryIncome.getText().toString());
+                    editor.putString("otherIncome", edOtherIncome.getText().toString());
+                    editor.putString("totalIncome", edTotalIncome.getText().toString());
+                    editor.putString("employerContact", edEmployerContact.getText().toString());
+                    editor.putString("workingStt", spWorkingStt.getSelectedItem().toString());
+                    editor.apply();
 
-                MainActivity act = (MainActivity)getActivity();
-                act.switchTab(4);
+                    MainActivity act = (MainActivity) getActivity();
+                    act.switchTab(4);
+                }
             }
         });
 

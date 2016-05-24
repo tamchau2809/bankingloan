@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -42,7 +43,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
 
     final String GET_DATA = "http://192.168.1.17/chauvu/loanData.php";
 
-    SharedPreferences LoanDetails;
+    SharedPreferences LoanDetails, spinnerStorage;
     ProgressDialog pDialog;
 
     Spinner spLoanType, spTenure, spLoanPurpose;
@@ -50,16 +51,12 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
     TextView tvLastPayment;
     FloatingActionButton fabNext;
 
-//    String arrLoanType[] = {"UPL"};
-//    String arrTenure[] = {"12", "24", "48"};
-//    String arrLoanPurpose[] = {"Renovation"};
-
     private DatePickerDialog mDatePickerDialog;
     private SimpleDateFormat dateFormatter;
 
-    ArrayList<InfoFromServer> type = new ArrayList<>();
-    ArrayList<InfoFromServer> tenure = new ArrayList<>();
-    ArrayList<InfoFromServer> purpose = new ArrayList<>();
+    ArrayList<InfoFromServer> arrType = new ArrayList<>();
+    ArrayList<InfoFromServer> arrTenure = new ArrayList<>();
+    ArrayList<InfoFromServer> arrPurpose = new ArrayList<>();
 
     public LoanFragment2() {
         // TODO Auto-generated constructor stub
@@ -72,22 +69,16 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_loan_2, container, false);
         initWidget();
-//        populateSpinner(spTenure, arrTenure);
-//        populateSpinner(spLoanPurpose, arrLoanPurpose);
-//        populateSpinner(spLoanType, arrLoanType);
-
         LoanDetails = this.getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
         loadFromSharedPreference(LoanDetails);
 
-        final SharedPreferences prefTYPE = this.getActivity().getSharedPreferences("TYPE", Context.MODE_PRIVATE);
-        final SharedPreferences prefTENURE = this.getActivity().getSharedPreferences("TENURE", Context.MODE_PRIVATE);
-        final SharedPreferences prefPURPOSE = this.getActivity().getSharedPreferences("PURPOSE", Context.MODE_PRIVATE);
-        if(!prefTYPE.contains("TYPE") || !prefTENURE.contains("TENURE") || !prefPURPOSE.contains("PURPOSE"))
+        spinnerStorage = this.getActivity().getSharedPreferences("SPINNER_LOAN", Context.MODE_APPEND);
+        if(!spinnerStorage.contains("Type") ||
+                !spinnerStorage.contains("Tenure") ||
+                !spinnerStorage.contains("Purpose"))
         {
             if(isConnectedToInternet(getContext())) {
-                new GetTYPE().execute();
-                new GetTENURE().execute();
-                new GetPURPOSE().execute();
+                new GetDataForSpinner().execute();
             }
             else
             {
@@ -96,9 +87,12 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         }
         else
         {
-            populateSpinnerType();
-            populateSpinnerTenure();
-            populateSpinnerPurpose();
+            populateSpinner(spTenure, "Tenure");
+            populateSpinner(spLoanPurpose, "Purpose");
+            populateSpinner(spLoanType, "Type");
+            spLoanType.setSelection(LoanDetails.getInt("loanTypeLoca", 0));
+            spTenure.setSelection(LoanDetails.getInt("tenureLoca", 0));
+            spLoanPurpose.setSelection(LoanDetails.getInt("loanPurposeLoca", 0));
         }
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabLoanRefresh);
@@ -107,9 +101,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             public void onClick(View view) {
 
                 if(isConnectedToInternet(getContext())) {
-                    new GetTYPE().execute();
-                    new GetTENURE().execute();
-                    new GetPURPOSE().execute();
+                    new GetDataForSpinner().execute();
                 }
                 else
                 {
@@ -139,6 +131,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
                     tvLastPayment.setError("ad");
                 }
                 else {
+                    LoanDetails = getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
                     SharedPreferences.Editor editor = LoanDetails.edit();
                     editor.putString("loan_type", spLoanType.getSelectedItem().toString());
                     editor.putString("loan_amount", edLoanAmount.getText().toString());
@@ -208,14 +201,6 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabLoanNext);
     }
 
-    private void populateSpinner(Spinner spn, String[] arr)
-    {
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
-                R.layout.custom_spinner_item, arr);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spn.setAdapter(spinnerAdapter);
-    }
-
     @Override
     public void onClick(View view) {
         if(view == tvLastPayment) {
@@ -223,206 +208,66 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         }
     }
 
-    private void populateSpinnerType()
+    public ArrayList<InfoFromServer> loadFromSharedPreferences(String key)
     {
-        type = loadTYPEFromSharePreferences();
-        List<String> labels = new ArrayList<>();
-        for(int i = 0; i < type.size(); i++)
-        {
-            labels.add(type.get(i).getID());
-        }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
-                R.layout.custom_spinner_item, labels);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spLoanType.setAdapter(spinnerAdapter);
-    }
-
-    private void populateSpinnerTenure()
-    {
-        tenure = loadTENUREFromSharePreferences();
-        List<String> labels = new ArrayList<>();
-        for(int i = 0; i < tenure.size(); i++)
-        {
-            labels.add(tenure.get(i).getID());
-        }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
-                R.layout.custom_spinner_item, labels);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spTenure.setAdapter(spinnerAdapter);
-    }
-
-    private void populateSpinnerPurpose()
-    {
-        purpose = loadPURPOSEFromSharePreferences();
-        List<String> labels = new ArrayList<>();
-        for(int i = 0; i < purpose.size(); i++)
-        {
-            labels.add(purpose.get(i).getID());
-        }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
-                R.layout.custom_spinner_item, labels);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spLoanPurpose.setAdapter(spinnerAdapter);
-    }
-
-    public ArrayList<InfoFromServer> loadTENUREFromSharePreferences()
-    {
-        SharedPreferences mPrefs = this.getActivity().getSharedPreferences("TENURE", Context.MODE_PRIVATE);
         ArrayList<InfoFromServer> items = new ArrayList<>();
-        Set<String> set = mPrefs.getStringSet("TENURE", null);
-        for(String s : set)
-        {
-            try
+        Set<String> set = spinnerStorage.getStringSet(key, null);
+        if (set != null) {
+            for(String s : set)
             {
-                JSONObject jsonObject = new JSONObject(s);
-                String id = jsonObject.getString("id");
-                String name = jsonObject.getString("name");
-                InfoFromServer info = new InfoFromServer(id, name);
-                items.add(info);
-            }
-            catch(JSONException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        return items;
-    }
-
-    public ArrayList<InfoFromServer> loadPURPOSEFromSharePreferences()
-    {
-        SharedPreferences mPrefs = this.getActivity().getSharedPreferences("PURPOSE", Context.MODE_PRIVATE);
-        ArrayList<InfoFromServer> items = new ArrayList<>();
-        Set<String> set = mPrefs.getStringSet("PURPOSE", null);
-        for(String s : set)
-        {
-            try
-            {
-                JSONObject jsonObject = new JSONObject(s);
-                String id = jsonObject.getString("id");
-                String name = jsonObject.getString("name");
-                InfoFromServer info = new InfoFromServer(id, name);
-                items.add(info);
-            }
-            catch(JSONException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        return items;
-    }
-
-    public ArrayList<InfoFromServer> loadTYPEFromSharePreferences()
-    {
-        SharedPreferences mPrefs = this.getActivity().getSharedPreferences("TYPE", Context.MODE_PRIVATE);
-        ArrayList<InfoFromServer> items = new ArrayList<>();
-        Set<String> set = mPrefs.getStringSet("TYPE", null);
-        for(String s : set)
-        {
-            try
-            {
-                JSONObject jsonObject = new JSONObject(s);
-                String id = jsonObject.getString("id");
-                String name = jsonObject.getString("name");
-                InfoFromServer info = new InfoFromServer(id, name);
-                items.add(info);
-            }
-            catch(JSONException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        return items;
-    }
-
-    public void storeTYPEList(ArrayList<InfoFromServer> list)
-    {
-        SharedPreferences sharedPrefs = this.getActivity().getSharedPreferences("TYPE", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-
-        Set<String> set= new HashSet<>();
-        for (int i = 0; i < list.size(); i++) {
-            set.add(list.get(i).getJSONInfo().toString());
-        }
-        editor.putStringSet("TYPE", set);
-        editor.apply();
-    }
-
-    public void storeTENUREList(ArrayList<InfoFromServer> list)
-    {
-        SharedPreferences sharedPrefs = this.getActivity().getSharedPreferences("TENURE", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-
-        Set<String> set= new HashSet<>();
-        for (int i = 0; i < list.size(); i++) {
-            set.add(list.get(i).getJSONInfo().toString());
-        }
-        editor.putStringSet("TENURE", set);
-        editor.apply();
-    }
-
-    public void storePURPOSEList(ArrayList<InfoFromServer> list)
-    {
-        SharedPreferences sharedPrefs = this.getActivity().getSharedPreferences("PURPOSE", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-
-        Set<String> set= new HashSet<>();
-        for (int i = 0; i < list.size(); i++) {
-            set.add(list.get(i).getJSONInfo().toString());
-        }
-        editor.putStringSet("PURPOSE", set);
-        editor.apply();
-    }
-
-    private class GetTENURE extends AsyncTask<Void, Void, Void>
-    {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            tenure.clear();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
-            ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(GET_DATA, ServiceHandler.GET);
-            if(json != null)
-            {
-                try
-                {
-                    JSONObject jsonObject = new JSONObject(json);
-                    JSONArray MKH = jsonObject.getJSONArray("tbtenure");
-                    for(int i = 0; i < MKH.length(); i++)
-                    {
-                        JSONObject catObj = (JSONObject)MKH.get(i);
-                        InfoFromServer info = new InfoFromServer(catObj.getString("TENURE"), catObj.getString("DETAILS"));
-                        tenure.add(info);
-                    }
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String id = jsonObject.getString("id");
+                    String name = jsonObject.getString("name");
+                    InfoFromServer info = new InfoFromServer(id, name);
+                    items.add(info);
                 }
                 catch(JSONException e)
                 {
                     e.printStackTrace();
                 }
-                storeTENUREList(tenure);
             }
-            return null;
         }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-            populateSpinnerTenure();
-        }
+        return items;
     }
 
-    private class GetTYPE extends AsyncTask<Void, Void, Void>
+    private void populateSpinner(Spinner sp, String key)
+    {
+        ArrayList<InfoFromServer> list = loadFromSharedPreferences(key);
+        List<String> labels = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++)
+        {
+            labels.add(list.get(i).getID());
+        }
+        Collections.sort(labels);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+                R.layout.custom_spinner_item, labels);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(spinnerAdapter);
+    }
+
+    public void storeSpinnerData(ArrayList<InfoFromServer> list, String key)
+    {
+        SharedPreferences.Editor editor = spinnerStorage.edit();
+        Set<String> set = new HashSet<>();
+        for(int i = 0; i < list.size(); i++)
+        {
+            set.add(list.get(i).getJSONInfo().toString());
+        }
+        editor.putStringSet(key, set);
+        editor.apply();
+    }
+
+    private class GetDataForSpinner extends AsyncTask<Void, Void, Void>
     {
         @Override
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
-            type.clear();
+            arrType.clear();
+            arrPurpose.clear();
+            arrTenure.clear();
+
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Fetching Information...");
             pDialog.setCancelable(false);
@@ -437,25 +282,34 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             String json = jsonParser.makeServiceCall(GET_DATA, ServiceHandler.GET);
             if(json != null)
             {
-                try
-                {
-                    JSONObject jsonObject = new JSONObject(json);
-                    JSONArray MKH = jsonObject.getJSONArray("tbloantype");
-                    for(int i = 0; i < MKH.length(); i++)
-                    {
-                        JSONObject catObj = (JSONObject)MKH.get(i);
-                        InfoFromServer info = new InfoFromServer(catObj.getString("TYPE"), catObj.getString("DETAILS"));
-                        type.add(info);
-                    }
-                }
-                catch(JSONException e)
-                {
-                    e.printStackTrace();
-                }
-                storeTYPEList(type);
+                getIt(json, "tbtenure", "TENURE", "DETAILS", arrTenure);
+                storeSpinnerData(arrTenure, "Tenure");
+                getIt(json, "tbloantype", "TYPE", "DETAILS", arrType);
+                storeSpinnerData(arrType, "Type");
+                getIt(json, "tbpurpose", "PURPOSE", "DETAILS", arrPurpose);
+                storeSpinnerData(arrPurpose, "Purpose");
             }
 
             return null;
+        }
+
+        private void getIt(String json, String key, String data1, String data2, ArrayList<InfoFromServer> list)
+        {
+            try {
+                JSONObject object = new JSONObject(json);
+                JSONArray array = object.getJSONArray(key);
+                for(int i = 0; i < array.length(); i++)
+                {
+                    JSONObject jsonObject = (JSONObject)array.get(i);
+                    InfoFromServer info = new InfoFromServer(jsonObject.getString(data1),
+                            jsonObject.getString(data2));
+                    list.add(info);
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -464,51 +318,9 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             super.onPostExecute(result);
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            populateSpinnerType();
-        }
-    }
-
-    private class GetPURPOSE extends AsyncTask<Void, Void, Void>
-    {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            purpose.clear();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
-
-            ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(GET_DATA, ServiceHandler.GET);
-            if(json != null)
-            {
-                try
-                {
-                    JSONObject jsonObject = new JSONObject(json);
-                    JSONArray MKH = jsonObject.getJSONArray("tbpurpose");
-                    for(int i = 0; i < MKH.length(); i++)
-                    {
-                        JSONObject catObj = (JSONObject)MKH.get(i);
-                        InfoFromServer info = new InfoFromServer(catObj.getString("PURPOSE"), catObj.getString("DETAILS"));
-                        purpose.add(info);
-                    }
-                }
-                catch(JSONException e)
-                {
-                    e.printStackTrace();
-                }
-                storePURPOSEList(purpose);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-            populateSpinnerPurpose();
+            populateSpinner(spTenure, "Tenure");
+            populateSpinner(spLoanType, "Type");
+            populateSpinner(spLoanPurpose, "Purpose");
         }
     }
 

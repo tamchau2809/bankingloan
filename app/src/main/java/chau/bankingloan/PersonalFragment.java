@@ -44,7 +44,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_personal, container, false);
 
-        initWiget();
+        initWidget();
 
         populateSpinner(spEducation, arrEducation);
         populateSpinner(spGender, arrGender);
@@ -112,7 +112,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
         return rootView;
     }
 
-    public void initWiget()
+    public void initWidget()
     {
         tvBirthDay = (TextView)rootView.findViewById(R.id.tvBirthDay);
         tvDateOfIssue = (TextView)rootView.findViewById(R.id.tvDateOfIssue);
