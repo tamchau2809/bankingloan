@@ -29,42 +29,22 @@
             android:layout_height="wrap_content"
             android:gravity="center|top" >
 
-            <ProgressBar
-                android:id="@+id/prgUpload"
-                android:indeterminate="true"
-                android:indeterminateTintMode="src_atop"
-                android:indeterminateTint="@color/colorPrimary"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvPercentUpload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#008800"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabAddImg"
+                android:id="@+id/fabDocumentAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@android:drawable/ic_menu_add" />
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabTakePic"
+                android:id="@+id/fabDocumentTakePic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@android:drawable/ic_menu_camera" />
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabUpload"
+                android:id="@+id/fabDocumentUpload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"

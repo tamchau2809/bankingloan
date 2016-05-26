@@ -127,11 +127,16 @@ public class ConfirmFragment extends Fragment
                         android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton)
                             {
-                                if(tv.getText().toString().trim() == "TINHTHO")
-                                {
+//                                if(tv.getText().toString().trim() == "TINHTHO")
+//                                {
                                     MainActivity act = (MainActivity) getActivity();
                                     act.switchTab(8);
-                                }
+//                                }
+//                                else
+//                                {
+//                                    tv.setError("Please Check Again!");
+//                                    tv.requestFocus();
+//                                }
                             }
                         })
                 .setNegativeButton(

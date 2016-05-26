@@ -3,13 +3,13 @@ package chau.bankingloan;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,8 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -33,6 +31,8 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import java.io.File;
@@ -50,13 +50,13 @@ public class DocumentFragment extends Fragment {
     View rootView;
 
     private LinearLayout lnrImages;
+    SharedPreferences personalPref;
 
-    final String FILE_UPLOAD_URL = "http://192.168.1.11/chauvu/up.php";
+    final String FILE_UPLOAD_URL = "http://192.168.1.17/chauvu/document.php";
     FloatingActionButton fabAddImg, fabCamera, fabUpload, fabBack, fabNext;
 
     private ArrayList<String> imagesPathList;
-    ProgressBar prgPercent;
-    TextView tvPercent;
+    ProgressDialog pDialog;
     private final int PICK_IMAGE_MULTIPLE = 1;
     File sourceFile;
 
@@ -64,7 +64,9 @@ public class DocumentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_document, container, false);
-        initWiget();
+        initWidget();
+
+        personalPref = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
 
         fabAddImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,14 +117,12 @@ public class DocumentFragment extends Fragment {
         return rootView;
     }
 
-    public void initWiget()
+    public void initWidget()
     {
         lnrImages = (LinearLayout)rootView.findViewById(R.id.llImage);
-        tvPercent = (TextView)rootView.findViewById(R.id.tvPercentUpload);
-        prgPercent = (ProgressBar)rootView.findViewById(R.id.prgUpload);
-        fabAddImg = (FloatingActionButton) rootView.findViewById(R.id.fabAddImg);
-        fabCamera = (FloatingActionButton) rootView.findViewById(R.id.fabTakePic);
-        fabUpload = (FloatingActionButton) rootView.findViewById(R.id.fabUpload);
+        fabAddImg = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentAdd);
+        fabCamera = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentTakePic);
+        fabUpload = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentUpload);
         fabBack = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentPre);
         fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabDocumentNext);
     }
@@ -164,9 +164,9 @@ public class DocumentFragment extends Fragment {
                     BitmapFactory.Options opt = new BitmapFactory.Options();
                     opt.inSampleSize = 2;
                     imagesPathList.add(anImagesPath);
-                    Bitmap yourbitmap = BitmapFactory.decodeFile(anImagesPath, opt);
+                    Bitmap yourBitmap = BitmapFactory.decodeFile(anImagesPath, opt);
                     ImageView imageView = new ImageView(getContext());
-                    imageView.setImageBitmap(yourbitmap);
+                    imageView.setImageBitmap(yourBitmap);
                     imageView.setAdjustViewBounds(true);
                     lnrImages.addView(imageView);
                 }
@@ -188,19 +188,13 @@ public class DocumentFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    public void showProgress(final boolean show, float value)
+    public void setEnabled(final boolean show)
     {
-        prgPercent.setVisibility(show ? View.VISIBLE : View.GONE);
-        tvPercent.setVisibility(show ? View.VISIBLE : View.GONE);
-        lnrImages.setEnabled(!show);
-        fabBack.setEnabled(!show);
-        fabUpload.setEnabled(!show);
-        fabAddImg.setEnabled(!show);
-        fabCamera.setEnabled(!show);
-
-        prgPercent.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-
-        tvPercent.setText(String.valueOf((int)value) + "%");
+        lnrImages.setEnabled(show);
+        fabBack.setEnabled(show);
+        fabUpload.setEnabled(show);
+        fabAddImg.setEnabled(show);
+        fabCamera.setEnabled(show);
     }
 
     private class UploadFile extends AsyncTask<Void, Float, String>
@@ -208,14 +202,18 @@ public class DocumentFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             // setting progress bar to zero
-            prgPercent.setProgress(0);
+            pDialog = new ProgressDialog(getContext());
+            pDialog.setMessage("Uploading...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+            setEnabled(false);
             super.onPreExecute();
         }
 
         @Override
         protected void onProgressUpdate(Float... values) {
             // TODO Auto-generated method stub
-            showProgress(true, values[0]);
+            pDialog.setMessage("Uploading..." + String.valueOf(values[0]) + "%");
         }
 
         @Override
@@ -228,6 +226,9 @@ public class DocumentFragment extends Fragment {
         {
             String response = null;
             HttpClient httpClient = new DefaultHttpClient();
+            HttpParams test = httpClient.getParams();
+            HttpConnectionParams.setConnectionTimeout(test, 5000);
+            HttpConnectionParams.setSoTimeout(test, 5000);
             HttpPost httpPost = new HttpPost(FILE_UPLOAD_URL);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             try
@@ -246,14 +247,12 @@ public class DocumentFragment extends Fragment {
                     final Bitmap bitmap = BitmapFactory.decodeFile(imagesPathList.get(i));
                     sourceFile = saveImage(bitmap, String.valueOf(x), getContext());
                     builder.addPart("image" + x, new FileBody(sourceFile));
-                    String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss",
-                            Locale.getDefault()).format(new Date());
-                    builder.addPart("cus_time", new StringBody(timeStamp, ContentType.TEXT_PLAIN));
                 }
 
-                builder.addPart("MAKH", new StringBody(MainActivity.MAKH, ContentType.TEXT_PLAIN));
-                builder.addPart("cus_number", new StringBody(MainActivity.contractNum, ContentType.TEXT_PLAIN));
-                builder.addPart("MANV", new StringBody(MainActivity.MANV, ContentType.TEXT_PLAIN));
+                String ID = personalPref.getString("identityNum", "");
+                String name = personalPref.getString("name", "");
+                builder.addPart("NAME_ID", new StringBody(name, ContentType.TEXT_PLAIN));
+                builder.addPart("ID_NUM", new StringBody(ID, ContentType.TEXT_PLAIN));
 
                 httpPost.setEntity(new UploadProgress2(builder.build(), lis));
 
@@ -296,7 +295,9 @@ public class DocumentFragment extends Fragment {
             {
                 showAlert("Thất Bại!" + result);
             }
-            showProgress(false, 0);
+            setEnabled(true);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
             super.onPostExecute(result);
         }
     }

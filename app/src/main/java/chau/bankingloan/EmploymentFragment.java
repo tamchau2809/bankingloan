@@ -44,7 +44,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
     ProgressDialog pDialog;
     final String GET_DATA = "http://192.168.1.17/chauvu/loanData.php";
 
-    SharedPreferences employment, spinnerStorage;
+    SharedPreferences employment;
 
     private DatePickerDialog mDatePickerDialog;
     private SimpleDateFormat dateFormatter;
@@ -63,7 +63,6 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         rootView = inflater.inflate(R.layout.fragment_employment, container, false);
 
         initWidget();
-        spinnerStorage = this.getActivity().getSharedPreferences("SPINNER", Context.MODE_APPEND);
         dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
         employment = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
@@ -125,9 +124,9 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             }
         });
 
-        if(!spinnerStorage.contains("WorkingStt") ||
-                !spinnerStorage.contains("CompanyType") ||
-                !spinnerStorage.contains("Industry"))
+        if(!employment.contains("WorkingStt") ||
+                !employment.contains("CompanyType") ||
+                !employment.contains("Industry"))
         {
             if(isConnectedToInternet(getContext()))
             {
@@ -141,6 +140,9 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             populateSpinner(spWorkingStt, "WorkingStt");
             populateSpinner(spCompanyType, "CompanyType");
             populateSpinner(spIndustry, "Industry");
+            spWorkingStt.setSelection(employment.getInt("workingSttLoca", 0));
+            spCompanyType.setSelection(employment.getInt("companyType", 0));
+            spIndustry.setSelection(employment.getInt("industry", 0));
         }
 
         FloatingActionButton fabRefresh = (FloatingActionButton)rootView.findViewById(R.id.fabEmployRefresh);
@@ -181,9 +183,6 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             edOtherIncome.setText(test.getString("otherIncome", ""));
             edTotalIncome.setText(test.getString("totalIncome", ""));
             edEmployerContact.setText(test.getString("employerContact", ""));
-            spWorkingStt.setSelection(test.getInt("workingSttLoca", 0));
-            spCompanyType.setSelection(test.getInt("companyType", 0));
-            spIndustry.setSelection(test.getInt("industry", 0));
         }
     }
 
@@ -227,7 +226,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
 
     public void storeSpinnerData(ArrayList<InfoFromServer> list, String key)
     {
-        SharedPreferences.Editor editor = spinnerStorage.edit();
+        SharedPreferences.Editor editor = employment.edit();
         Set<String> set = new HashSet<>();
         for(int i = 0; i < list.size(); i++)
         {
@@ -240,7 +239,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
     public ArrayList<InfoFromServer> loadFromSharedPreferences(String key)
     {
         ArrayList<InfoFromServer> items = new ArrayList<>();
-        Set<String> set = spinnerStorage.getStringSet(key, null);
+        Set<String> set = employment.getStringSet(key, null);
         if (set != null) {
             for(String s : set)
             {
@@ -282,7 +281,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             super.onPreExecute();
             arrWorkingStt.clear();
             arrWorkingStt.clear();
-            spinnerStorage.edit().clear().apply();
+            employment.edit().clear().apply();
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Fetching Information...");
             pDialog.setCancelable(false);

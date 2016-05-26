@@ -74,8 +74,8 @@ public class CustomPhotoGalleryActivity extends Activity {
                 {
                 	showAlert("Hãy Chọn Ít Nhất 1 Hình!");
                 }
-                else if (cnt > 3) {
-                    showAlert("Chỉ Được Chọn Tối Đa 3 file!");
+                else if (cnt > 5) {
+                    showAlert("Chỉ Được Chọn Tối Đa 5 file!");
                 } else {
 
                     Log.d("SelectedImages", selectImages);

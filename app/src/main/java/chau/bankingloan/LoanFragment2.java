@@ -43,7 +43,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
 
     final String GET_DATA = "http://192.168.1.17/chauvu/loanData.php";
 
-    SharedPreferences LoanDetails, spinnerStorage;
+    SharedPreferences LoanDetails;
     ProgressDialog pDialog;
 
     Spinner spLoanType, spTenure, spLoanPurpose;
@@ -72,10 +72,9 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         LoanDetails = this.getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
         loadFromSharedPreference(LoanDetails);
 
-        spinnerStorage = this.getActivity().getSharedPreferences("SPINNER_LOAN", Context.MODE_APPEND);
-        if(!spinnerStorage.contains("Type") ||
-                !spinnerStorage.contains("Tenure") ||
-                !spinnerStorage.contains("Purpose"))
+        if(!LoanDetails.contains("Type") ||
+                !LoanDetails.contains("Tenure") ||
+                !LoanDetails.contains("Purpose"))
         {
             if(isConnectedToInternet(getContext())) {
                 new GetDataForSpinner().execute();
@@ -114,21 +113,21 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 if(edLoanAmount.getText().toString().length() == 0) {
-                    edLoanAmount.setError("asd");
+                    edLoanAmount.setError("Please Enter The Loan Amount!");
                     edLoanAmount.requestFocus();
                 }
                 else if(edMaxInterest.getText().toString().length() == 0) {
-                    edMaxInterest.setError("asd");
+                    edMaxInterest.setError("Please Enter The The Max Interest!");
                     edMaxInterest.requestFocus();
                 }
                 else if(edMonthlyPayment.getText().toString().length() == 0)
                 {
-                    edMonthlyPayment.setError("asd");
+                    edMonthlyPayment.setError("Please Enter The Monthly Payment!");
                     edMonthlyPayment.requestFocus();
                 }
                 else if(tvLastPayment.getText().toString().length() == 0)
                 {
-                    tvLastPayment.setError("ad");
+                    tvLastPayment.setError("Please Choose The Last Payment Day!");
                 }
                 else {
                     LoanDetails = getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
@@ -211,7 +210,8 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
     public ArrayList<InfoFromServer> loadFromSharedPreferences(String key)
     {
         ArrayList<InfoFromServer> items = new ArrayList<>();
-        Set<String> set = spinnerStorage.getStringSet(key, null);
+//        Set<String> set = spinnerStorage.getStringSet(key, null);
+        Set<String> set = LoanDetails.getStringSet(key, null);
         if (set != null) {
             for(String s : set)
             {
@@ -248,7 +248,8 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
 
     public void storeSpinnerData(ArrayList<InfoFromServer> list, String key)
     {
-        SharedPreferences.Editor editor = spinnerStorage.edit();
+//        SharedPreferences.Editor editor = spinnerStorage.edit();
+        SharedPreferences.Editor editor = LoanDetails.edit();
         Set<String> set = new HashSet<>();
         for(int i = 0; i < list.size(); i++)
         {
