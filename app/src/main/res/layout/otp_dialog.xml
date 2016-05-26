@@ -7,7 +7,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:imeOptions="flagNoExtractUi"
-        android:id="@+id/calladdress_edit"
+        android:id="@+id/edConfirmString"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_marginLeft="20dip"

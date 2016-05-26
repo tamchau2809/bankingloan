@@ -159,7 +159,6 @@ public class DocumentFragment extends Fragment {
                 }catch (Throwable e){
                     e.printStackTrace();
                 }
-
                 for (String anImagesPath : imagesPath) {
                     BitmapFactory.Options opt = new BitmapFactory.Options();
                     opt.inSampleSize = 2;

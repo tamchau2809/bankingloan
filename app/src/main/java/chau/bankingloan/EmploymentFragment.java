@@ -12,6 +12,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +31,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -49,9 +50,9 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
     private DatePickerDialog mDatePickerDialog;
     private SimpleDateFormat dateFormatter;
 
-    TextView tvDateJoined;
+    TextView tvDateJoined, tvTotalIncome;
     Spinner spWorkingStt, spCompanyType, spIndustry;
-    EditText edEmployer, edDesignation, edSalaryIncome, edEmployerAdd, edOtherIncome, edTotalIncome, edEmployerContact;
+    EditText edEmployer, edDesignation, edSalaryIncome, edEmployerAdd, edOtherIncome, edEmployerContact;
 
     ArrayList<InfoFromServer> arrWorkingStt = new ArrayList<>();
     ArrayList<InfoFromServer> arrCompanyType = new ArrayList<>();
@@ -97,9 +98,9 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                     edOtherIncome.setError("Please Enter Other Income!");
                     edOtherIncome.requestFocus();
                 }
-                else if (edTotalIncome.getText().toString().length() == 0)
+                else if (tvTotalIncome.getText().toString().length() == 0)
                 {
-                    edTotalIncome.setError("Please Enter Salary Income!");
+                    tvTotalIncome.setError("Please Enter Salary Income!");
                     edSalaryIncome.requestFocus();
                 }
                 else {
@@ -113,7 +114,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                     editor.putString("designation", edDesignation.getText().toString());
                     editor.putString("salaryIncome", edSalaryIncome.getText().toString());
                     editor.putString("otherIncome", edOtherIncome.getText().toString());
-                    editor.putString("totalIncome", edTotalIncome.getText().toString());
+                    editor.putString("totalIncome", tvTotalIncome.getText().toString());
                     editor.putString("employerContact", edEmployerContact.getText().toString());
                     editor.putString("workingStt", spWorkingStt.getSelectedItem().toString());
                     editor.apply();
@@ -167,6 +168,44 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                 act.switchTab(2);
             }
         });
+
+        edSalaryIncome.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int a = Integer.parseInt(edSalaryIncome.getText().toString().isEmpty() ? "0" : edSalaryIncome.getText().toString());
+                int b = Integer.parseInt(edOtherIncome.getText().toString().isEmpty() ? "0" : edOtherIncome.getText().toString());
+                tvTotalIncome.setText(String.valueOf(a + b));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        edOtherIncome.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int a = Integer.parseInt(edSalaryIncome.getText().toString().isEmpty() ? "0" : edSalaryIncome.getText().toString());
+                int b = Integer.parseInt(edOtherIncome.getText().toString().isEmpty() ? "0" : edOtherIncome.getText().toString());
+                tvTotalIncome.setText(String.valueOf(a + b));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         SetDateTime();
         return rootView;
     }
@@ -181,7 +220,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
             edDesignation.setText(test.getString("designation", ""));
             edSalaryIncome.setText(test.getString("salaryIncome", ""));
             edOtherIncome.setText(test.getString("otherIncome", ""));
-            edTotalIncome.setText(test.getString("totalIncome", ""));
+            tvTotalIncome.setText(test.getString("totalIncome", ""));
             edEmployerContact.setText(test.getString("employerContact", ""));
         }
     }
@@ -198,7 +237,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         edEmployerContact = (EditText)rootView.findViewById(R.id.edEmployerContact);
         edOtherIncome = (EditText) rootView.findViewById(R.id.edOtherIncome);
         edSalaryIncome = (EditText)rootView.findViewById(R.id.edSalaryIncome);
-        edTotalIncome = (EditText)rootView.findViewById(R.id.edTotalIncome);
+        tvTotalIncome = (TextView) rootView.findViewById(R.id.tvTotalIncome);
 
         tvDateJoined = (TextView)rootView.findViewById(R.id.tvDateJonied);
     }

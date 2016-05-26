@@ -119,34 +119,41 @@ public class ConfirmFragment extends Fragment
     {
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View alertDialogView = factory.inflate(R.layout.otp_dialog, null);
-        final EditText tv = (EditText) alertDialogView.findViewById(R.id.calladdress_edit);
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setTitle(getString(R.string.please_enter_the_number_you_ve_been_received))
+        final EditText tv = (EditText) alertDialogView.findViewById(R.id.edConfirmString);
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.please_enter_the_number_you_ve_been_received))
                 .setView(alertDialogView)
                 .setPositiveButton(
                         android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton)
-                            {
-//                                if(tv.getText().toString().trim() == "TINHTHO")
-//                                {
-                                    MainActivity act = (MainActivity) getActivity();
-                                    act.switchTab(8);
-//                                }
-//                                else
-//                                {
-//                                    tv.setError("Please Check Again!");
-//                                    tv.requestFocus();
-//                                }
-                            }
-                        })
-                .setNegativeButton(
-                        android.R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                             }
                         })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
                 .create();
         alertDialog.setCancelable(false);
         alertDialog.show();
+
+        View btnTest = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tv.getText().toString().trim().equals("A"))
+                {
+                    MainActivity act = (MainActivity) getActivity();
+                    act.switchTab(7);
+                    alertDialog.dismiss();
+                }
+                else
+                {
+                    tv.setError("Please Check Again!");
+                    tv.requestFocus();
+                }
+            }
+        });
     }
 
     public void initWidget()
