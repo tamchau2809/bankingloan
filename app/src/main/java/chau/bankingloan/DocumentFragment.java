@@ -282,18 +282,19 @@ public class DocumentFragment extends Fragment {
             if(!myDir.exists()){
                 myDir.mkdir();
             }
-            if(result == null)
-            {
-                showAlert("Thất Bại!" + result);
-            }
-            else if(result.equals("111") || result.equals("11") || result.equals("1"))
-            {
-                showAlert("Hoàn Thành!");
-            }
-            else
-            {
-                showAlert("Thất Bại!" + result);
-            }
+//            if(result == null)
+//            {
+//                showAlert("Thất Bại!" + result);
+//            }
+//            else if(result.equals("111") || result.equals("11") || result.equals("1"))
+//            {
+//                showAlert("Hoàn Thành!");
+//            }
+//            else
+//            {
+//                showAlert("Thất Bại!" + result);
+//            }
+            showAlert(result);
             setEnabled(true);
             if (pDialog.isShowing())
                 pDialog.dismiss();
