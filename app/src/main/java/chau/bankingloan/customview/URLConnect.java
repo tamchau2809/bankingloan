@@ -9,4 +9,5 @@ public class URLConnect {
     public static String FILE_UPLOAD_URL = "http://192.168.1.13/chauvu/document.php";
     public static String GET_DATA_LOAN = "http://192.168.1.13/chauvu/loanData.php";
     public static String GET_DATA_EMPLOYMENT = "http://192.168.1.13/chauvu/loanData.php";
+    public static String GET_TOOLBAR_TEXT = "http://192.168.1.13/chauvu/xml/toolbar.json";
 }

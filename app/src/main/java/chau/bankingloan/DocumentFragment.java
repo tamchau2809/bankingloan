@@ -100,7 +100,7 @@ public class DocumentFragment extends Fragment {
         fabBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BankingLoan act = (BankingLoan) getActivity();
+                MainActivity act = (MainActivity) getActivity();
                 act.switchTab(3);
             }
         });
@@ -108,7 +108,7 @@ public class DocumentFragment extends Fragment {
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BankingLoan act = (BankingLoan) getActivity();
+                MainActivity act = (MainActivity) getActivity();
                 act.switchTab(5);
             }
         });
@@ -300,7 +300,7 @@ public class DocumentFragment extends Fragment {
                     || result.equals("1"))
             {
                 showAlert("Uploads Completed!");
-                BankingLoan act = (BankingLoan) getActivity();
+                MainActivity act = (MainActivity) getActivity();
                 act.switchTab(5);
             }
             else

@@ -5,27 +5,27 @@ import org.json.JSONObject;
 
 public class InfoFromServer {
 	private String id;
-	private String name;
+	private String data;
 
 	public InfoFromServer(String id, String name){
 		this.id = id;
-		this.name = name;
+		this.data = name;
 	}
 	
 	public void setId(String id){
 		this.id = id;
 	}
 	
-	public void setName(String name){
-		this.name = name;
+	public void setData(String data){
+		this.data = data;
 	}
 	
 	public String getID(){
 		return this.id;
 	}
 	
-	public String getName(){
-		return this.name;
+	public String getData(){
+		return this.data;
 	}
 
 	public JSONObject getJSONInfo()
@@ -34,7 +34,7 @@ public class InfoFromServer {
 		try
 		{
 			obj.put("id", this.id);
-			obj.put("name", this.name);
+			obj.put("data", this.data);
 		}
 		catch(JSONException e)
 		{

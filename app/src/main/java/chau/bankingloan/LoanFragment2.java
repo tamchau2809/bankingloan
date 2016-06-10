@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import chau.bankingloan.customview.ServiceHandler;
 import chau.bankingloan.customview.URLConnect;
 
 /**
@@ -144,7 +145,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
                     editor.putInt("loanPurposeLoca", spLoanPurpose.getSelectedItemPosition());
                     editor.apply();
 
-                    BankingLoan act = (BankingLoan) getActivity();
+                    MainActivity act = (MainActivity) getActivity();
                     act.switchTab(1);
                 }
             }
@@ -218,7 +219,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     String id = jsonObject.getString("id");
-                    String name = jsonObject.getString("name");
+                    String name = jsonObject.getString("data");
                     InfoFromServer info = new InfoFromServer(id, name);
                     items.add(info);
                 }

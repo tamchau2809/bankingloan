@@ -1,4 +1,4 @@
-package chau.bankingloan;
+package chau.bankingloan.customview;
 
 import android.util.Log;
 

@@ -111,7 +111,7 @@ public class ConfirmFragment extends Fragment
         fabConfirmPre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BankingLoan act = (BankingLoan) getActivity();
+                MainActivity act = (MainActivity) getActivity();
                 act.switchTab(4);
             }
         });
@@ -172,7 +172,7 @@ public class ConfirmFragment extends Fragment
                 if(edPIN.getText().toString().equals(PIN_SERVER))
                 {
                     new SendInfo().execute();
-                    BankingLoan act = (BankingLoan) getActivity();
+                    MainActivity act = (MainActivity) getActivity();
                     act.switchTab(6);
                     alertDialog.dismiss();
                 }

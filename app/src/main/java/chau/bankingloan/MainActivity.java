@@ -1,10 +1,11 @@
 package chau.bankingloan;
 
 import android.Manifest;
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -20,23 +21,23 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
 
-import java.io.InputStream;
-import java.net.URL;
+import chau.bankingloan.customview.ServiceHandler;
+import chau.bankingloan.customview.URLConnect;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-public class BankingLoan extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    private static String tab_loan = "";
+    private static String tab_loan;
     private static String MAKH = "";
     private static String contractNum = "";
+
+    private ProgressDialog pDialog;
+    JSONArray array = null;
+    ArrayList<InfoFromServer> list;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -52,34 +53,9 @@ public class BankingLoan extends AppCompatActivity implements NavigationView.OnN
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        try
-        {
-            URL url = new URL("http://192.168.1.13/chauvu/bankingloan.xml");
-            InputStream is = url.openConnection().getInputStream();
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = factory.newDocumentBuilder();
-            Document dom = db.parse(is);
-            Element root = dom.getDocumentElement();
+        list = new ArrayList<InfoFromServer>();
 
-            NodeList forms = root.getElementsByTagName("form");
-            if (forms.getLength() < 1) {
-                // nothing here??
-                AlertDialog.Builder bd = new AlertDialog.Builder(this);
-                AlertDialog ad = bd.create();
-                ad.setTitle("Error");
-                ad.setMessage("Could not parse the Form data");
-                ad.show();
-            }
-            Node form = forms.item(0);
-            NamedNodeMap map = form.getAttributes();
-            Toast.makeText(getApplicationContext(), forms.toString(), Toast.LENGTH_SHORT).show();
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
+        new GetToolbarData().execute();
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -182,13 +158,14 @@ public class BankingLoan extends AppCompatActivity implements NavigationView.OnN
 
         @Override
         public CharSequence getPageTitle(int position) {
+
             switch (position) {
 //                case 0:
 //                    return "INFORMATION";
 //                case 1:
 //                    return "UPLOAD";
                 case 0:
-                    return "LOAN";
+                    return tab_loan;
                 case 1:
                     return "PERSONAL";
                 case 2:
@@ -205,37 +182,6 @@ public class BankingLoan extends AppCompatActivity implements NavigationView.OnN
                     return "APPROVE";
             }
             return null;
-        }
-    }
-
-    public void GetFormData()
-    {
-        try
-        {
-            URL url = new URL("http://192.168.1.13/chauvu/bankingloan.xml");
-            InputStream is = url.openConnection().getInputStream();
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = factory.newDocumentBuilder();
-            Document dom = db.parse(is);
-            Element root = dom.getDocumentElement();
-
-            NodeList forms = root.getElementsByTagName("form");
-            if (forms.getLength() < 1) {
-                // nothing here??
-                AlertDialog.Builder bd = new AlertDialog.Builder(this);
-                AlertDialog ad = bd.create();
-                ad.setTitle("Error");
-                ad.setMessage("Could not parse the Form data");
-                ad.show();
-            }
-            Node form = forms.item(0);
-            NamedNodeMap map = form.getAttributes();
-            Toast.makeText(getApplicationContext(), map.getNamedItem("name").getNodeValue(), Toast.LENGTH_SHORT).show();
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
         }
     }
 
@@ -278,5 +224,43 @@ public class BankingLoan extends AppCompatActivity implements NavigationView.OnN
                 break;
         }
         return false;
+    }
+
+    private class GetToolbarData extends AsyncTask<Void, Void, Void>
+    {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ServiceHandler sh = new ServiceHandler();
+            String jsonStr = sh.makeServiceCall(URLConnect.GET_TOOLBAR_TEXT, ServiceHandler.GET);
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+
+                    // Getting JSON Array node
+                    array = jsonObj.getJSONArray("toolbar");
+                    for(int i = 0; i <= array.length(); i++)
+                    {
+                        JSONObject obj = (JSONObject)array.get(i);
+                        InfoFromServer info = new InfoFromServer(obj.getString("id"),
+                                obj.getString("name"));
+                        list.add(info);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("ServiceHandler", "Couldn't get any data from the url");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            for(int i = 0; i <= 7; i++) {
+                tabLayout.getTabAt(i).setText(list.get(i).getData());
+            }
+        }
     }
 }

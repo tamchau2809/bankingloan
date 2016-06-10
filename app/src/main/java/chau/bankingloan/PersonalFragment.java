@@ -91,7 +91,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
                     editor.putString("numOc", edChildrenNum.getText().toString());
                     editor.apply();
 
-                    BankingLoan act = (BankingLoan) getActivity();
+                    MainActivity act = (MainActivity) getActivity();
                     act.switchTab(2);
                 }
             }
@@ -101,7 +101,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener
         fabPre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BankingLoan act = (BankingLoan)getActivity();
+                MainActivity act = (MainActivity)getActivity();
                 act.switchTab(0);
             }
         });

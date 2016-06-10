@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import chau.bankingloan.customview.ServiceHandler;
 import chau.bankingloan.customview.URLConnect;
 
 /**
@@ -119,7 +120,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                     editor.putString("workingStt", spWorkingStt.getSelectedItem().toString());
                     editor.apply();
 
-                    BankingLoan act = (BankingLoan) getActivity();
+                    MainActivity act = (MainActivity) getActivity();
                     act.switchTab(4);
                 }
             }
@@ -164,7 +165,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         fabPre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BankingLoan act = (BankingLoan)getActivity();
+                MainActivity act = (MainActivity)getActivity();
                 act.switchTab(2);
             }
         });
@@ -285,7 +286,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     String id = jsonObject.getString("id");
-                    String name = jsonObject.getString("name");
+                    String name = jsonObject.getString("data");
                     InfoFromServer info = new InfoFromServer(id, name);
                     items.add(info);
                 }

@@ -29,6 +29,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import chau.bankingloan.customview.ServiceHandler;
+
 /**
  * Created on 20/04/2016 by com08.
  */
@@ -104,9 +106,9 @@ public class LoanFragment extends Fragment {
                     edNum.setError("Chưa Nhập Số Hóa Đơn!");
                     edNum.requestFocus();
                 } else {
-//                    BankingLoan.MAKH = listMKH.get(spinnerMKH.getSelectedItemPosition()).getID();
-//                    BankingLoan.contractNum = edNum.getText().toString();
-//                    BankingLoan.MANV = listMNV.get(spinnerMNV.getSelectedItemPosition()).getID();
+//                    MainActivity.MAKH = listMKH.get(spinnerMKH.getSelectedItemPosition()).getID();
+//                    MainActivity.contractNum = edNum.getText().toString();
+//                    MainActivity.MANV = listMNV.get(spinnerMNV.getSelectedItemPosition()).getID();
 
                     SharedPreferences.Editor editor = contractDetails.edit();
                     editor.putInt("MKH_LOCA", spinnerMKH.getSelectedItemPosition());
@@ -114,7 +116,7 @@ public class LoanFragment extends Fragment {
                     editor.putString("number", edNum.getText().toString());
                     editor.apply();
 
-                    BankingLoan act = (BankingLoan) getActivity();
+                    MainActivity act = (MainActivity) getActivity();
                     act.switchTab(1);
                 }
             }
@@ -302,7 +304,7 @@ public class LoanFragment extends Fragment {
         List<String> labels = new ArrayList<>();
         for(int i = 0; i < listMKH.size(); i++)
         {
-            labels.add(listMKH.get(i).getID() + " - " + listMKH.get(i).getName());
+            labels.add(listMKH.get(i).getID() + " - " + listMKH.get(i).getData());
         }
         Collections.sort(labels);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
@@ -317,7 +319,7 @@ public class LoanFragment extends Fragment {
         List<String> labels = new ArrayList<>();
         for(int i = 0; i < listMNV.size(); i++)
         {
-            labels.add(listMNV.get(i).getID() + " - " + listMNV.get(i).getName());
+            labels.add(listMNV.get(i).getID() + " - " + listMNV.get(i).getData());
         }
         Collections.sort(labels);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
