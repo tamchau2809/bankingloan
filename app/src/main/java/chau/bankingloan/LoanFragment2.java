@@ -34,14 +34,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import chau.bankingloan.customview.URLConnect;
+
 /**
  * Created on 25-Apr-16 by com08
  */
 public class LoanFragment2  extends Fragment implements View.OnClickListener
 {
     View rootView;
-
-    final String GET_DATA = "http://192.168.1.17/chauvu/loanData.php";
 
     SharedPreferences LoanDetails;
     ProgressDialog pDialog;
@@ -144,7 +144,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
                     editor.putInt("loanPurposeLoca", spLoanPurpose.getSelectedItemPosition());
                     editor.apply();
 
-                    MainActivity act = (MainActivity) getActivity();
+                    BankingLoan act = (BankingLoan) getActivity();
                     act.switchTab(1);
                 }
             }
@@ -280,7 +280,7 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
             // TODO Auto-generated method stub
 
             ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(GET_DATA, ServiceHandler.GET);
+            String json = jsonParser.makeServiceCall(URLConnect.GET_DATA_LOAN, ServiceHandler.GET);
             if(json != null)
             {
                 getIt(json, "tbtenure", "TENURE", "DETAILS", arrTenure);

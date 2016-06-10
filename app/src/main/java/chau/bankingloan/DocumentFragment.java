@@ -38,10 +38,9 @@ import org.apache.http.util.EntityUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+
+import chau.bankingloan.customview.URLConnect;
 
 /**
  * Created on 28-Apr-16 by com08.
@@ -52,7 +51,7 @@ public class DocumentFragment extends Fragment {
     private LinearLayout lnrImages;
     SharedPreferences personalPref;
 
-    final String FILE_UPLOAD_URL = "http://192.168.1.17/chauvu/document.php";
+
     FloatingActionButton fabAddImg, fabCamera, fabUpload, fabBack, fabNext;
 
     private ArrayList<String> imagesPathList;
@@ -101,7 +100,7 @@ public class DocumentFragment extends Fragment {
         fabBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity act = (MainActivity) getActivity();
+                BankingLoan act = (BankingLoan) getActivity();
                 act.switchTab(3);
             }
         });
@@ -109,7 +108,7 @@ public class DocumentFragment extends Fragment {
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity act = (MainActivity) getActivity();
+                BankingLoan act = (BankingLoan) getActivity();
                 act.switchTab(5);
             }
         });
@@ -174,16 +173,26 @@ public class DocumentFragment extends Fragment {
     }
 
     private void showAlert(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage(message).setTitle("Thông Báo!!")
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // do nothing
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(message)
+                .setPositiveButton(
+                        android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                .create();
+
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+
+        View btnTest = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -228,7 +237,7 @@ public class DocumentFragment extends Fragment {
             HttpParams test = httpClient.getParams();
             HttpConnectionParams.setConnectionTimeout(test, 5000);
             HttpConnectionParams.setSoTimeout(test, 5000);
-            HttpPost httpPost = new HttpPost(FILE_UPLOAD_URL);
+            HttpPost httpPost = new HttpPost(URLConnect.FILE_UPLOAD_URL);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             try
             {
@@ -282,19 +291,22 @@ public class DocumentFragment extends Fragment {
             if(!myDir.exists()){
                 myDir.mkdir();
             }
-//            if(result == null)
-//            {
-//                showAlert("Thất Bại!" + result);
-//            }
-//            else if(result.equals("111") || result.equals("11") || result.equals("1"))
-//            {
-//                showAlert("Hoàn Thành!");
-//            }
-//            else
-//            {
-//                showAlert("Thất Bại!" + result);
-//            }
-            showAlert(result);
+            if(result == null)
+            {
+                showAlert("Thất Bại!" + result);
+            }
+            else if(result.equals("11111") || result.equals("1111")
+                    || result.equals("111") || result.equals("11")
+                    || result.equals("1"))
+            {
+                showAlert("Uploads Completed!");
+                BankingLoan act = (BankingLoan) getActivity();
+                act.switchTab(5);
+            }
+            else
+            {
+                showAlert("Thất Bại!" + result);
+            }
             setEnabled(true);
             if (pDialog.isShowing())
                 pDialog.dismiss();

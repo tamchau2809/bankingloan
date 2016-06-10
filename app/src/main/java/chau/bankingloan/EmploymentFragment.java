@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import chau.bankingloan.customview.URLConnect;
+
 /**
  * Created on 25-Apr-16 by com08.
  */
@@ -43,8 +45,6 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
     View rootView;
 
     ProgressDialog pDialog;
-    final String GET_DATA = "http://192.168.1.17/chauvu/loanData.php";
-
     SharedPreferences employment;
 
     private DatePickerDialog mDatePickerDialog;
@@ -119,7 +119,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
                     editor.putString("workingStt", spWorkingStt.getSelectedItem().toString());
                     editor.apply();
 
-                    MainActivity act = (MainActivity) getActivity();
+                    BankingLoan act = (BankingLoan) getActivity();
                     act.switchTab(4);
                 }
             }
@@ -164,7 +164,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         fabPre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity act = (MainActivity)getActivity();
+                BankingLoan act = (BankingLoan)getActivity();
                 act.switchTab(2);
             }
         });
@@ -330,7 +330,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         @Override
         protected Void doInBackground(Void... params) {
             ServiceHandler serviceHandler = new ServiceHandler();
-            String json = serviceHandler.makeServiceCall(GET_DATA, ServiceHandler.GET);
+            String json = serviceHandler.makeServiceCall(URLConnect.GET_DATA_EMPLOYMENT, ServiceHandler.GET);
             if(json != null)
             {
                 getIt(json, "tbworkingstatus", "STATUS", "DETAILS", arrWorkingStt);

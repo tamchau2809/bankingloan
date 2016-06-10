@@ -2,9 +2,11 @@ package chau.bankingloan;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,18 +17,41 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+
+import chau.bankingloan.customview.URLConnect;
 
 /**
  * Created on 04-May-16 by com08.
  */
 public class ConfirmFragment extends Fragment
 {
+
+
+    private static String PIN_SERVER = null;
+
     View rootView;
     CheckBox cbCorrect, cbAccept;
     TextView tvConfirmName, tvConfirmDoB, tvConfirmId, tvConfirmAdd, tvConfirmTelephone,
-            tvConfirmMobile, tvConfirmEmail, tvComfirmWorkingStt, tvConfirmEmployer, tvConfirmEmployerAdd;
+            tvConfirmMobile, tvConfirmEmail, tvConfirmWorkingStt, tvConfirmEmployer, tvConfirmEmployerAdd;
     FloatingActionButton fabConfirmPre, fabConfirmNext;
-    SharedPreferences personalPreferences, contactPreferences, employmentPreferences;
+    SharedPreferences personalPreferences, contactPreferences, employmentPreferences, loanPreferences;
+
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -41,6 +66,7 @@ public class ConfirmFragment extends Fragment
         loadFromContact(contactPreferences);
         employmentPreferences = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
         loadFromEmployment(employmentPreferences);
+        loanPreferences = this.getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
 
         cbCorrect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -77,6 +103,7 @@ public class ConfirmFragment extends Fragment
                 else
                 {
                     showDialog();
+                    new PINCreate().execute();
                 }
             }
         });
@@ -84,7 +111,7 @@ public class ConfirmFragment extends Fragment
         fabConfirmPre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity act = (MainActivity) getActivity();
+                BankingLoan act = (BankingLoan) getActivity();
                 act.switchTab(4);
             }
         });
@@ -110,7 +137,7 @@ public class ConfirmFragment extends Fragment
 
     public void loadFromEmployment(SharedPreferences employment)
     {
-        tvComfirmWorkingStt.setText(employment.getString("workingStt", ""));
+        tvConfirmWorkingStt.setText(employment.getString("workingStt", ""));
         tvConfirmEmployer.setText(employment.getString("employer", ""));
         tvConfirmEmployerAdd.setText(employment.getString("employerAdd", ""));
     }
@@ -119,13 +146,14 @@ public class ConfirmFragment extends Fragment
     {
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View alertDialogView = factory.inflate(R.layout.otp_dialog, null);
-        final EditText tv = (EditText) alertDialogView.findViewById(R.id.edConfirmString);
+        final EditText edPIN = (EditText) alertDialogView.findViewById(R.id.edConfirmString);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.please_enter_the_number_you_ve_been_received))
+                .setTitle(getString(R.string.NUMBER_YOU_VE_BEEN_RECEIVED))
                 .setView(alertDialogView)
                 .setPositiveButton(
                         android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+
                             }
                         })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -141,16 +169,17 @@ public class ConfirmFragment extends Fragment
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tv.getText().toString().trim().equals("A"))
+                if(edPIN.getText().toString().equals(PIN_SERVER))
                 {
-                    MainActivity act = (MainActivity) getActivity();
-                    act.switchTab(7);
+                    new SendInfo().execute();
+                    BankingLoan act = (BankingLoan) getActivity();
+                    act.switchTab(6);
                     alertDialog.dismiss();
                 }
                 else
                 {
-                    tv.setError("Please Check Again!");
-                    tv.requestFocus();
+                    edPIN.setError("Please Check Your PIN again!");
+                    edPIN.requestFocus();
                 }
             }
         });
@@ -167,12 +196,130 @@ public class ConfirmFragment extends Fragment
         tvConfirmTelephone = (TextView)rootView.findViewById(R.id.tvConfirmTelephone);
         tvConfirmMobile = (TextView)rootView.findViewById(R.id.tvConfirmMobile);
         tvConfirmEmail = (TextView)rootView.findViewById(R.id.tvConfirmEmail);
-        tvComfirmWorkingStt = (TextView)rootView.findViewById(R.id.tvComfirmWorkingStt);
+        tvConfirmWorkingStt = (TextView)rootView.findViewById(R.id.tvComfirmWorkingStt);
         tvConfirmEmployer = (TextView)rootView.findViewById(R.id.tvConfirmEmployer);
         tvConfirmEmployerAdd = (TextView)rootView.findViewById(R.id.tvConfirmEmployerAdd);
         fabConfirmPre = (FloatingActionButton) rootView.findViewById(R.id.fabConfirmPre);
 //        fabConfirmPre.setEnabled(false);
         fabConfirmNext = (FloatingActionButton) rootView.findViewById(R.id.fabConfirmNext);
 //        fabConfirmNext.setEnabled(false);
+    }
+
+    private class SendInfo extends AsyncTask<Void, Float, String>
+    {
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String response = null;
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpParams test = httpClient.getParams();
+            HttpConnectionParams.setConnectionTimeout(test, 5000);
+            HttpConnectionParams.setSoTimeout(test, 5000);
+            HttpPost httpPost = new HttpPost(URLConnect.URL_UPLOAD);
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            try
+            {
+                UploadProgress2.ProgressListener lis = new UploadProgress2.ProgressListener() {
+
+                    @Override
+                    public void transferred(float num) {
+                        // TODO Auto-generated method stub
+                        publishProgress((num));
+                    }
+                };
+
+                builder.addPart("LOAN_TYPE", new StringBody(loanPreferences.getString("loan_type",""), ContentType.TEXT_PLAIN));
+                builder.addPart("TENURE", new StringBody(loanPreferences.getString("tenure",""), ContentType.TEXT_PLAIN));
+                builder.addPart("LOAN_PURPOSE", new StringBody(loanPreferences.getString("loan_purpose",""), ContentType.TEXT_PLAIN));
+
+                httpPost.setEntity(new UploadProgress2(builder.build(), lis));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                int statusCode = httpResponse.getStatusLine().getStatusCode();
+                if(statusCode == 200)
+                {
+                    response = EntityUtils.toString(httpEntity);
+                }
+                else
+                {
+                    response = "Error: + " + statusCode;
+                }
+            } catch (IOException e) {
+                response = e.toString();
+            }
+            catch(Exception ignored)
+            {}
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+            super.onPostExecute(s);
+        }
+    }
+
+    private class PINCreate extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String response = null;
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpParams test = httpClient.getParams();
+            HttpConnectionParams.setConnectionTimeout(test, 5000);
+            HttpConnectionParams.setSoTimeout(test, 5000);
+            HttpPost httpPost = new HttpPost(URLConnect.PIN_GENERATE);
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            try {
+                String email = contactPreferences.getString("email","");
+                builder.addPart("EMAIL", new StringBody(email, ContentType.TEXT_PLAIN));
+                httpPost.setEntity(builder.build());
+
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                int statusCode = httpResponse.getStatusLine().getStatusCode();
+                if(statusCode == 200)
+                {
+                    response = EntityUtils.toString(httpEntity);
+                }
+                else
+                {
+                    response = "Error: + " + statusCode;
+                }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            PIN_SERVER = s;
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+            Toast.makeText(getContext(), PIN_SERVER, Toast.LENGTH_SHORT).show();
+            super.onPostExecute(s);
+        }
     }
 }

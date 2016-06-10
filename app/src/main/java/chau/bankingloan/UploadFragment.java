@@ -89,7 +89,7 @@ public class UploadFragment extends Fragment {
         fab5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity act = (MainActivity) getActivity();
+                BankingLoan act = (BankingLoan) getActivity();
                 act.switchTab(0);
             }
         });

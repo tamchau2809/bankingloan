@@ -92,7 +92,7 @@ public class ContactFragment extends Fragment{
                     editor.putString("contactNum", edContactNum.getText().toString());
                     editor.apply();
 
-                    MainActivity act = (MainActivity) getActivity();
+                    BankingLoan act = (BankingLoan) getActivity();
                     act.switchTab(3);
                 }
             }
@@ -102,7 +102,7 @@ public class ContactFragment extends Fragment{
         fabPre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity act = (MainActivity)getActivity();
+                BankingLoan act = (BankingLoan)getActivity();
                 act.switchTab(1);
             }
         });

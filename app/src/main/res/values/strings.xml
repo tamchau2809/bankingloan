@@ -77,7 +77,7 @@
     <string name="full_terms_and_conditions">Full Terms and Conditions</string>
     <string name="please_share">Please share a few last details to complete your application…</string>
     <string name="please_wait">Please wait while we process your application. \nThis may take a few minutes…</string>
-    <string name="please_enter_the_number_you_ve_been_received">Please enter the number you\'ve been received..</string>
+    <string name="NUMBER_YOU_VE_BEEN_RECEIVED">Please enter the number you\'ve been received..</string>
     <string name="street">Street...</string>
     <string name="city">City...</string>
 </resources>

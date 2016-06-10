@@ -104,9 +104,9 @@ public class LoanFragment extends Fragment {
                     edNum.setError("Chưa Nhập Số Hóa Đơn!");
                     edNum.requestFocus();
                 } else {
-                    MainActivity.MAKH = listMKH.get(spinnerMKH.getSelectedItemPosition()).getID();
-                    MainActivity.contractNum = edNum.getText().toString();
-                    MainActivity.MANV = listMNV.get(spinnerMNV.getSelectedItemPosition()).getID();
+//                    BankingLoan.MAKH = listMKH.get(spinnerMKH.getSelectedItemPosition()).getID();
+//                    BankingLoan.contractNum = edNum.getText().toString();
+//                    BankingLoan.MANV = listMNV.get(spinnerMNV.getSelectedItemPosition()).getID();
 
                     SharedPreferences.Editor editor = contractDetails.edit();
                     editor.putInt("MKH_LOCA", spinnerMKH.getSelectedItemPosition());
@@ -114,7 +114,7 @@ public class LoanFragment extends Fragment {
                     editor.putString("number", edNum.getText().toString());
                     editor.apply();
 
-                    MainActivity act = (MainActivity) getActivity();
+                    BankingLoan act = (BankingLoan) getActivity();
                     act.switchTab(1);
                 }
             }

@@ -101,7 +101,7 @@ public class UploadFragment2 extends Fragment
         fab5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity act = (MainActivity) getActivity();
+                BankingLoan act = (BankingLoan) getActivity();
                 act.switchTab(0);
             }
         });
@@ -254,9 +254,9 @@ public class UploadFragment2 extends Fragment
                     builder.addPart("cus_time", new StringBody(timeStamp, ContentType.TEXT_PLAIN));
                 }
 
-                builder.addPart("MAKH", new StringBody(MainActivity.MAKH, ContentType.TEXT_PLAIN));
-                builder.addPart("cus_number", new StringBody(MainActivity.contractNum, ContentType.TEXT_PLAIN));
-                builder.addPart("MANV", new StringBody(MainActivity.MANV, ContentType.TEXT_PLAIN));
+//                builder.addPart("MAKH", new StringBody(BankingLoan.MAKH, ContentType.TEXT_PLAIN));
+//                builder.addPart("cus_number", new StringBody(BankingLoan.contractNum, ContentType.TEXT_PLAIN));
+//                builder.addPart("MANV", new StringBody(BankingLoan.MANV, ContentType.TEXT_PLAIN));
 
                 httpPost.setEntity(new UploadProgress2(builder.build(), lis));
 
@@ -294,7 +294,7 @@ public class UploadFragment2 extends Fragment
             else if(result.equals("111") || result.equals("11") || result.equals("1"))
             {
                 showAlert("Hoàn Thành!");
-                MainActivity act = (MainActivity) getActivity();
+                BankingLoan act = (BankingLoan) getActivity();
                 act.switchTab(2);
             }
             else

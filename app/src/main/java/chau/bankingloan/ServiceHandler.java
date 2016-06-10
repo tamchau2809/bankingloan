@@ -10,6 +10,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,6 +52,9 @@ public class ServiceHandler {
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpEntity httpEntity;
 			HttpResponse httpResponse = null;
+			HttpParams test = httpClient.getParams();
+			HttpConnectionParams.setConnectionTimeout(test, 5000);
+			HttpConnectionParams.setSoTimeout(test, 5000);
 			
 			// Checking http request method type
 			if (method == POST) {
