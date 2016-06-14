@@ -33,7 +33,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-import chau.bankingloan.customview.URLConnect;
+import chau.bankingloan.customThings.URLConnect;
 
 /**
  * Created on 04-May-16 by com08.

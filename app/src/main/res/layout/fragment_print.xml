@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-            <chau.bankingloan.customview.JustifyTextView
+            <chau.bankingloan.customThings.JustifyTextView
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:paddingEnd="10dp"
@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"/>
-            <chau.bankingloan.customview.JustifyTextView
+            <chau.bankingloan.customThings.JustifyTextView
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:paddingEnd="10dp"
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"/>
-            <chau.bankingloan.customview.JustifyTextView
+            <chau.bankingloan.customThings.JustifyTextView
                 android:textStyle="bold"
                 android:paddingEnd="10dp"
                 android:paddingStart="0dp"
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </chau.bankingloan.customview.JustifyTextView>
+            </chau.bankingloan.customThings.JustifyTextView>
         </LinearLayout>
     </LinearLayout>
 

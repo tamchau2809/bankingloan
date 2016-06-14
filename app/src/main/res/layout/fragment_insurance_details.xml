@@ -22,7 +22,7 @@
             android:layout_weight="3"
             android:layout_gravity="center_vertical|center_horizontal"
             android:weightSum="2">
-            <chau.bankingloan.customview.JustifyTextView
+            <chau.bankingloan.customThings.JustifyTextView
                 android:textStyle="bold"
                 android:id="@+id/test1"
                 android:textSize="18sp"
@@ -30,7 +30,7 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            </chau.bankingloan.customview.JustifyTextView>
+            </chau.bankingloan.customThings.JustifyTextView>
 
             <ProgressBar
                 android:id="@+id/testm"

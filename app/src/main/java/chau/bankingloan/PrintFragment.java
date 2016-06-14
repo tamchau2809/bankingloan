@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import chau.bankingloan.customview.JustifyTextView;
+import chau.bankingloan.customThings.JustifyTextView;
 
 /**
  * Created on 06-May-16 by com08.

@@ -40,7 +40,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import chau.bankingloan.customview.URLConnect;
+import chau.bankingloan.customThings.URLConnect;
 
 /**
  * Created on 28-Apr-16 by com08.

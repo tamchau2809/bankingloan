@@ -34,13 +34,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import chau.bankingloan.customview.ServiceHandler;
-import chau.bankingloan.customview.URLConnect;
+import chau.bankingloan.customThings.InfoFromServer;
+import chau.bankingloan.customThings.ServiceHandler;
+import chau.bankingloan.customThings.URLConnect;
 
 /**
  * Created on 25-Apr-16 by com08
  */
-public class LoanFragment2  extends Fragment implements View.OnClickListener
+public class    LoanFragment2  extends Fragment implements View.OnClickListener
 {
     View rootView;
 

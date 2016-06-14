@@ -29,7 +29,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import chau.bankingloan.customview.ServiceHandler;
+import chau.bankingloan.customThings.InfoFromServer;
+import chau.bankingloan.customThings.ServiceHandler;
 
 /**
  * Created on 20/04/2016 by com08.

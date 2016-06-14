@@ -26,8 +26,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
-import chau.bankingloan.customview.ServiceHandler;
-import chau.bankingloan.customview.URLConnect;
+import chau.bankingloan.customThings.InfoFromServer;
+import chau.bankingloan.customThings.ServiceHandler;
+import chau.bankingloan.customThings.URLConnect;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                case 1:
 //                    return new UploadFragment2();
                 case 0:
-                    return new LoanFragment2();
+                    return new LoanFragment3();
                 case 1:
                     return new PersonalFragment();
                 case 2:
@@ -239,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     // Getting JSON Array node
                     array = jsonObj.getJSONArray("toolbar");
-                    for(int i = 0; i <= array.length(); i++)
+                    for(int i = 0; i < array.length(); i++)
                     {
                         JSONObject obj = (JSONObject)array.get(i);
                         InfoFromServer info = new InfoFromServer(obj.getString("id"),
@@ -258,8 +259,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            for(int i = 0; i <= 7; i++) {
-                tabLayout.getTabAt(i).setText(list.get(i).getData());
+            for(int i = 0; i < 8; i++) {
+                int j = i+1;
+                tabLayout.getTabAt(i).setText(j + "." + list.get(i).getData());
             }
         }
     }
