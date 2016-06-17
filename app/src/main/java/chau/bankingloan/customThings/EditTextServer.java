@@ -18,20 +18,20 @@ import chau.bankingloan.R;
 public class EditTextServer extends LinearLayout {
     EditText edLabel;
     BoldTextview boldTextview;
-//    public EditTextServer(Context ctx, String label, int inputType)
-    public EditTextServer(Context ctx, int inputType)
+    public EditTextServer(Context ctx, String label, int inputType)
+//    public EditTextServer(Context ctx, int inputType)
     {
         super(ctx);
         edLabel = new EditText(getContext());
         edLabel.setInputType(inputType);
-        edLabel.setTextSize(20);
+        edLabel.setTextSize(18);
         edLabel.setGravity(Gravity.CENTER);
         edLabel.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         edLabel.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         edLabel.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 
-//        boldTextview = new BoldTextview(ctx, label, true);
-//        this.addView(boldTextview);
+        boldTextview = new BoldTextview(ctx, label, false);
+        this.addView(boldTextview);
 
         this.addView(edLabel);
     }

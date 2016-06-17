@@ -26,8 +26,8 @@ public class SpinnerServer extends LinearLayout {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
-//        boldTextview = new BoldTextview(ctx, label, true);
-//        this.addView(boldTextview);
+        boldTextview = new BoldTextview(ctx, label, false);
+        this.addView(boldTextview);
         this.addView(spinner);
     }
 }

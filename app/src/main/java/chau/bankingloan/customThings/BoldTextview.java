@@ -18,8 +18,8 @@ public class BoldTextview extends LinearLayout
         super(context);
         tvLabel = new TextView(context);
         tvLabel.setText(label);
-        tvLabel.setTextSize(20);
-        tvLabel.setGravity(Gravity.RIGHT | Gravity.CENTER);
+        tvLabel.setTextSize(18);
+        tvLabel.setGravity(Gravity.RIGHT);
         if(isBold)
             tvLabel.setTypeface(null, Typeface.BOLD);
         tvLabel.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));

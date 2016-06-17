@@ -1,42 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:padding="@dimen/appbar_padding_top"
+<android.support.design.widget.CoordinatorLayout android:padding="@dimen/appbar_padding_top"
     android:baselineAligned="false"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:weightSum="4"
+    android:orientation="vertical"
+    android:background="@drawable/my_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/lnr1"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </LinearLayout>
+    <include layout="@layout/loan_layout" />
 
-    <LinearLayout
-        android:id="@+id/lnr2"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/refresh"
+        app:layout_anchor="@id/fab"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchorGravity="bottom"
+        android:layout_gravity="bottom" />
 
-    <LinearLayout
-        android:id="@+id/lnr3"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_media_ff"
+        android:layout_gravity="bottom|end" />
 
-    <LinearLayout
-        android:id="@+id/lnr4"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </LinearLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
