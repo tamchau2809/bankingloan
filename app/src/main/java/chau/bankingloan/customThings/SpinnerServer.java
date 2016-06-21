@@ -30,4 +30,9 @@ public class SpinnerServer extends LinearLayout {
         this.addView(boldTextview);
         this.addView(spinner);
     }
+
+    public String getValue()
+    {
+        return spinner.getSelectedItem().toString();
+    }
 }

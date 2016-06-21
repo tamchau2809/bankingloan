@@ -3,6 +3,7 @@ package chau.bankingloan.customThings;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
@@ -25,21 +26,23 @@ public class TextViewDate extends LinearLayout{
     TextView tvDate;
     private DatePickerDialog mDatePickerDialog;
     BoldTextview boldTextview;
-    public TextViewDate(Context ctx, String label)
+
+    public TextViewDate(Context ctx, String label, String content)
     {
         super(ctx);
         tvDate = new TextView(getContext());
         tvDate.setTextSize(18);
+        tvDate.setText(content);
         tvDate.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         tvDate.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT < 23)
-        {
-            tvDate.setTextAppearance(ctx, android.R.style.Widget_Material_Light_TextView_SpinnerItem);
-        }
-        else
-        {
-            tvDate.setTextAppearance(android.R.style.Widget_Material_Light_TextView_SpinnerItem);
-        }
+//        if (Build.VERSION.SDK_INT < 23)
+//        {
+//            tvDate.setTextAppearance(ctx, android.R.style.Widget_Material_Light_TextView_SpinnerItem);
+//        }
+//        else
+//        {
+//            tvDate.setTextAppearance(android.R.style.Widget_Material_Light_TextView_SpinnerItem);
+//        }
 //        tvDate.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.C0));
         tvDate.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -65,5 +68,10 @@ public class TextViewDate extends LinearLayout{
 
         this.addView(boldTextview);
         this.addView(tvDate);
+    }
+
+    public String getValue()
+    {
+        return tvDate.getText().toString();
     }
 }

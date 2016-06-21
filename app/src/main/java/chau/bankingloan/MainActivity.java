@@ -32,10 +32,6 @@ import chau.bankingloan.customThings.URLConnect;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    private static String tab_loan;
-    private static String MAKH = "";
-    private static String contractNum = "";
-
     private ProgressDialog pDialog;
     JSONArray array = null;
     ArrayList<InfoFromServer> list;

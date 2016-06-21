@@ -35,12 +35,13 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
     LinearLayout lnrMain;
     ArrayList<InfoView> infoViewArrayList;
 
-    FloatingActionButton fabRefresh;
     ProgressDialog pDialog;
 
     String json;
     JSONObject viewObj;
     JSONArray array;
+
+    FloatingActionButton fabNext;
 
     @Nullable
     @Override
@@ -52,20 +53,12 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
         infoViewArrayList = new ArrayList<>();
         new GetData().execute();
 
-        fabRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new GetData().execute();
-            }
-        });
-
         return rootView;
     }
 
     public void initWidget()
     {
         lnrMain = (LinearLayout)rootView.findViewById(R.id.lnrMain);
-        fabRefresh = (FloatingActionButton)rootView.findViewById(R.id.fabRef);
     }
 
     @Override
@@ -94,7 +87,7 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
                 try
                 {
                     JSONObject jsonObject = new JSONObject(json);
-                    array = jsonObject.getJSONArray("loandetails");
+                    array = jsonObject.getJSONArray("tab1");
                     for(int i = 0; i < array.length(); i++) {
                         viewObj = (JSONObject) array.get(i);
                         InfoView infoView = new InfoView(viewObj.getString("label"),
@@ -115,7 +108,6 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
             super.onPostExecute(aVoid);
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            lnrMain.setWeightSum(2);
 
             LinearLayout ln = new LinearLayout(getContext());
             ln.setOrientation(LinearLayout.HORIZONTAL);
@@ -150,7 +142,7 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
             l1.addView(new EditTextServer(getContext(), infoViewArrayList.get(5).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
             l2.addView(new BoldTextview(getContext(), infoViewArrayList.get(6).getLabel(), true));
             l2.addView(new EditTextServer(getContext(), infoViewArrayList.get(7).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
-            l2.addView(new TextViewDate(getContext(), infoViewArrayList.get(8).getLabel()), layoutParams);
+            l2.addView(new TextViewDate(getContext(), infoViewArrayList.get(8).getLabel(), "Choose Date"), layoutParams);
             lnrMain.addView(l1);
             lnrMain.addView(l2);
 
