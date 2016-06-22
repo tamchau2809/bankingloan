@@ -84,7 +84,7 @@ public class LoanFragment extends Fragment {
             spinnerMNV.setSelection(contractDetails.getInt("MNV_LOCA", 0));
         }
 
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabNextLoanFrag);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

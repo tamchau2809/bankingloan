@@ -11,22 +11,24 @@
     <include layout="@layout/loan_layout" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabNextF3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_media_play" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/refresh"
-        app:layout_anchor="@id/fab"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchorGravity="bottom"
-        android:layout_gravity="bottom"
-        android:adjustViewBounds="false" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_media_ff"
-        android:layout_gravity="bottom|end" />
+        app:layout_anchor="@id/fabNextF3"
+        app:layout_anchorGravity="bottom" />
 
 </android.support.design.widget.CoordinatorLayout>

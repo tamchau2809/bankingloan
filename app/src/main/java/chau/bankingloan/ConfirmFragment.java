@@ -318,7 +318,7 @@ public class ConfirmFragment extends Fragment
             PIN_SERVER = s;
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-            Toast.makeText(getContext(), PIN_SERVER, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
             super.onPostExecute(s);
         }
     }

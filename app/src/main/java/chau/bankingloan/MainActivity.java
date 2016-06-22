@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 7:
                     return new ApproveFragment();
                 default:
-                    return new LoanFragment();
+                    return new LoanFragment2();
             }
         }
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,11 +38,11 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
 
     ProgressDialog pDialog;
 
+    FloatingActionButton tezt;
+
     String json;
     JSONObject viewObj;
     JSONArray array;
-
-    FloatingActionButton fabNext;
 
     @Nullable
     @Override
@@ -50,6 +51,13 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_loan_3, container, false);
         initWidget();
+
+        tezt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Tezuka", Toast.LENGTH_SHORT).show();
+            }
+        });
         infoViewArrayList = new ArrayList<>();
         new GetData().execute();
 
@@ -59,6 +67,7 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
     public void initWidget()
     {
         lnrMain = (LinearLayout)rootView.findViewById(R.id.lnrMain);
+        tezt = (FloatingActionButton)rootView.findViewById(R.id.fabNextF3);
     }
 
     @Override
