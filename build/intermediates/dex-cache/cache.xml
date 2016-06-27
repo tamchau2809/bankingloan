@@ -82,14 +82,14 @@
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="de25352d04ab16c3d14537e2b310f057654640b2">
+        sha1="ab0fff7a3f1aa34a44a26860277cdd236b5be210">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e126b08c4a8458df253538bdb339ec632a90b051\classes.dex" />
     </item>
     <item
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="6e077e1a581d0f925c71ea9a9787d64d6f466473">
+        sha1="bd02457a0624210ae98154fbf5bb0ecb90b6d853">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4d116cffc592bbe3711e107b4b0c66ee4ee81394\classes.dex" />
     </item>
     <item

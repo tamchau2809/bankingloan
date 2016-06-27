@@ -19,7 +19,7 @@
         android:src="@android:drawable/ic_media_play" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabRef"
+        android:id="@+id/fabRefreshF3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"

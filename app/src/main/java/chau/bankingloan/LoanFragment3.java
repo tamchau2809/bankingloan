@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -38,7 +39,9 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
 
     ProgressDialog pDialog;
 
-    FloatingActionButton tezt;
+
+
+    FloatingActionButton tezt, fabRefresh;
 
     String json;
     JSONObject viewObj;
@@ -56,10 +59,19 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Tezuka", Toast.LENGTH_SHORT).show();
+                MainActivity act = (MainActivity) getActivity();
+                act.switchTab(1);
             }
         });
         infoViewArrayList = new ArrayList<>();
         new GetData().execute();
+
+        fabRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GetData().execute();
+            }
+        });
 
         return rootView;
     }
@@ -68,6 +80,7 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
     {
         lnrMain = (LinearLayout)rootView.findViewById(R.id.lnrMain);
         tezt = (FloatingActionButton)rootView.findViewById(R.id.fabNextF3);
+        fabRefresh = (FloatingActionButton)rootView.findViewById(R.id.fabRefreshF3);
     }
 
     @Override
@@ -84,6 +97,7 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
             pDialog.setMessage("Fetching Information...");
             pDialog.setCancelable(false);
             pDialog.show();
+            lnrMain.removeAllViews();
             infoViewArrayList.clear();
         }
 
@@ -100,7 +114,8 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
                     for(int i = 0; i < array.length(); i++) {
                         viewObj = (JSONObject) array.get(i);
                         InfoView infoView = new InfoView(viewObj.getString("label"),
-                                viewObj.getString("type"), viewObj.getString("value"));
+                                viewObj.getString("type"), viewObj.getString("value"),
+                                viewObj.getString("column"));
                         infoViewArrayList.add(infoView);
                     }
                 }
@@ -118,57 +133,123 @@ public class LoanFragment3 extends Fragment implements View.OnClickListener
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
-            LinearLayout ln = new LinearLayout(getContext());
-            ln.setOrientation(LinearLayout.HORIZONTAL);
+            DisplayForm(infoViewArrayList);
+        }
 
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0,0,0,30);
+        //        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//            if (pDialog.isShowing())
+//                pDialog.dismiss();
+//
+//            LinearLayout ln = new LinearLayout(getContext());
+//            ln.setOrientation(LinearLayout.HORIZONTAL);
+//
+//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//            layoutParams.setMargins(15,0,0,20);
+//
+//            LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+//
+//            LinearLayout l1,l2;
+//            l1 = new LinearLayout(getContext());
+//            l1.setOrientation(LinearLayout.VERTICAL);
+//            l1.setLayoutParams(layoutParams1);
+//            l2 = new LinearLayout(getContext());
+//            l2.setOrientation(LinearLayout.VERTICAL);
+//            l2.setLayoutParams(layoutParams1);
+//
+//            BoldTextview boldTextview = new BoldTextview(getContext(), infoViewArrayList.get(1).getLabel(), false);
+////            BoldTextview boldTextview1 = new BoldTextview(getContext(), infoViewArrayList.get(2).getLabel(), false);
+////            BoldTextview boldTextview2 = new BoldTextview(getContext(), infoViewArrayList.get(3).getLabel(), false);
+////            BoldTextview boldTextview3 = new BoldTextview(getContext(), infoViewArrayList.get(4).getLabel(), false);
+////            BoldTextview boldTextview4 = new BoldTextview(getContext(), infoViewArrayList.get(5).getLabel(), false);
+////
+////
+////            ln.addView(new SpinnerServer(getContext(), infoViewArrayList.get(1).getLabel(), infoViewArrayList.get(1).getValue()),0);
+////            ln.addView(boldTextview, 0);
+//            l1.addView(new BoldTextview(getContext(), infoViewArrayList.get(0).getLabel(), true));
+//            l1.addView(new SpinnerServer(getContext(), infoViewArrayList.get(1).getLabel(), infoViewArrayList.get(1).getValue()),layoutParams);
+//            l1.addView(new EditTextServer(getContext(), infoViewArrayList.get(2).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
+//            l1.addView(new SpinnerServer(getContext(), infoViewArrayList.get(3).getLabel(), infoViewArrayList.get(3).getValue()),layoutParams);
+//            l1.addView(new SpinnerServer(getContext(), infoViewArrayList.get(4).getLabel(), infoViewArrayList.get(4).getValue()),layoutParams);
+//            l1.addView(new EditTextServer(getContext(), infoViewArrayList.get(5).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
+//
+//            l2.addView(new BoldTextview(getContext(), infoViewArrayList.get(6).getLabel(), true));
+//            l2.addView(new EditTextServer(getContext(), infoViewArrayList.get(7).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
+//            l2.addView(new TextViewDate(getContext(), infoViewArrayList.get(8).getLabel(), "Choose Date"), layoutParams);
+//            lnrMain.addView(l1);
+//            lnrMain.addView(l2);
+//
+////
+////            lnr1.addView(boldTextview1, 1, layoutParams);
+////            lnr2.addView(new EditTextServer(getContext(), EditorInfo.TYPE_CLASS_NUMBER),1,layoutParams);
+////
+////            lnr1.addView(boldTextview2, 2, layoutParams);
+////            lnr2.addView(new SpinnerServer(getContext(), infoViewArrayList.get(3).getLabel(), infoViewArrayList.get(3).getValue()),2);
+////
+////            lnr1.addView(boldTextview3, 3, layoutParams);
+////            lnr2.addView(new SpinnerServer(getContext(), infoViewArrayList.get(4).getLabel(), infoViewArrayList.get(4).getValue()),3);
+////
+////            lnr1.addView(boldTextview4, 4, layoutParams);
+////            lnr2.addView(new EditTextServer(getContext(), EditorInfo.TYPE_CLASS_NUMBER),4,layoutParams);
+//        }
 
-            LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        private void DisplayForm(ArrayList<InfoView> arrayList)
+        {
+            BoldTextview[] arr;
+            try
+            {
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(15,0,0,15);
 
-            LinearLayout l1,l2;
-            l1 = new LinearLayout(getContext());
-            l1.setOrientation(LinearLayout.VERTICAL);
-            l1.setLayoutParams(layoutParams1);
-            l2 = new LinearLayout(getContext());
-            l2.setOrientation(LinearLayout.VERTICAL);
-            l2.setLayoutParams(layoutParams1);
-//
-            BoldTextview boldTextview = new BoldTextview(getContext(), infoViewArrayList.get(1).getLabel(), false);
-//            BoldTextview boldTextview1 = new BoldTextview(getContext(), infoViewArrayList.get(2).getLabel(), false);
-//            BoldTextview boldTextview2 = new BoldTextview(getContext(), infoViewArrayList.get(3).getLabel(), false);
-//            BoldTextview boldTextview3 = new BoldTextview(getContext(), infoViewArrayList.get(4).getLabel(), false);
-//            BoldTextview boldTextview4 = new BoldTextview(getContext(), infoViewArrayList.get(5).getLabel(), false);
-//
-//
-//            ln.addView(new SpinnerServer(getContext(), infoViewArrayList.get(1).getLabel(), infoViewArrayList.get(1).getValue()),0);
-//            ln.addView(boldTextview, 0);
-            l1.addView(new BoldTextview(getContext(), infoViewArrayList.get(0).getLabel(), true));
-            l1.addView(new SpinnerServer(getContext(), infoViewArrayList.get(1).getLabel(), infoViewArrayList.get(1).getValue()),layoutParams);
-            l1.addView(new EditTextServer(getContext(), infoViewArrayList.get(2).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
-            l1.addView(new SpinnerServer(getContext(), infoViewArrayList.get(3).getLabel(), infoViewArrayList.get(3).getValue()),layoutParams);
-            l1.addView(new SpinnerServer(getContext(), infoViewArrayList.get(4).getLabel(), infoViewArrayList.get(4).getValue()),layoutParams);
-            l1.addView(new EditTextServer(getContext(), infoViewArrayList.get(5).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
-            l2.addView(new BoldTextview(getContext(), infoViewArrayList.get(6).getLabel(), true));
-            l2.addView(new EditTextServer(getContext(), infoViewArrayList.get(7).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
-            l2.addView(new TextViewDate(getContext(), infoViewArrayList.get(8).getLabel(), "Choose Date"), layoutParams);
-            lnrMain.addView(l1);
-            lnrMain.addView(l2);
+                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
 
-//
-//            lnr1.addView(boldTextview1, 1, layoutParams);
-//            lnr2.addView(new EditTextServer(getContext(), EditorInfo.TYPE_CLASS_NUMBER),1,layoutParams);
-//
-//            lnr1.addView(boldTextview2, 2, layoutParams);
-//            lnr2.addView(new SpinnerServer(getContext(), infoViewArrayList.get(3).getLabel(), infoViewArrayList.get(3).getValue()),2);
-//
-//            lnr1.addView(boldTextview3, 3, layoutParams);
-//            lnr2.addView(new SpinnerServer(getContext(), infoViewArrayList.get(4).getLabel(), infoViewArrayList.get(4).getValue()),3);
-//
-//            lnr1.addView(boldTextview4, 4, layoutParams);
-//            lnr2.addView(new EditTextServer(getContext(), EditorInfo.TYPE_CLASS_NUMBER),4,layoutParams);
+                LinearLayout l1,l2;
+                l1 = new LinearLayout(getContext());
+                l1.setOrientation(LinearLayout.VERTICAL);
+                l1.setLayoutParams(layoutParams1);
+                l2 = new LinearLayout(getContext());
+                l2.setOrientation(LinearLayout.VERTICAL);
+                l2.setLayoutParams(layoutParams1);
 
-
+                for (int i = 0; i < arrayList.size(); i++)
+                {
+                    if(arrayList.get(i).getType().equals("textviewColumn"))
+                    {
+                        if(arrayList.get(i).getColumn().equals("1"))
+                            l1.addView(new BoldTextview(getContext(), infoViewArrayList.get(i).getLabel(), true));
+                        if(arrayList.get(i).getColumn().equals("2"))
+                            l2.addView(new BoldTextview(getContext(), infoViewArrayList.get(i).getLabel(), true));
+                    }
+                    if (arrayList.get(i).getType().equals("spinner"))
+                    {
+                        if(arrayList.get(i).getColumn().equals("1"))
+                            l1.addView(new SpinnerServer(getContext(), infoViewArrayList.get(i).getLabel(), infoViewArrayList.get(i).getValue()),layoutParams);
+                        if(arrayList.get(i).getColumn().equals("2"))
+                            l2.addView(new SpinnerServer(getContext(), infoViewArrayList.get(i).getLabel(), infoViewArrayList.get(i).getValue()),layoutParams);
+                    }
+                    if (arrayList.get(i).getType().equals("edittext"))
+                    {
+                        if(arrayList.get(i).getColumn().equals("1"))
+                            l1.addView(new EditTextServer(getContext(), infoViewArrayList.get(i).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
+                        if(arrayList.get(i).getColumn().equals("2"))
+                            l2.addView(new EditTextServer(getContext(), infoViewArrayList.get(i).getLabel(), EditorInfo.TYPE_CLASS_NUMBER),layoutParams);
+                    }
+                    if (arrayList.get(i).getType().equals("textviewDate"))
+                    {
+                        if(arrayList.get(i).getColumn().equals("1"))
+                            l1.addView(new TextViewDate(getContext(), infoViewArrayList.get(i).getLabel(), "Choose Date"), layoutParams);
+                        if(arrayList.get(i).getColumn().equals("2"))
+                            l2.addView(new TextViewDate(getContext(), infoViewArrayList.get(i).getLabel(), "Choose Date"), layoutParams);
+                    }
+                }
+                lnrMain.addView(l1);
+                lnrMain.addView(l2);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }
