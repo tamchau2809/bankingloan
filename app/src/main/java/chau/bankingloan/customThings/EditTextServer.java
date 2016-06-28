@@ -35,4 +35,8 @@ public class EditTextServer extends LinearLayout {
 
         this.addView(edLabel);
     }
+
+    public String getValue() {
+        return edLabel.getText().toString();
+    }
 }

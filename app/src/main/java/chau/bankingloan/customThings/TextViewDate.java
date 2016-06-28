@@ -32,7 +32,7 @@ public class TextViewDate extends LinearLayout{
         super(ctx);
         tvDate = new TextView(getContext());
         tvDate.setTextSize(18);
-        tvDate.setText(content);
+        tvDate.setHint(content);
         tvDate.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         tvDate.setGravity(Gravity.CENTER);
 //        if (Build.VERSION.SDK_INT < 23)
