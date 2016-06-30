@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 0:
                     return new LoanFragment3();
                 case 1:
-                    return new PersonalFragment();
+                    return new PersonalFragment1();
                 case 2:
                     return new ContactFragment();
                 case 3:

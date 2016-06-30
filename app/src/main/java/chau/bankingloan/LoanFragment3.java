@@ -1,6 +1,8 @@
 package chau.bankingloan;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,13 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 import chau.bankingloan.customThings.BoldTextview;
 import chau.bankingloan.customThings.DynamicInfo;
 import chau.bankingloan.customThings.EditTextServer;
-import chau.bankingloan.customThings.InfoView;
 import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.SpinnerServer;
 import chau.bankingloan.customThings.TextViewDate;
@@ -36,12 +36,14 @@ import chau.bankingloan.customThings.URLConnect;
 public class LoanFragment3 extends Fragment
 {
     View rootView;
-    LinearLayout lnrMain;
-    ArrayList<InfoView> infoViewArrayList;
+    LinearLayout lnrTab1;
     Vector<DynamicInfo> dynamicInfos;
 
-    ProgressDialog pDialog;
+    ProgressDialog progressDialog;
     FloatingActionButton fabNext, fabRefresh;
+    SharedPreferences LoanDetails;
+
+    View.OnClickListener fabNextListener, fabRefreshListener;
 
     String json;
     JSONObject viewObj;
@@ -54,39 +56,47 @@ public class LoanFragment3 extends Fragment
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_loan_3, container, false);
         initWidget();
+        initListener();
 
+        LoanDetails = this.getActivity().getSharedPreferences("LOAN_1", Context.MODE_APPEND);
 
-
-        fabNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(CheckFields()) {
-                    Toast.makeText(getContext(), "Tezuka", Toast.LENGTH_SHORT).show();
-                    MainActivity act = (MainActivity) getActivity();
-                    act.switchTab(1);
-                }
-            }
-        });
-        infoViewArrayList = new ArrayList<>();
-        dynamicInfos = new Vector<>();
         new GetData().execute();
 
-        fabRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new GetData().execute();
-            }
-        });
-
+        fabNext.setOnClickListener(fabNextListener);
+        fabRefresh.setOnClickListener(fabRefreshListener);
 
         return rootView;
     }
 
     public void initWidget()
     {
-        lnrMain = (LinearLayout)rootView.findViewById(R.id.lnrMain);
+        lnrTab1 = (LinearLayout)rootView.findViewById(R.id.lnrTab1);
         fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabNextF3);
         fabRefresh = (FloatingActionButton)rootView.findViewById(R.id.fabRefreshF3);
+
+        dynamicInfos = new Vector<>();
+    }
+
+    public void initListener()
+    {
+        fabNextListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(CheckFields()) {
+                    SaveData();
+                    Toast.makeText(getContext(), "Tezuka", Toast.LENGTH_SHORT).show();
+                    MainActivity act = (MainActivity) getActivity();
+                    act.switchTab(1);
+                }
+            }
+        };
+
+        fabRefreshListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GetData().execute();
+            }
+        };
     }
 
     private class GetData extends AsyncTask<Void, Void, Void>
@@ -94,19 +104,18 @@ public class LoanFragment3 extends Fragment
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage("Fetching Information...");
-            pDialog.setCancelable(false);
-            pDialog.show();
-            lnrMain.removeAllViews();
-            infoViewArrayList.clear();
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Fetching Information...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            lnrTab1.removeAllViews();
             dynamicInfos.clear();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(URLConnect.GET_LOAN_FRAG, ServiceHandler.GET);
+            json = sh.makeServiceCall(URLConnect.GET_TAB_1, ServiceHandler.GET);
             if(json!= null)
             {
                 try
@@ -115,11 +124,6 @@ public class LoanFragment3 extends Fragment
                     array = jsonObject.getJSONArray("tab1");
                     for(int i = 0; i < array.length(); i++) {
                         viewObj = (JSONObject) array.get(i);
-                        InfoView infoView = new InfoView(viewObj.getString("label"),
-                                viewObj.getString("type"), viewObj.getString("value"),
-                                viewObj.getString("column"));
-                        infoViewArrayList.add(infoView);
-
                         DynamicInfo dynamicInfo = new DynamicInfo(viewObj.getString("label"),
                                 viewObj.getString("type"), viewObj.getString("value"),
                                 viewObj.getString("column"), viewObj.getBoolean("require"));
@@ -137,22 +141,25 @@ public class LoanFragment3 extends Fragment
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (pDialog.isShowing())
-                pDialog.dismiss();
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
 
-//            DisplayForm(infoViewArrayList);
             DisplayForm(dynamicInfos);
         }
 
-//        private void DisplayForm(ArrayList<InfoView> arrayList)
         private void DisplayForm(Vector<DynamicInfo> arrayList)
         {
             try
             {
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams layoutParams =
+                        new LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(15,15,15,15);
 
-                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+                LinearLayout.LayoutParams layoutParams1 =
+                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT, 1);
 
                 LinearLayout l1,l2;
                 l1 = new LinearLayout(getContext());
@@ -189,11 +196,11 @@ public class LoanFragment3 extends Fragment
                     if (arrayList.get(i).getType().equals("edittext"))
                     {
                         if(arrayList.get(i).getColumn().equals("1")) {
-                            dynamicInfos.elementAt(i).obj = new EditTextServer(getContext(), dynamicInfos.get(i).getLabel(), EditorInfo.TYPE_CLASS_NUMBER);
+                            dynamicInfos.elementAt(i).obj = new EditTextServer(getContext(), dynamicInfos.get(i).getLabel(), EditorInfo.TYPE_CLASS_TEXT);
                             l1.addView((View)dynamicInfos.elementAt(i).obj, layoutParams);
                         }
                         if(arrayList.get(i).getColumn().equals("2")){
-                            dynamicInfos.elementAt(i).obj = new EditTextServer(getContext(), dynamicInfos.get(i).getLabel(), EditorInfo.TYPE_CLASS_NUMBER);
+                            dynamicInfos.elementAt(i).obj = new EditTextServer(getContext(), dynamicInfos.get(i).getLabel(), EditorInfo.TYPE_CLASS_TEXT);
                             l2.addView((View)dynamicInfos.elementAt(i).obj, layoutParams);
                         }
                     }
@@ -209,13 +216,31 @@ public class LoanFragment3 extends Fragment
                         }
                     }
                 }
-                lnrMain.addView(l1);
-                lnrMain.addView(l2);
+                lnrTab1.addView(l1);
+                lnrTab1.addView(l2);
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void SaveData()
+    {
+        try {
+            int i;
+            SharedPreferences.Editor editor = LoanDetails.edit();
+            editor.clear().apply();
+            for (i = 0; i < dynamicInfos.size(); i++) {
+                String fieldValue = (String) dynamicInfos.get(i).getData();
+                editor.putString(dynamicInfos.elementAt(i).getLabel().toString().trim().replace(" ", "").replace(":",""), fieldValue);
+            }
+            editor.apply();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 

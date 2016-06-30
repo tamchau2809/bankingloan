@@ -18,6 +18,12 @@ import chau.bankingloan.R;
 public class EditTextServer extends LinearLayout {
     EditText edLabel;
     BoldTextview boldTextview;
+
+    public EditTextServer(Context ctx)
+    {
+        super(ctx);
+    }
+
     public EditTextServer(Context ctx, String label, int inputType)
 //    public EditTextServer(Context ctx, int inputType)
     {
