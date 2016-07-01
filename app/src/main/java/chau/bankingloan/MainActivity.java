@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        list = new ArrayList<InfoFromServer>();
+        list = new ArrayList<>();
 
         new GetToolbarData().execute();
         // Create the adapter that will return a fragment for each of the three
@@ -127,11 +127,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                case 1:
 //                    return new UploadFragment2();
                 case 0:
-                    return new LoanFragment3();
+                    return new Tab1Fragment();
                 case 1:
-                    return new PersonalFragment1();
+                    return new Tab2Fragment();
                 case 2:
-                    return new ContactFragment();
+                    return new Tab3Fragment();
                 case 3:
                     return new EmploymentFragment();
                 case 4:
