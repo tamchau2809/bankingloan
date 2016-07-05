@@ -80,4 +80,5 @@
     <string name="NUMBER_YOU_VE_BEEN_RECEIVED">Please enter the number you\'ve been received..</string>
     <string name="street">Street...</string>
     <string name="city">City...</string>
+    <string name="image">Image</string>
 </resources>

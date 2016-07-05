@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -42,10 +42,10 @@ public class Tab1Fragment extends Fragment
     ArrayList<ServerInfo> serverInfos;
 
     ProgressDialog progressDialog;
-    FloatingActionButton fabNext, fabRefresh;
+    ImageButton imgBtnNext, imgBtnRefresh;
     SharedPreferences preferences;
 
-    View.OnClickListener fabNextListener, fabRefreshListener;
+    View.OnClickListener listenerNext, listenerRef;
 
     String json;
     JSONObject object;
@@ -64,8 +64,8 @@ public class Tab1Fragment extends Fragment
 
         new GetData().execute();
 
-        fabNext.setOnClickListener(fabNextListener);
-        fabRefresh.setOnClickListener(fabRefreshListener);
+        imgBtnNext.setOnClickListener(listenerNext);
+        imgBtnRefresh.setOnClickListener(listenerRef);
 
         return rootView;
     }
@@ -73,15 +73,15 @@ public class Tab1Fragment extends Fragment
     public void initWidget()
     {
         lnrTab1 = (LinearLayout)rootView.findViewById(R.id.lnrTab1);
-        fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabNextTab1);
-        fabRefresh = (FloatingActionButton)rootView.findViewById(R.id.fabRefreshTab1);
+        imgBtnNext = (ImageButton) rootView.findViewById(R.id.imgBtnNextTab1);
+        imgBtnRefresh = (ImageButton) rootView.findViewById(R.id.imgBtnRefreshTab1);
 
         serverInfos = new ArrayList<>();
     }
 
     public void initListener()
     {
-        fabNextListener = new View.OnClickListener() {
+        listenerNext = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(CheckFields()) {
@@ -94,7 +94,7 @@ public class Tab1Fragment extends Fragment
             }
         };
 
-        fabRefreshListener = new View.OnClickListener() {
+        listenerRef = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new GetData().execute();

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -28,7 +29,6 @@ import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerEditText;
 import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerSpinner;
-import chau.bankingloan.customThings.ServerTvSum;
 import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.ServerTvDate;
 import chau.bankingloan.customThings.URLConnect;
@@ -43,7 +43,7 @@ public class Tab3Fragment extends Fragment
     ArrayList<ServerInfo> serverInfos;
 
     ProgressDialog progressDialog;
-    FloatingActionButton fabNext, fabPre, fabRefresh;
+    ImageButton imgBtnNext, imgBtnPre, imgBtnRefresh;
     View.OnClickListener listenerNext, listenerPre, listenerRef;
 
     SharedPreferences preferences;
@@ -61,9 +61,9 @@ public class Tab3Fragment extends Fragment
 
         new GetData().execute();
 
-        fabRefresh.setOnClickListener(listenerRef);
-        fabPre.setOnClickListener(listenerPre);
-        fabNext.setOnClickListener(listenerNext);
+        imgBtnRefresh.setOnClickListener(listenerRef);
+        imgBtnPre.setOnClickListener(listenerPre);
+        imgBtnNext.setOnClickListener(listenerNext);
 
         return rootView;
     }
@@ -71,9 +71,9 @@ public class Tab3Fragment extends Fragment
     private void initWidget()
     {
         lnrTab3 = (LinearLayout)rootView.findViewById(R.id.lnrTab3);
-        fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabNextTab3);
-        fabPre = (FloatingActionButton)rootView.findViewById(R.id.fabPreTab3);
-        fabRefresh = (FloatingActionButton)rootView.findViewById(R.id.fabRefreshTab3);
+        imgBtnNext = (ImageButton) rootView.findViewById(R.id.imgBtnNextTab3);
+        imgBtnPre = (ImageButton)rootView.findViewById(R.id.imgBtnPreTab3);
+        imgBtnRefresh = (ImageButton)rootView.findViewById(R.id.imgBtnRefreshTab3);
         serverInfos = new ArrayList<>();
         preferences = this.getActivity().getSharedPreferences("TAB3", Context.MODE_APPEND);
     }

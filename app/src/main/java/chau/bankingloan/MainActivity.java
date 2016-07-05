@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 2:
                     return new Tab3Fragment();
                 case 3:
-                    return new EmploymentFragment();
+                    return new Tab4Fragment();
                 case 4:
                     return new DocumentFragment();
                 case 5:

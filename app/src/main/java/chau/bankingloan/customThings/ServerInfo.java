@@ -54,7 +54,7 @@ public class ServerInfo {
 
     public Object getNumber()
     {
-        if(type.equals("edittextnumber"))
+        if(type.equals("edPlusNumber"))
         {
             if(obj != null)
             {

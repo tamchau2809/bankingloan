@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:padding="@dimen/appbar_padding_top"
+<LinearLayout
     android:baselineAligned="false"
+    android:background="@color/colorPrimary"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/my_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent" >
 
-    <include layout="@layout/layout_main_tab1" />
+    <ScrollView
+        android:background="@color/C0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="230dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/lnrTab1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabNextTab1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/right" />
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabRefreshTab1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/refresh"
-        app:layout_anchor="@id/fabNextTab1"
-        app:layout_anchorGravity="bottom" />
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:id="@+id/imgBtnRefreshTab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bi_refresh"/>
 
-</android.support.design.widget.CoordinatorLayout>
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:id="@+id/imgBtnNextTab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bi_right"/>
+    </LinearLayout>
+
+</LinearLayout>

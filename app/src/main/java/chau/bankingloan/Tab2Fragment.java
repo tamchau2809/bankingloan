@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -42,7 +42,7 @@ public class Tab2Fragment extends Fragment
     ArrayList<ServerInfo> serverInfos;
 
     ProgressDialog progressDialog;
-    FloatingActionButton fabNext, fabPre, fabRefresh;
+    ImageButton imgBtnNext, imgBtnPre, imgBtnRefresh;
     SharedPreferences preferences;
 
     View.OnClickListener listenerRefresh, listenerNext, listenerPre;
@@ -62,9 +62,9 @@ public class Tab2Fragment extends Fragment
 
         new GetData().execute();
 
-        fabRefresh.setOnClickListener(listenerRefresh);
-        fabNext.setOnClickListener(listenerNext);
-        fabPre.setOnClickListener(listenerPre);
+        imgBtnRefresh.setOnClickListener(listenerRefresh);
+        imgBtnNext.setOnClickListener(listenerNext);
+        imgBtnPre.setOnClickListener(listenerPre);
 
         return rootView;
     }
@@ -72,9 +72,9 @@ public class Tab2Fragment extends Fragment
     public void initWidget()
     {
         lnrTab2 = (LinearLayout)rootView.findViewById(R.id.lnrTab2);
-        fabRefresh = (FloatingActionButton)rootView.findViewById(R.id.fabRefreshTab2);
-        fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabNextTab2);
-        fabPre = (FloatingActionButton)rootView.findViewById(R.id.fabPreTab2);
+        imgBtnRefresh = (ImageButton)rootView.findViewById(R.id.imgBtnRefreshTab2);
+        imgBtnNext = (ImageButton)rootView.findViewById(R.id.imgBtnNextTab2);
+        imgBtnPre = (ImageButton)rootView.findViewById(R.id.imgBtnPreTab2);
         serverInfos = new ArrayList<>();
         preferences = this.getActivity().getSharedPreferences("TAB2", Context.MODE_APPEND);
     }

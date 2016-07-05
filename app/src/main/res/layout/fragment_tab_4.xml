@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:baselineAligned="false"
+    android:background="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:background="@color/C0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="230dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/lnrTab4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </ScrollView>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:id="@+id/imgBtnPreTab4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bi_left"/>
+
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:id="@+id/imgBtnRefreshTab4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bi_refresh"/>
+
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:id="@+id/imgBtnNextTab4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bi_right"/>
+    </LinearLayout>
+
+</LinearLayout>
