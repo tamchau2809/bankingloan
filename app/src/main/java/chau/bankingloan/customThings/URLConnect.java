@@ -14,4 +14,5 @@ public class URLConnect {
     public static String GET_TAB_2 = "http://192.168.1.14/chauvu/xml/tab2.json";
     public static String GET_TAB_3 = "http://192.168.1.14/chauvu/xml/tab3.json";
     public static String GET_TAB_4 = "http://192.168.1.14/chauvu/xml/tab4.json";
+//    public String TEST;
 }

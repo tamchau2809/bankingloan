@@ -1,7 +1,6 @@
 package chau.bankingloan;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -32,9 +31,16 @@ import chau.bankingloan.customThings.URLConnect;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    private ProgressDialog pDialog;
-    JSONArray array = null;
+//    private ProgressDialog pDialog;
+    JSONArray arrToolbar = null;
+    JSONArray arrLink = null;
     ArrayList<InfoFromServer> list;
+    ArrayList<InfoFromServer> serverArrayList;
+
+    public static String TAB_1_LINK;
+    public static String TAB_2_LINK;
+    public static String TAB_3_LINK;
+    public static String TAB_4_LINK;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -51,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         list = new ArrayList<>();
+        serverArrayList = new ArrayList<>();
 
         new GetToolbarData().execute();
         // Create the adapter that will return a fragment for each of the three
@@ -217,6 +224,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 i.setData(Uri.fromParts("mailto","customercare@vpb.com.vn", null));
                 startActivity(i);
                 break;
+            case R.id.navRefresh:
+                new GetToolbarData().execute();
+                break;
             default:
                 break;
         }
@@ -225,6 +235,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private class GetToolbarData extends AsyncTask<Void, Void, Void>
     {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            list.clear();
+            serverArrayList.clear();
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -235,14 +251,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
-                    array = jsonObj.getJSONArray("toolbar");
-                    for(int i = 0; i < array.length(); i++)
+                    arrToolbar = jsonObj.getJSONArray("toolbar");
+                    for(int i = 0; i < arrToolbar.length(); i++)
                     {
-                        JSONObject obj = (JSONObject)array.get(i);
+                        JSONObject obj = (JSONObject) arrToolbar.get(i);
                         InfoFromServer info = new InfoFromServer(obj.getString("id"),
                                 obj.getString("name"));
                         list.add(info);
                     }
+                    arrLink = jsonObj.getJSONArray("url");
+                    for(int i = 0; i < arrLink.length(); i++)
+                    {
+                        JSONObject obj = (JSONObject) arrLink.get(i);
+                        InfoFromServer info = new InfoFromServer(obj.getString("id"),
+                                obj.getString("name"));
+                        serverArrayList.add(info);
+                    }
+                    TAB_1_LINK = serverArrayList.get(0).getData();
+                    TAB_2_LINK = serverArrayList.get(1).getData();
+                    TAB_3_LINK = serverArrayList.get(2).getData();
+                    TAB_4_LINK = serverArrayList.get(3).getData();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -253,10 +281,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Void aVoid) throws NullPointerException {
             super.onPostExecute(aVoid);
-            for(int i = 0; i < 8; i++) {
-                int j = i+1;
+            Log.e("TESST", TAB_1_LINK);
+            for (int i = 0; i < 8; i++) {
+                int j = i + 1;
                 tabLayout.getTabAt(i).setText(j + "." + list.get(i).getData());
             }
         }

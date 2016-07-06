@@ -21,5 +21,9 @@
             android:id="@+id/navEmail"
             android:icon="@android:drawable/ic_dialog_email"
             android:title="@string/emailUs"/>
+        <item
+            android:id="@+id/navRefresh"
+            android:icon="@drawable/nav_ref"
+            android:title="@string/refresh" />
     </group>
 </menu>

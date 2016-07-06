@@ -125,7 +125,7 @@ public class Tab2Fragment extends Fragment
         @Override
         protected Void doInBackground(Void... params) {
             ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(URLConnect.GET_TAB_2, ServiceHandler.GET);
+            json = sh.makeServiceCall(MainActivity.TAB_2_LINK, ServiceHandler.GET);
             if(json!= null)
             {
                 try

@@ -11,7 +11,7 @@
         android:background="@color/C0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="230dp">
+        android:layout_height="245dp">
         <LinearLayout
             android:orientation="horizontal"
             android:id="@+id/lnrTab1"
@@ -26,6 +26,14 @@
         android:layout_height="match_parent">
 
         <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bi_add"/>
+
+        <ImageButton
+            android:layout_marginStart="@dimen/fab_margin"
             android:contentDescription="@string/image"
             android:layout_marginEnd="@dimen/fab_margin"
             android:id="@+id/imgBtnRefreshTab1"

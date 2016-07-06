@@ -81,4 +81,5 @@
     <string name="street">Street...</string>
     <string name="city">City...</string>
     <string name="image">Image</string>
+    <string name="refresh">Refresh</string>
 </resources>

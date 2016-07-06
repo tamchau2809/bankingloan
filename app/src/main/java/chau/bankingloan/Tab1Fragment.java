@@ -2,6 +2,7 @@ package chau.bankingloan;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ import chau.bankingloan.customThings.ServerEditText;
 import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServerTvDate;
-import chau.bankingloan.customThings.URLConnect;
 
 /**
  * Created on 13-Jun-16 by com08.
@@ -91,6 +91,18 @@ public class Tab1Fragment extends Fragment
                     MainActivity act = (MainActivity) getActivity();
                     act.switchTab(1);
                 }
+                else
+                {
+                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
+                    builder.setMessage("Please FIll In The Blank...");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                }
             }
         };
 
@@ -118,7 +130,7 @@ public class Tab1Fragment extends Fragment
         @Override
         protected Void doInBackground(Void... params) {
             ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(URLConnect.GET_TAB_1, ServiceHandler.GET);
+            json = sh.makeServiceCall(MainActivity.TAB_1_LINK, ServiceHandler.GET);
             if(json!= null)
             {
                 try
@@ -144,6 +156,7 @@ public class Tab1Fragment extends Fragment
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            Log.e("TESST", MainActivity.TAB_1_LINK);
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
 

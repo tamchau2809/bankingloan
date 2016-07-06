@@ -168,7 +168,7 @@ public class Tab4Fragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(URLConnect.GET_TAB_4, ServiceHandler.GET);
+            json = sh.makeServiceCall(MainActivity.TAB_4_LINK, ServiceHandler.GET);
             if(json!= null)
             {
                 try

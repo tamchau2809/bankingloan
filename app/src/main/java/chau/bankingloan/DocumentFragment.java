@@ -118,7 +118,7 @@ public class DocumentFragment extends Fragment {
 
     public void initWidget()
     {
-        lnrImages = (LinearLayout)rootView.findViewById(R.id.llImage);
+        lnrImages = (LinearLayout)rootView.findViewById(R.id.lnrImage);
         fabAddImg = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentAdd);
         fabCamera = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentTakePic);
         fabUpload = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentUpload);
