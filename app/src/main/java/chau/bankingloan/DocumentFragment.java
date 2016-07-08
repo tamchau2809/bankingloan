@@ -77,13 +77,13 @@ public class DocumentFragment extends Fragment {
             }
         });
 
-//        imgBtnCamera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-//                startActivity(intent);
-//            }
-//        });
+        imgBtnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(intent);
+            }
+        });
 //
 //        imgBtnUpload.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -122,7 +122,7 @@ public class DocumentFragment extends Fragment {
     {
         lnrImages = (LinearLayout)rootView.findViewById(R.id.lnrImage);
         imgBtnAdd = (ImageButton) rootView.findViewById(R.id.imgBtnAddTab5);
-//        imgBtnCamera = (ImageButton) rootView.findViewById(R.id.fabDocumentTakePic);
+        imgBtnCamera = (ImageButton) rootView.findViewById(R.id.imgBtnCameraTab5);
 //        imgBtnUpload = (ImageButton) rootView.findViewById(R.id.fabDocumentUpload);
 //        imgBtnBack = (ImageButton) rootView.findViewById(R.id.fabDocumentPre);
 //        imgBtnNext = (ImageButton)rootView.findViewById(R.id.fabDocumentNext);
