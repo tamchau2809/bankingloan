@@ -13,12 +13,14 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -52,7 +54,7 @@ public class DocumentFragment extends Fragment {
     SharedPreferences personalPref;
 
 
-    FloatingActionButton fabAddImg, fabCamera, fabUpload, fabBack, fabNext;
+    ImageButton imgBtnAdd, imgBtnCamera, imgBtnUpload, imgBtnBack, imgBtnNext;
 
     private ArrayList<String> imagesPathList;
     ProgressDialog pDialog;
@@ -67,7 +69,7 @@ public class DocumentFragment extends Fragment {
 
         personalPref = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
 
-        fabAddImg.setOnClickListener(new View.OnClickListener() {
+        imgBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CustomPhotoGalleryActivity.class);
@@ -75,43 +77,43 @@ public class DocumentFragment extends Fragment {
             }
         });
 
-        fabCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                startActivity(intent);
-            }
-        });
-
-        fabUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(imagesPathList == null)
-                {
-                    showAlert("Không Có Hình Ảnh Để Upload!");
-                }
-                else
-                {
-                    new UploadFile().execute();
-                }
-            }
-        });
-
-        fabBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity act = (MainActivity) getActivity();
-                act.switchTab(3);
-            }
-        });
-
-        fabNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity act = (MainActivity) getActivity();
-                act.switchTab(5);
-            }
-        });
+//        imgBtnCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        imgBtnUpload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(imagesPathList == null)
+//                {
+//                    showAlert("Không Có Hình Ảnh Để Upload!");
+//                }
+//                else
+//                {
+//                    new UploadFile().execute();
+//                }
+//            }
+//        });
+//
+//        imgBtnBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                MainActivity act = (MainActivity) getActivity();
+//                act.switchTab(3);
+//            }
+//        });
+//
+//        imgBtnNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                MainActivity act = (MainActivity) getActivity();
+//                act.switchTab(5);
+//            }
+//        });
 
         return rootView;
     }
@@ -119,11 +121,11 @@ public class DocumentFragment extends Fragment {
     public void initWidget()
     {
         lnrImages = (LinearLayout)rootView.findViewById(R.id.lnrImage);
-        fabAddImg = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentAdd);
-        fabCamera = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentTakePic);
-        fabUpload = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentUpload);
-        fabBack = (FloatingActionButton) rootView.findViewById(R.id.fabDocumentPre);
-        fabNext = (FloatingActionButton)rootView.findViewById(R.id.fabDocumentNext);
+        imgBtnAdd = (ImageButton) rootView.findViewById(R.id.imgBtnAddTab5);
+//        imgBtnCamera = (ImageButton) rootView.findViewById(R.id.fabDocumentTakePic);
+//        imgBtnUpload = (ImageButton) rootView.findViewById(R.id.fabDocumentUpload);
+//        imgBtnBack = (ImageButton) rootView.findViewById(R.id.fabDocumentPre);
+//        imgBtnNext = (ImageButton)rootView.findViewById(R.id.fabDocumentNext);
     }
 
     public File saveImage(Bitmap myBitmap, String name, Context context) {
@@ -199,10 +201,10 @@ public class DocumentFragment extends Fragment {
     public void setEnabled(final boolean show)
     {
         lnrImages.setEnabled(show);
-        fabBack.setEnabled(show);
-        fabUpload.setEnabled(show);
-        fabAddImg.setEnabled(show);
-        fabCamera.setEnabled(show);
+        imgBtnBack.setEnabled(show);
+        imgBtnUpload.setEnabled(show);
+        imgBtnAdd.setEnabled(show);
+        imgBtnCamera.setEnabled(show);
     }
 
     private class UploadFile extends AsyncTask<Void, Float, String>

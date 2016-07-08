@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/my_background"
+    android:background="@color/colorPrimary"
     android:baselineAligned="false"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -9,57 +9,62 @@
     android:weightSum="1">
 
     <ScrollView
-        android:layout_weight="1"
+        android:background="@color/C0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp" >
+        android:layout_height="230dp" >
 
         <LinearLayout
             android:id="@+id/lnrImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical" >
         </LinearLayout>
     </ScrollView>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:gravity="center|top" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabDocumentAdd"
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:id="@+id/imgBtnAddTab5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_menu_add" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabDocumentTakePic"
+            android:background="@drawable/bi_add" />
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:id="@+id/imgBtnCameraTab5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_menu_camera" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabDocumentUpload"
+            android:background="@drawable/bi_camera" />
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:id="@+id/imgBtnUploadTab5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_menu_upload" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabDocumentNext"
+            android:background="@drawable/bi_upload" />
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:id="@+id/imgBtnPreTab5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_media_ff" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabDocumentPre"
+            android:background="@drawable/bi_left" />
+        <ImageButton
+            android:layout_marginStart="@dimen/fab_margin"
+            android:contentDescription="@string/image"
+            android:id="@+id/imgBtnNextTab5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_media_rew" />
+            android:background="@drawable/bi_right" />
 
     </LinearLayout>
 </LinearLayout>

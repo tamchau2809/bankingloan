@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                case 1:
 //                    return new UploadFragment2();
                 case 0:
-                    return new Tab1Fragment();
+                    return new DocumentFragment();
                 case 1:
                     return new Tab2Fragment();
                 case 2:
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 3:
                     return new Tab4Fragment();
                 case 4:
-                    return new DocumentFragment();
+                    return new Tab1Fragment();
                 case 5:
                     return new ConfirmFragment();
                 case 6:
