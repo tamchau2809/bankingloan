@@ -30,7 +30,6 @@ import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServerTvDate;
 import chau.bankingloan.customThings.ServiceHandler;
-import chau.bankingloan.customThings.URLConnect;
 
 /**
  * Created on 01-07-2016 by com08.

@@ -33,7 +33,7 @@ public class ContactFragment extends Fragment{
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_contact, container, false);
 
-        initWiget();
+        initWidget();
 
         contact = this.getActivity().getSharedPreferences("CONTACT", Context.MODE_APPEND);
         loadFromSharedPreference(contact);
@@ -125,7 +125,7 @@ public class ContactFragment extends Fragment{
         }
     }
 
-    public void initWiget()
+    public void initWidget()
     {
         spRelationship = (Spinner)rootView.findViewById(R.id.spRelationship);
         edPerAdd1 = (EditText)rootView.findViewById(R.id.edPerAdd1);

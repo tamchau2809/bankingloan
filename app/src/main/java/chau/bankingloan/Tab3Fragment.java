@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
@@ -31,7 +30,6 @@ import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.ServerTvDate;
-import chau.bankingloan.customThings.URLConnect;
 
 /**
  * Created on 30-06-2016 by com08.

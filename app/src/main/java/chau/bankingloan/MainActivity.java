@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 import chau.bankingloan.customThings.InfoFromServer;
 import chau.bankingloan.customThings.ServiceHandler;
-import chau.bankingloan.customThings.URLConnect;
+import chau.bankingloan.customThings.ConstantStuff;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                case 1:
 //                    return new UploadFragment2();
                 case 0:
-                    return new DocumentFragment();
+                    return new Tab1Fragment();
                 case 1:
                     return new Tab2Fragment();
                 case 2:
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 3:
                     return new Tab4Fragment();
                 case 4:
-                    return new Tab1Fragment();
+                    return new Tab5Fragment();
                 case 5:
                     return new ConfirmFragment();
                 case 6:
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         protected Void doInBackground(Void... params) {
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(URLConnect.GET_TOOLBAR_TEXT, ServiceHandler.GET);
+            String jsonStr = sh.makeServiceCall(ConstantStuff.GET_TOOLBAR_TEXT, ServiceHandler.GET);
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);

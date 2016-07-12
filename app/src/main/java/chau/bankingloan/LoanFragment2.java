@@ -36,7 +36,7 @@ import java.util.Set;
 
 import chau.bankingloan.customThings.InfoFromServer;
 import chau.bankingloan.customThings.ServiceHandler;
-import chau.bankingloan.customThings.URLConnect;
+import chau.bankingloan.customThings.ConstantStuff;
 
 /**
  * Created on 25-Apr-16 by com08
@@ -282,7 +282,7 @@ public class    LoanFragment2  extends Fragment implements View.OnClickListener
             // TODO Auto-generated method stub
 
             ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(URLConnect.GET_DATA_LOAN, ServiceHandler.GET);
+            String json = jsonParser.makeServiceCall(ConstantStuff.GET_DATA_LOAN, ServiceHandler.GET);
             if(json != null)
             {
                 getIt(json, "tbtenure", "TENURE", "DETAILS", arrTenure);

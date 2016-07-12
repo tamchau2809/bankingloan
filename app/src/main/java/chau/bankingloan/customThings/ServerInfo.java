@@ -1,5 +1,8 @@
 package chau.bankingloan.customThings;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created on 27-06-2016 by com08.
  */
@@ -100,5 +103,19 @@ public class ServerInfo {
             }
         }
         return null;
+    }
+
+    public JSONObject jsonObject()
+    {
+        JSONObject obj = new JSONObject();
+        try
+        {
+            obj.put("value", this.label.trim().replace(" ", "").replace(":", ""));
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        return obj;
     }
 }

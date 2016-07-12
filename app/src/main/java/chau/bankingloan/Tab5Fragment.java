@@ -1,322 +1,316 @@
 package chau.bankingloan;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import chau.bankingloan.customThings.ServerBoldTextview;
-import chau.bankingloan.customThings.ServerCheckbox;
-import chau.bankingloan.customThings.ServerEditText;
-import chau.bankingloan.customThings.ServerInfo;
-import chau.bankingloan.customThings.ServerSpinner;
-import chau.bankingloan.customThings.ServerTvDate;
-import chau.bankingloan.customThings.ServiceHandler;
-import chau.bankingloan.customThings.URLConnect;
+import chau.bankingloan.customThings.ConstantStuff;
 
 /**
- * Created on 04-07-2016 by com08.
+ * Created on 28-Apr-16 by com08.
  */
 public class Tab5Fragment extends Fragment {
     View rootView;
-    LinearLayout lnrTab5;
-    ArrayList<ServerInfo> serverInfos;
 
-    ProgressDialog progressDialog;
-    ImageButton imgBtnNext, imgBtnPre, imgBtnRef;
-    View.OnClickListener listenerNext, listenerPre, listenerRefresh;
+    private LinearLayout lnrImages;
+    SharedPreferences personalPref;
 
-    SharedPreferences preferences;
 
-    String json;
-    JSONObject object;
-    JSONArray array;
+    ImageButton imgBtnAdd, imgBtnCamera, imgBtnUpload, imgBtnBack, imgBtnNext;
 
-    @Nullable
+    private ArrayList<String> imagesPathList;
+    ProgressDialog pDialog;
+    private final int PICK_IMAGE_MULTIPLE = 1;
+    File sourceFile;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_tab_5, container, false);
         initWidget();
-        initListener();
 
-        imgBtnRef.setOnClickListener(listenerRefresh);
-        imgBtnPre.setOnClickListener(listenerPre);
-        imgBtnNext.setOnClickListener(listenerNext);
+        personalPref = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
+
+        imgBtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CustomPhotoGalleryActivity.class);
+                startActivityForResult(intent,PICK_IMAGE_MULTIPLE);
+            }
+        });
+
+        imgBtnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(intent);
+            }
+        });
+
+        imgBtnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(imagesPathList == null)
+                {
+                    showAlert("Không Có Hình Ảnh Để Upload!");
+                }
+                else
+                {
+                    new UploadFile().execute();
+                }
+            }
+        });
+
+        imgBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity act = (MainActivity) getActivity();
+                act.switchTab(3);
+            }
+        });
+
+        imgBtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity act = (MainActivity) getActivity();
+                act.switchTab(5);
+            }
+        });
 
         return rootView;
     }
 
-    private void initWidget()
+    public void initWidget()
     {
-        lnrTab5 = (LinearLayout)rootView.findViewById(R.id.lnrTab5);
-        serverInfos = new ArrayList<>();
-        progressDialog = new ProgressDialog(getContext());
-        imgBtnNext = (ImageButton) rootView.findViewById(R.id.imgBtnNextTab5);
-        imgBtnPre = (ImageButton)rootView.findViewById(R.id.imgBtnPreTab5);
-        imgBtnRef = (ImageButton)rootView.findViewById(R.id.imgBtnRefreshTab5);
-        preferences = this.getActivity().getSharedPreferences("TAB5", Context.MODE_APPEND);
+        lnrImages = (LinearLayout)rootView.findViewById(R.id.lnrImage);
+        imgBtnAdd = (ImageButton) rootView.findViewById(R.id.imgBtnAddTab5);
+        imgBtnCamera = (ImageButton) rootView.findViewById(R.id.imgBtnCameraTab5);
+        imgBtnUpload = (ImageButton) rootView.findViewById(R.id.imgBtnUploadTab5);
+        imgBtnBack = (ImageButton) rootView.findViewById(R.id.imgBtnPreTab5);
+        imgBtnNext = (ImageButton)rootView.findViewById(R.id.imgBtnNextTab5);
     }
 
-    private void initListener()
-    {
-        listenerNext = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (CheckFields())
-                {
-                    SaveData();
-                    Toast.makeText(getContext(), "Tezuka", Toast.LENGTH_SHORT).show();
-                    MainActivity act = (MainActivity) getActivity();
-                    act.switchTab(5);
-                }
-            }
-        };
-        listenerPre = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity act = (MainActivity)getActivity();
-                act.switchTab(3);
-            }
-        };
-        listenerRefresh = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new GetData().execute();
-            }
-        };
-    }
+    public File saveImage(Bitmap myBitmap, String name, Context context) {
 
-    private void SaveData()
-    {
+        File myDir = new File( Environment.getExternalStorageDirectory(), context.getPackageName());
+        if(!myDir.exists()){
+            myDir.mkdir();
+        }
+        File file = new File (myDir, name);
+        if (file.exists ()) file.delete ();
         try {
-            int i;
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear().apply();
-            for (i = 0; i < serverInfos.size(); i++) {
-                String fieldValue = (String) serverInfos.get(i).getData();
-                editor.putString(serverInfos.get(i).getLabel().trim().replace(" ", "").replace(":",""), fieldValue);
-            }
-            editor.apply();
-        }
-        catch (Exception e)
-        {
+            FileOutputStream out = new FileOutputStream(file);
+            myBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return file;
     }
 
-    private boolean CheckFields()
-    {
-        try
-        {
-            int i;
-            boolean good = true;
-            for(i = 0; i < serverInfos.size(); i++)
-            {
-                String fieldValue = (String) serverInfos.get(i).getData();
-                Log.e("ChauVu", serverInfos.get(i).getLabel() + " is [" + fieldValue + "]" + "\n------------------------");
-                if (serverInfos.get(i).isRequired()) {
-                    if (fieldValue == null) {
-                        good = false;
-                    } else {
-                        if (fieldValue.trim().length() == 0) {
-                            good = false;
-                        }
-                    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if(requestCode == PICK_IMAGE_MULTIPLE){
+                imagesPathList = new ArrayList<>();
+                String[] imagesPath = data.getStringExtra("data").split("\\|");
+                try{
+                    lnrImages.removeAllViews();
+                }catch (Throwable e){
+                    e.printStackTrace();
+                }
+                for (String anImagesPath : imagesPath) {
+                    BitmapFactory.Options opt = new BitmapFactory.Options();
+                    opt.inSampleSize = 2;
+                    imagesPathList.add(anImagesPath);
+                    Bitmap yourBitmap = BitmapFactory.decodeFile(anImagesPath, opt);
+                    ImageView imageView = new ImageView(getContext());
+                    imageView.setImageBitmap(yourBitmap);
+                    imageView.setAdjustViewBounds(true);
+                    lnrImages.addView(imageView);
                 }
             }
-            return good;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return false;
         }
     }
 
-    private class GetData extends AsyncTask<Void, Void, Void>
+    private void showAlert(String message) {
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(message)
+                .setPositiveButton(
+                        android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                .create();
+
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+
+        View btnTest = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setEnabled(final boolean show)
+    {
+        lnrImages.setEnabled(show);
+        imgBtnBack.setEnabled(show);
+        imgBtnUpload.setEnabled(show);
+        imgBtnAdd.setEnabled(show);
+        imgBtnCamera.setEnabled(show);
+    }
+
+    private class UploadFile extends AsyncTask<Void, Float, String>
     {
         @Override
         protected void onPreExecute() {
+            // setting progress bar to zero
+            pDialog = new ProgressDialog(getContext());
+            pDialog.setMessage("Uploading...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+            setEnabled(false);
             super.onPreExecute();
-            progressDialog.setMessage("Getting Data...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-            lnrTab5.removeAllViews();
-            serverInfos.clear();
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(URLConnect.GET_TAB_4, ServiceHandler.GET);
-            if(json!= null)
-            {
-                try
-                {
-                    JSONObject jsonObject = new JSONObject(json);
-                    array = jsonObject.getJSONArray("tab4");
-                    for(int i = 0; i < array.length(); i++) {
-                        object = (JSONObject) array.get(i);
-                        ServerInfo serverInfo = new ServerInfo(object.getString("label"),
-                                object.getString("type"), object.getString("value"),
-                                object.getString("column"), object.getBoolean("require"));
-                        serverInfos.add(serverInfo);
-                    }
-                }
-                catch (JSONException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-            return null;
+        protected void onProgressUpdate(Float... values) {
+            // TODO Auto-generated method stub
+            pDialog.setMessage("Uploading..." + String.valueOf(values[0]) + "%");
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (progressDialog.isShowing())
-                progressDialog.dismiss();
-            DisplayForm();
+        protected String doInBackground(Void... params) {
+            // TODO Auto-generated method stub
+            return uploadFile();
         }
 
-        private void DisplayForm()
+        private String uploadFile()
         {
+            String response = null;
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpParams test = httpClient.getParams();
+            HttpConnectionParams.setConnectionTimeout(test, 5000);
+            HttpConnectionParams.setSoTimeout(test, 5000);
+            HttpPost httpPost = new HttpPost(ConstantStuff.FILE_UPLOAD_URL);
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             try
             {
-                LinearLayout.LayoutParams layoutParams =
-                        new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(15,15,15,15);
+                UploadProgress2.ProgressListener lis = new UploadProgress2.ProgressListener() {
 
-                LinearLayout.LayoutParams layoutParams1 =
-                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-
-                LinearLayout l1, l2;
-                l1 = new LinearLayout(getContext());
-                l1.setOrientation(LinearLayout.VERTICAL);
-                l1.setLayoutParams(layoutParams1);
-                l2 = new LinearLayout(getContext());
-                l2.setOrientation(LinearLayout.VERTICAL);
-                l2.setLayoutParams(layoutParams1);
-
-                for (int i = 0; i < serverInfos.size(); i++)
+                    @Override
+                    public void transferred(float num) {
+                        // TODO Auto-generated method stub
+                        publishProgress((num));
+                    }
+                };
+                for(int i = 0; i < imagesPathList.size(); i++)
                 {
-                    if(serverInfos.get(i).getType().equals("textviewColumn"))
-                    {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerBoldTextview(getContext(), serverInfos.get(i).getLabel(), true);
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerBoldTextview(getContext(), serverInfos.get(i).getLabel(), true);
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                    }
-                    if (serverInfos.get(i).getType().equals("spinner"))
-                    {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerSpinner(getContext(), serverInfos.get(i).getLabel(), serverInfos.get(i).getValue());
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerSpinner(getContext(), serverInfos.get(i).getLabel(), serverInfos.get(i).getValue());
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                    }
-                    if (serverInfos.get(i).getType().equals("edittext"))
-                    {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), EditorInfo.TYPE_CLASS_TEXT);
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), EditorInfo.TYPE_CLASS_TEXT);
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                    }
-                    if (serverInfos.get(i).getType().equals("edittextnumber"))
-                    {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                    }
-                    if (serverInfos.get(i).getType().equals("edittextemail"))
-                    {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                    }
-                    if (serverInfos.get(i).getType().equals("textviewDate"))
-                    {
-                        if(serverInfos.get(i).getColumn().equals("1")){
-                            serverInfos.get(i).obj = new ServerTvDate(getContext(), serverInfos.get(i).getLabel(), "Choose Date");
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerTvDate(getContext(), serverInfos.get(i).getLabel(), "Choose Date");
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                    }
-                    if (serverInfos.get(i).getType().equals("checkbox"))
-                    {
-                        if(serverInfos.get(i).getColumn().equals("1")){
-                            serverInfos.get(i).obj = new ServerCheckbox(getContext(), serverInfos.get(i).getLabel());
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerCheckbox(getContext(), serverInfos.get(i).getLabel());
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
-                        }
-                    }
-//                    if (serverInfos.get(i).getType().equals("textviewSum"))
-//                    {
-//                        if(serverInfos.get(i).getColumn().equals("1")){
-//                            serverInfos.get(i).obj = new ServerTvSum(getContext(), serverInfos.get(i).getLabel());
-//                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
-//                        }
-//                        if(serverInfos.get(i).getColumn().equals("2")){
-//                            serverInfos.get(i).obj = new ServerTvSum(getContext(), serverInfos.get(i).getLabel());
-//                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
-//                        }
-//                    }
+                    int x = i + 1;
+                    final Bitmap bitmap = BitmapFactory.decodeFile(imagesPathList.get(i));
+                    sourceFile = saveImage(bitmap, String.valueOf(x), getContext());
+                    builder.addPart("image" + x, new FileBody(sourceFile));
                 }
-                lnrTab5.addView(l1);
-                lnrTab5.addView(l2);
+
+                String ID = personalPref.getString("identityNum", "");
+                String name = personalPref.getString("name", "");
+                builder.addPart("NAME_ID", new StringBody(name, ContentType.TEXT_PLAIN));
+                builder.addPart("ID_NUM", new StringBody(ID, ContentType.TEXT_PLAIN));
+
+                httpPost.setEntity(new UploadProgress2(builder.build(), lis));
+
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+
+                int statusCode = httpResponse.getStatusLine().getStatusCode();
+                if(statusCode == 200)
+                {
+                    response = EntityUtils.toString(httpEntity);
+                }
+                else
+                {
+                    response = "Error: + " + statusCode;
+                }
+            } catch (IOException e) {
+                response = e.toString();
             }
-            catch (Exception e)
+            catch(Exception ignored)
+            {}
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            File myDir=new File( Environment.getExternalStorageDirectory(), getContext().getPackageName());
+            if(!myDir.exists()){
+                myDir.mkdir();
+            }
+            if(result == null)
             {
-                e.printStackTrace();
+                showAlert("Thất Bại!" + result);
             }
+            else if(result.equals("11111") || result.equals("1111")
+                    || result.equals("111") || result.equals("11")
+                    || result.equals("1"))
+            {
+                showAlert("Uploads Completed!");
+                MainActivity act = (MainActivity) getActivity();
+                act.switchTab(5);
+            }
+            else
+            {
+                showAlert("Thất Bại!" + result);
+            }
+            setEnabled(true);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            super.onPostExecute(result);
         }
     }
 }

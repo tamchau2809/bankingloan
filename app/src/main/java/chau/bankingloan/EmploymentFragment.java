@@ -38,7 +38,7 @@ import java.util.Set;
 
 import chau.bankingloan.customThings.InfoFromServer;
 import chau.bankingloan.customThings.ServiceHandler;
-import chau.bankingloan.customThings.URLConnect;
+import chau.bankingloan.customThings.ConstantStuff;
 
 /**
  * Created on 25-Apr-16 by com08.
@@ -332,7 +332,7 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
         @Override
         protected Void doInBackground(Void... params) {
             ServiceHandler serviceHandler = new ServiceHandler();
-            String json = serviceHandler.makeServiceCall(URLConnect.GET_DATA_EMPLOYMENT, ServiceHandler.GET);
+            String json = serviceHandler.makeServiceCall(ConstantStuff.GET_DATA_EMPLOYMENT, ServiceHandler.GET);
             if(json != null)
             {
                 getIt(json, "tbworkingstatus", "STATUS", "DETAILS", arrWorkingStt);

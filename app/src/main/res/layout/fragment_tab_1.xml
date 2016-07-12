@@ -26,13 +26,6 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:contentDescription="@string/image"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bi_add"/>
-
-        <ImageButton
             android:layout_marginStart="@dimen/fab_margin"
             android:contentDescription="@string/image"
             android:layout_marginEnd="@dimen/fab_margin"

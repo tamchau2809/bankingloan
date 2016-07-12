@@ -8,14 +8,15 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,25 +31,31 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-import chau.bankingloan.customThings.URLConnect;
+import chau.bankingloan.customThings.ConstantStuff;
+import chau.bankingloan.customThings.InfoFromServer;
+import chau.bankingloan.customThings.ServerInfo;
 
 /**
  * Created on 04-May-16 by com08.
  */
 public class ConfirmFragment extends Fragment
 {
-
-
     private static String PIN_SERVER = null;
+    List<String> test;
 
     View rootView;
     CheckBox cbCorrect, cbAccept;
     TextView tvConfirmName, tvConfirmDoB, tvConfirmId, tvConfirmAdd, tvConfirmTelephone,
             tvConfirmMobile, tvConfirmEmail, tvConfirmWorkingStt, tvConfirmEmployer, tvConfirmEmployerAdd;
-    FloatingActionButton fabConfirmPre, fabConfirmNext;
+    ImageButton imgBtnPreTab6, imgBtnNextTab6;
     SharedPreferences personalPreferences, contactPreferences, employmentPreferences, loanPreferences;
 
     ProgressDialog progressDialog;
@@ -90,7 +97,7 @@ public class ConfirmFragment extends Fragment
             }
         });
 
-        fabConfirmNext.setOnClickListener(new View.OnClickListener() {
+        imgBtnNextTab6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!cbCorrect.isChecked()) {
@@ -108,13 +115,17 @@ public class ConfirmFragment extends Fragment
             }
         });
 
-        fabConfirmPre.setOnClickListener(new View.OnClickListener() {
+        imgBtnPreTab6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity act = (MainActivity) getActivity();
                 act.switchTab(4);
             }
         });
+
+        SharedPreferences tezt = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
+        test = loadData(tezt, "tab1");
+        Log.e("TEST", test.toString());
         return rootView;
     }
 
@@ -185,6 +196,27 @@ public class ConfirmFragment extends Fragment
         });
     }
 
+    public List<String> loadData(SharedPreferences tezt, String key)
+    {
+        List<String> items = new ArrayList<>();
+        Set<String> set = tezt.getStringSet(key, null);
+        if (set != null) {
+            for(String s : set)
+            {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String name = jsonObject.getString("value");
+                    items.add(name);
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return items;
+    }
+
     public void initWidget()
     {
         cbAccept = (CheckBox)rootView.findViewById(R.id.cbAccept);
@@ -199,9 +231,9 @@ public class ConfirmFragment extends Fragment
         tvConfirmWorkingStt = (TextView)rootView.findViewById(R.id.tvComfirmWorkingStt);
         tvConfirmEmployer = (TextView)rootView.findViewById(R.id.tvConfirmEmployer);
         tvConfirmEmployerAdd = (TextView)rootView.findViewById(R.id.tvConfirmEmployerAdd);
-        fabConfirmPre = (FloatingActionButton) rootView.findViewById(R.id.fabConfirmPre);
+        imgBtnPreTab6 = (ImageButton) rootView.findViewById(R.id.imgBtnPreTab6);
 //        fabConfirmPre.setEnabled(false);
-        fabConfirmNext = (FloatingActionButton) rootView.findViewById(R.id.fabConfirmNext);
+        imgBtnNextTab6 = (ImageButton) rootView.findViewById(R.id.imgBtnNextTab6);
 //        fabConfirmNext.setEnabled(false);
     }
 
@@ -223,7 +255,7 @@ public class ConfirmFragment extends Fragment
             HttpParams test = httpClient.getParams();
             HttpConnectionParams.setConnectionTimeout(test, 5000);
             HttpConnectionParams.setSoTimeout(test, 5000);
-            HttpPost httpPost = new HttpPost(URLConnect.URL_UPLOAD);
+            HttpPost httpPost = new HttpPost(ConstantStuff.URL_UPLOAD);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             try
             {
@@ -286,7 +318,7 @@ public class ConfirmFragment extends Fragment
             HttpParams test = httpClient.getParams();
             HttpConnectionParams.setConnectionTimeout(test, 5000);
             HttpConnectionParams.setSoTimeout(test, 5000);
-            HttpPost httpPost = new HttpPost(URLConnect.PIN_GENERATE);
+            HttpPost httpPost = new HttpPost(ConstantStuff.PIN_GENERATE);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             try {
                 String email = contactPreferences.getString("email","");
