@@ -11,14 +11,16 @@ public class ServerInfo {
     String type;
     String value;
     String column;
+    String url;
     boolean isRequired;
     public Object obj;
 
-    public ServerInfo(String label, String type, String value, String col, boolean isRequired)
+    public ServerInfo(String label, String type, String value, String url, String col, boolean isRequired)
     {
         this.label = label;
         this.type = type;
         this.value = value;
+        this.url = url;
         this.column = col;
         this.isRequired = isRequired;
     }
@@ -38,6 +40,9 @@ public class ServerInfo {
     public void setRequired(boolean required) {
         this.isRequired = required;
     }
+    public void setUrl(String url1) {
+        this.url = url1;
+    }
 
     public String getLabel(){
         return this.label;
@@ -53,6 +58,9 @@ public class ServerInfo {
     }
     public boolean isRequired() {
         return isRequired;
+    }
+    public String getUrl() {
+        return this.url;
     }
 
     public Object getNumber()

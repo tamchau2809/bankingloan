@@ -49,7 +49,7 @@ public class Tab5Fragment extends Fragment {
     View rootView;
 
     private LinearLayout lnrImages;
-    SharedPreferences personalPref;
+    SharedPreferences tab2Pref;
 
 
     ImageButton imgBtnAdd, imgBtnCamera, imgBtnUpload, imgBtnBack, imgBtnNext;
@@ -65,7 +65,7 @@ public class Tab5Fragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_tab_5, container, false);
         initWidget();
 
-        personalPref = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
+        tab2Pref = this.getActivity().getSharedPreferences("TAB2", Context.MODE_APPEND);
 
         imgBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,8 +257,8 @@ public class Tab5Fragment extends Fragment {
                     builder.addPart("image" + x, new FileBody(sourceFile));
                 }
 
-                String ID = personalPref.getString("identityNum", "");
-                String name = personalPref.getString("name", "");
+                String ID = tab2Pref.getString("IdentityCardNum", "");
+                String name = tab2Pref.getString("Name", "");
                 builder.addPart("NAME_ID", new StringBody(name, ContentType.TEXT_PLAIN));
                 builder.addPart("ID_NUM", new StringBody(ID, ContentType.TEXT_PLAIN));
 
@@ -283,6 +283,7 @@ public class Tab5Fragment extends Fragment {
             {}
             return response;
         }
+
 
         @Override
         protected void onPostExecute(String result) {

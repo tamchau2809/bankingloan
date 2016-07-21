@@ -181,6 +181,7 @@ public class Tab3Fragment extends Fragment
                         object = (JSONObject) array.get(i);
                         ServerInfo serverInfo = new ServerInfo(object.getString("label"),
                                 object.getString("type"), object.getString("value"),
+                                object.getString("url"),
                                 object.getString("column"), object.getBoolean("require"));
                         serverInfos.add(serverInfo);
                     }

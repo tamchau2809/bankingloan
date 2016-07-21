@@ -1,298 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:paddingStart="5dp"
-    android:paddingEnd="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/my_background">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/approved"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center" />
+    android:background="@color/colorPrimary">
 
     <LinearLayout
-        android:paddingTop="5dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
+        android:background="@drawable/my_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:orientation="vertical"
+        android:layout_height="235dp">
         <TextView
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/loan_details_confirm"
-            android:textSize="18sp"
+            android:text="@string/approved"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:gravity="center" />
 
         <TextView
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/terms_amp_conditions"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:isScrollContainer="true"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_weight="1">
-            <LinearLayout
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:orientation="vertical"
+            android:layout_height="150dp"
+            android:paddingTop="10dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:background="@drawable/my_background"
+            >
+            <chau.bankingloan.customThings.JustifyTextView
+                android:textSize="18sp"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/tezt"
+                android:id="@+id/jtvConditionConfirm"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="?android:listSeparatorTextViewStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/personal"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/name_confirm"/>
-                    <TextView
-                        android:id="@+id/tvConfirmName"
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dob"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvConfirmDoB"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/id"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvConfirmId"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/address"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvConfirmAdd"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/telephone"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvConfirmTelephone"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/mobile"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvConfirmMobile"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/email"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvConfirmEmail"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <TextView
-                    style="?android:listSeparatorTextViewStyle"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="@string/employment"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/working_status"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvComfirmWorkingStt"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/employer"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvConfirmEmployer"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="16sp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/employer_address"/>
-                    <TextView
-                        android:textSize="16sp"
-                        android:id="@+id/tvConfirmEmployerAdd"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="wrap_content" />
         </ScrollView>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <LinearLayout
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="?android:listSeparatorTextViewStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_terms_and_conditions"/>
-
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <CheckBox
-            android:id="@+id/cbCorrect"
-            android:textSize="18sp"
-            android:text="@string/confirm_details_are_correct"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/cbAccept"
+            android:layout_gravity="center"
+            android:id="@+id/cbAcceptConfirm"
             android:textSize="18sp"
             android:text="@string/i_accept"
             android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="0dp" />
     </LinearLayout>
 
     <LinearLayout

@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show 8 total pages.
             return 8;
         }
 
@@ -283,7 +283,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         protected void onPostExecute(Void aVoid) throws NullPointerException {
             super.onPostExecute(aVoid);
-            Log.e("TESST", TAB_1_LINK);
             for (int i = 0; i < 8; i++) {
                 int j = i + 1;
                 tabLayout.getTabAt(i).setText(j + "." + list.get(i).getData());

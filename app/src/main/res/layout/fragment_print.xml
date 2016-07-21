@@ -66,7 +66,7 @@
                 android:paddingStart="0dp"
                 android:id="@+id/test"
                 android:textSize="18sp"
-                android:text="@string/please_wait"
+                android:text="adhshd a dhá adá sha dhá dsahuodah sfahf sfhàhà ahs fahaugh hgạhg adhg adhg adh"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

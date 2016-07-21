@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import chau.bankingloan.customThings.ConstantStuff;
+import chau.bankingloan.customThings.InfoFromServer;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerInfo;
@@ -42,6 +44,8 @@ public class Tab1Fragment extends Fragment
     View rootView;
     LinearLayout lnrTab1;
     public ArrayList<ServerInfo> arrayListTab1;
+    ArrayList<InfoFromServer> arrTenure = new ArrayList<>();
+    StringBuilder builder = new StringBuilder();
 
     ProgressDialog progressDialog;
     ImageButton imgBtnNext, imgBtnRefresh;
@@ -96,7 +100,7 @@ public class Tab1Fragment extends Fragment
                 else
                 {
                     android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
-                    builder.setMessage("Please FIll In The Blank...");
+                    builder.setMessage("Please Fill In The Blank...");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -114,6 +118,56 @@ public class Tab1Fragment extends Fragment
                 new GetData().execute();
             }
         };
+    }
+
+    private void SaveData()
+    {
+        try {
+            int i;
+            SharedPreferences.Editor editor = preferences.edit();
+            Set<String> set = new HashSet<>();
+            editor.clear().apply();
+            for (i = 0; i < arrayListTab1.size(); i++) {
+                if (!arrayListTab1.get(i).getType().equals("textviewColumn")) {
+                    String fieldValue = (String) arrayListTab1.get(i).getData();
+                    editor.putString(arrayListTab1.get(i).getLabel().toString().trim().replace(" ", "").replace(":", ""), fieldValue);
+                    set.add(arrayListTab1.get(i).jsonObject().toString());
+                }
+            }
+            editor.putStringSet("tab1", set);
+            editor.apply();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean CheckFields()
+    {
+        try
+        {
+            int i;
+            boolean good = true;
+            for (i=0; i< arrayListTab1.size(); i++) {
+                String fieldValue = (String) arrayListTab1.get(i).getData();
+                if (arrayListTab1.get(i).isRequired()) {
+                    if (fieldValue == null) {
+                        good = false;
+                    } else {
+                        if (fieldValue.trim().length() == 0) {
+                            good = false;
+                        }
+                    }
+                }
+            }
+            return good;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private class GetData extends AsyncTask<Void, Void, Void>
@@ -143,6 +197,7 @@ public class Tab1Fragment extends Fragment
                         object = (JSONObject) array.get(i);
                         ServerInfo serverInfo = new ServerInfo(object.getString("label"),
                                 object.getString("type"), object.getString("value"),
+                                object.getString("url"),
                                 object.getString("column"), object.getBoolean("require"));
                         arrayListTab1.add(serverInfo);
                     }
@@ -160,7 +215,17 @@ public class Tab1Fragment extends Fragment
             super.onPostExecute(aVoid);
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-
+            new SpinnerData().execute(ConstantStuff.GET_DATA_LOAN);
+            for(int i = 0; i < arrayListTab1.size(); i++)
+            {
+                if(arrayListTab1.get(i).getType().equals("spinner")) {
+                    Log.e("CV", arrayListTab1.get(i).getLabel());
+//                    for(int j = 0; j < arrTenure.size(); j++)
+//                    {
+//                        if(arrayListTab1.get(i).getLabel().equals(arrTenure.get(j).))
+//                    }
+                }
+            }
             DisplayForm();
         }
 
@@ -203,6 +268,7 @@ public class Tab1Fragment extends Fragment
                     if (arrayListTab1.get(i).getType().equals("spinner"))
                     {
                         if(arrayListTab1.get(i).getColumn().equals("1")) {
+
                             arrayListTab1.get(i).obj = new ServerSpinner(getContext(), arrayListTab1.get(i).getLabel(), arrayListTab1.get(i).getValue());
                             l1.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
@@ -277,54 +343,66 @@ public class Tab1Fragment extends Fragment
         }
     }
 
-    private void SaveData()
+    private class SpinnerData extends AsyncTask<String, Void, Void>
     {
-        try {
-            int i;
-            SharedPreferences.Editor editor = preferences.edit();
-            Set<String> set = new HashSet<>();
-            editor.clear().apply();
-            for (i = 0; i < arrayListTab1.size(); i++) {
-                if (!arrayListTab1.get(i).getType().equals("textviewColumn")) {
-                    String fieldValue = (String) arrayListTab1.get(i).getData();
-                    editor.putString(arrayListTab1.get(i).getLabel().toString().trim().replace(" ", "").replace(":", ""), fieldValue);
-
-                    set.add(arrayListTab1.get(i).jsonObject().toString());
-                }
-            }
-            editor.putStringSet("tab1", set);
-            editor.apply();
+        String json;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            arrTenure.clear();
+            builder = new StringBuilder();
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
 
-    private boolean CheckFields()
-    {
-        try
-        {
-            int i;
-            boolean good = true;
-            for (i=0; i< arrayListTab1.size(); i++) {
-                String fieldValue = (String) arrayListTab1.get(i).getData();
-                if (arrayListTab1.get(i).isRequired()) {
-                    if (fieldValue == null) {
-                        good = false;
-                    } else {
-                        if (fieldValue.trim().length() == 0) {
-                            good = false;
-                        }
+        @Override
+        protected Void doInBackground(String... strings) {
+            ServiceHandler jsonParser = new ServiceHandler();
+            String url = strings[0];
+            json = jsonParser.makeServiceCall(url, ServiceHandler.GET);
+            if(json != null)
+            {
+                for(int i = 0; i < arrayListTab1.size(); i++)
+                {
+                    if (arrayListTab1.get(i).getType().equals("spinner"))
+                    {
+                        getIt(json, arrayListTab1.get(i).getLabel().trim()
+                                .replace(":", "").replace(" ", "")
+                                , "DATA", "DETAILS", arrTenure);
                     }
                 }
             }
-            return good;
+
+            return null;
         }
-        catch (Exception e)
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            for(int i = 0; i < arrTenure.size(); i++) {
+                builder.append(arrTenure.get(i) + ",");
+            }
+//            Log.e("EXECUTION", builder.toString());
+        }
+
+        private void getIt(String json, String key, String data1, String data2, ArrayList<InfoFromServer> list)
         {
-            e.printStackTrace();
-            return false;
+            try {
+                JSONObject object = new JSONObject(json);
+                JSONArray array = object.getJSONArray(key);
+//                list.add(key);
+                for(int i = 0; i < array.length(); i++)
+                {
+                    JSONObject jsonObject = (JSONObject)array.get(i);
+                    InfoFromServer info = new InfoFromServer(jsonObject.getString(data1),
+                            jsonObject.getString(data2));
+//                    String tezt = jsonObject.getString(data1);
+
+                    list.add(info);
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }

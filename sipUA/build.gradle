@@ -1,0 +1,23 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        applicationId "org.sipdroid.sipua"
+        minSdkVersion 5
+        targetSdkVersion 11
+
+        ndk {
+            moduleName "OSNetworkSystem"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}

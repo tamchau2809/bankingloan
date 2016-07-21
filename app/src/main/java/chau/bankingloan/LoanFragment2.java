@@ -285,11 +285,11 @@ public class    LoanFragment2  extends Fragment implements View.OnClickListener
             String json = jsonParser.makeServiceCall(ConstantStuff.GET_DATA_LOAN, ServiceHandler.GET);
             if(json != null)
             {
-                getIt(json, "tbtenure", "TENURE", "DETAILS", arrTenure);
+                getIt(json, "tenure", "DATA", "DETAILS", arrTenure);
                 storeSpinnerData(arrTenure, "Tenure");
-                getIt(json, "tbloantype", "TYPE", "DETAILS", arrType);
+                getIt(json, "tbloantype", "DATA", "DETAILS", arrType);
                 storeSpinnerData(arrType, "Type");
-                getIt(json, "tbpurpose", "PURPOSE", "DETAILS", arrPurpose);
+                getIt(json, "tbpurpose", "DATA", "DETAILS", arrPurpose);
                 storeSpinnerData(arrPurpose, "Purpose");
             }
 

@@ -1,6 +1,5 @@
 package chau.bankingloan;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,7 +16,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -40,8 +38,7 @@ import java.util.List;
 import java.util.Set;
 
 import chau.bankingloan.customThings.ConstantStuff;
-import chau.bankingloan.customThings.InfoFromServer;
-import chau.bankingloan.customThings.ServerInfo;
+import chau.bankingloan.customThings.JustifyTextView;
 
 /**
  * Created on 04-May-16 by com08.
@@ -51,10 +48,10 @@ public class ConfirmFragment extends Fragment
     private static String PIN_SERVER = null;
     List<String> test;
 
+    JustifyTextView jtvCondition;
+
     View rootView;
-    CheckBox cbCorrect, cbAccept;
-    TextView tvConfirmName, tvConfirmDoB, tvConfirmId, tvConfirmAdd, tvConfirmTelephone,
-            tvConfirmMobile, tvConfirmEmail, tvConfirmWorkingStt, tvConfirmEmployer, tvConfirmEmployerAdd;
+    CheckBox cbAccept;
     ImageButton imgBtnPreTab6, imgBtnNextTab6;
     SharedPreferences personalPreferences, contactPreferences, employmentPreferences, loanPreferences;
 
@@ -68,23 +65,12 @@ public class ConfirmFragment extends Fragment
 
         initWidget();
         personalPreferences = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
-        loadFromPersonal(personalPreferences);
+//        loadFromPersonal(personalPreferences);
         contactPreferences = this.getActivity().getSharedPreferences("CONTACT", Context.MODE_APPEND);
-        loadFromContact(contactPreferences);
+//        loadFromContact(contactPreferences);
         employmentPreferences = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
-        loadFromEmployment(employmentPreferences);
+//        loadFromEmployment(employmentPreferences);
         loanPreferences = this.getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
-
-        cbCorrect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if ( isChecked ) {
-                    cbCorrect.setError(null);
-                } else {
-                    cbCorrect.setError("Please Check Your Details!");
-                }
-            }
-        });
 
         cbAccept.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,10 +86,7 @@ public class ConfirmFragment extends Fragment
         imgBtnNextTab6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!cbCorrect.isChecked()) {
-                    cbCorrect.setError("Please Check Your Details!");
-                }
-                else if (!cbAccept.isChecked())
+                if (!cbAccept.isChecked())
                 {
                     cbAccept.setError("Please Read The Terms and Conditions!");
                 }
@@ -129,29 +112,29 @@ public class ConfirmFragment extends Fragment
         return rootView;
     }
 
-    public void loadFromPersonal(SharedPreferences personal)
-    {
-        tvConfirmName.setText(personal.getString("name", ""));
-        tvConfirmDoB.setText(personal.getString("birthday", ""));
-        tvConfirmId.setText(personal.getString("identityNum", ""));
-    }
-
-    @SuppressLint("SetTextI18n")
-    public void loadFromContact(SharedPreferences contact)
-    {
-        tvConfirmTelephone.setText(contact.getString("telephone", ""));
-        tvConfirmMobile.setText(contact.getString("mobile", ""));
-        tvConfirmEmail.setText(contact.getString("email", ""));
-        tvConfirmAdd.setText(contact.getString("street", "") + ", "
-                + contact.getString("city", ""));
-    }
-
-    public void loadFromEmployment(SharedPreferences employment)
-    {
-        tvConfirmWorkingStt.setText(employment.getString("workingStt", ""));
-        tvConfirmEmployer.setText(employment.getString("employer", ""));
-        tvConfirmEmployerAdd.setText(employment.getString("employerAdd", ""));
-    }
+//    public void loadFromPersonal(SharedPreferences personal)
+//    {
+//        tvConfirmName.setText(personal.getString("name", ""));
+//        tvConfirmDoB.setText(personal.getString("birthday", ""));
+//        tvConfirmId.setText(personal.getString("identityNum", ""));
+//    }
+//
+//    @SuppressLint("SetTextI18n")
+//    public void loadFromContact(SharedPreferences contact)
+//    {
+//        tvConfirmTelephone.setText(contact.getString("telephone", ""));
+//        tvConfirmMobile.setText(contact.getString("mobile", ""));
+//        tvConfirmEmail.setText(contact.getString("email", ""));
+//        tvConfirmAdd.setText(contact.getString("street", "") + ", "
+//                + contact.getString("city", ""));
+//    }
+//
+//    public void loadFromEmployment(SharedPreferences employment)
+//    {
+//        tvConfirmWorkingStt.setText(employment.getString("workingStt", ""));
+//        tvConfirmEmployer.setText(employment.getString("employer", ""));
+//        tvConfirmEmployerAdd.setText(employment.getString("employerAdd", ""));
+//    }
 
     public void showDialog()
     {
@@ -219,22 +202,12 @@ public class ConfirmFragment extends Fragment
 
     public void initWidget()
     {
-        cbAccept = (CheckBox)rootView.findViewById(R.id.cbAccept);
-        cbCorrect = (CheckBox)rootView.findViewById(R.id.cbCorrect);
-        tvConfirmAdd = (TextView)rootView.findViewById(R.id.tvConfirmAdd);
-        tvConfirmName = (TextView)rootView.findViewById(R.id.tvConfirmName);
-        tvConfirmDoB = (TextView)rootView.findViewById(R.id.tvConfirmDoB);
-        tvConfirmId = (TextView)rootView.findViewById(R.id.tvConfirmId);
-        tvConfirmTelephone = (TextView)rootView.findViewById(R.id.tvConfirmTelephone);
-        tvConfirmMobile = (TextView)rootView.findViewById(R.id.tvConfirmMobile);
-        tvConfirmEmail = (TextView)rootView.findViewById(R.id.tvConfirmEmail);
-        tvConfirmWorkingStt = (TextView)rootView.findViewById(R.id.tvComfirmWorkingStt);
-        tvConfirmEmployer = (TextView)rootView.findViewById(R.id.tvConfirmEmployer);
-        tvConfirmEmployerAdd = (TextView)rootView.findViewById(R.id.tvConfirmEmployerAdd);
+        cbAccept = (CheckBox)rootView.findViewById(R.id.cbAcceptConfirm);
         imgBtnPreTab6 = (ImageButton) rootView.findViewById(R.id.imgBtnPreTab6);
 //        fabConfirmPre.setEnabled(false);
         imgBtnNextTab6 = (ImageButton) rootView.findViewById(R.id.imgBtnNextTab6);
 //        fabConfirmNext.setEnabled(false);
+        jtvCondition = (JustifyTextView)rootView.findViewById(R.id.jtvConditionConfirm);
     }
 
     private class SendInfo extends AsyncTask<Void, Float, String>
