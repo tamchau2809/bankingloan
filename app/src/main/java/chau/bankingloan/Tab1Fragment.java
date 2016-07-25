@@ -40,7 +40,7 @@ public class Tab1Fragment extends Fragment
 {
     View rootView;
     LinearLayout lnrTab1;
-    public String arrSpinner ="";
+    String arrSpinner = "";
     public ArrayList<ServerInfo> arrayListTab1;
     StringBuilder builder = new StringBuilder();
 
@@ -252,12 +252,9 @@ public class Tab1Fragment extends Fragment
                     if (arrayListTab1.get(i).getType().equals("spinner"))
                     {
                         if(arrayListTab1.get(i).getColumn().equals("1")) {
-//                            arrayListTab1.get(i).obj = new ServerSpinner(getContext(), arrayListTab1.get(i).getLabel(), arrayListTab1.get(i).getValue());
-//                            Log.e("DISPLAY", arrSpinner);
                             new SpinnerData(arrayListTab1.get(i).getUrl(),
-                                    arrayListTab1.get(i).getLabel()).execute();
+                                    arrayListTab1.get(i).getLabel(), arrSpinner).execute();
                             Log.e("DISPLAY", arrSpinner);
-                            Toast.makeText(getContext(), arrSpinner, Toast.LENGTH_SHORT).show();
                             arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
                                     arrayListTab1.get(i).getLabel(), arrSpinner);
                             l1.addView((View) arrayListTab1.get(i).obj, layoutParams);
@@ -340,9 +337,10 @@ public class Tab1Fragment extends Fragment
         JSONArray array;
         JSONObject object;
 
-        public SpinnerData(String url, String key) {
+        public SpinnerData(String url, String key, String arr) {
             this.url = url;
             this.key = key;
+            this.arr = arr;
         }
 
         @Override
