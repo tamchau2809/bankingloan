@@ -54,8 +54,8 @@ public class ServiceHandler {
 			HttpEntity httpEntity;
 			HttpResponse httpResponse = null;
 			HttpParams test = httpClient.getParams();
-			HttpConnectionParams.setConnectionTimeout(test, 8000);
-			HttpConnectionParams.setSoTimeout(test, 8000);
+			HttpConnectionParams.setConnectionTimeout(test, 10000);
+			HttpConnectionParams.setSoTimeout(test, 10000);
 			
 			// Checking http request method type
 			if (method == POST) {

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
@@ -26,8 +25,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import chau.bankingloan.customThings.ConstantStuff;
-import chau.bankingloan.customThings.InfoFromServer;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerInfo;
@@ -43,8 +40,8 @@ public class Tab1Fragment extends Fragment
 {
     View rootView;
     LinearLayout lnrTab1;
+    public String arrSpinner ="";
     public ArrayList<ServerInfo> arrayListTab1;
-    ArrayList<InfoFromServer> arrTenure = new ArrayList<>();
     StringBuilder builder = new StringBuilder();
 
     ProgressDialog progressDialog;
@@ -53,15 +50,14 @@ public class Tab1Fragment extends Fragment
 
     View.OnClickListener listenerNext, listenerRef;
 
-    String json;
+    String jsonMain, jsonSpinner;
     JSONObject object;
     JSONArray array;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_tab_1, container, false);
         initWidget();
         initListener();
@@ -186,12 +182,12 @@ public class Tab1Fragment extends Fragment
         @Override
         protected Void doInBackground(Void... params) {
             ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(MainActivity.TAB_1_LINK, ServiceHandler.GET);
-            if(json!= null)
+            jsonMain = sh.makeServiceCall(MainActivity.TAB_1_LINK, ServiceHandler.GET);
+            if(jsonMain != null)
             {
                 try
                 {
-                    JSONObject jsonObject = new JSONObject(json);
+                    JSONObject jsonObject = new JSONObject(jsonMain);
                     array = jsonObject.getJSONArray("tab1");
                     for(int i = 0; i < array.length(); i++) {
                         object = (JSONObject) array.get(i);
@@ -215,21 +211,10 @@ public class Tab1Fragment extends Fragment
             super.onPostExecute(aVoid);
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-            new SpinnerData().execute(ConstantStuff.GET_DATA_LOAN);
-            for(int i = 0; i < arrayListTab1.size(); i++)
-            {
-                if(arrayListTab1.get(i).getType().equals("spinner")) {
-                    Log.e("CV", arrayListTab1.get(i).getLabel());
-//                    for(int j = 0; j < arrTenure.size(); j++)
-//                    {
-//                        if(arrayListTab1.get(i).getLabel().equals(arrTenure.get(j).))
-//                    }
-                }
-            }
             DisplayForm();
         }
 
-        private void DisplayForm()
+        public void DisplayForm()
         {
             try
             {
@@ -264,12 +249,17 @@ public class Tab1Fragment extends Fragment
                             l2.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
                     }
-
                     if (arrayListTab1.get(i).getType().equals("spinner"))
                     {
                         if(arrayListTab1.get(i).getColumn().equals("1")) {
-
-                            arrayListTab1.get(i).obj = new ServerSpinner(getContext(), arrayListTab1.get(i).getLabel(), arrayListTab1.get(i).getValue());
+//                            arrayListTab1.get(i).obj = new ServerSpinner(getContext(), arrayListTab1.get(i).getLabel(), arrayListTab1.get(i).getValue());
+//                            Log.e("DISPLAY", arrSpinner);
+                            new SpinnerData(arrayListTab1.get(i).getUrl(),
+                                    arrayListTab1.get(i).getLabel()).execute();
+                            Log.e("DISPLAY", arrSpinner);
+                            Toast.makeText(getContext(), arrSpinner, Toast.LENGTH_SHORT).show();
+                            arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
+                                    arrayListTab1.get(i).getLabel(), arrSpinner);
                             l1.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
                         if(arrayListTab1.get(i).getColumn().equals("2")){
@@ -343,66 +333,51 @@ public class Tab1Fragment extends Fragment
         }
     }
 
-    private class SpinnerData extends AsyncTask<String, Void, Void>
-    {
-        String json;
+    public class SpinnerData extends AsyncTask<Void, Void, String> {
+        String url;
+        String key;
+        String arr;
+        JSONArray array;
+        JSONObject object;
+
+        public SpinnerData(String url, String key) {
+            this.url = url;
+            this.key = key;
+        }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            arrTenure.clear();
+            arr = "";
             builder = new StringBuilder();
         }
 
         @Override
-        protected Void doInBackground(String... strings) {
+        protected String doInBackground(Void... strings) {
             ServiceHandler jsonParser = new ServiceHandler();
-            String url = strings[0];
-            json = jsonParser.makeServiceCall(url, ServiceHandler.GET);
-            if(json != null)
-            {
-                for(int i = 0; i < arrayListTab1.size(); i++)
-                {
-                    if (arrayListTab1.get(i).getType().equals("spinner"))
-                    {
-                        getIt(json, arrayListTab1.get(i).getLabel().trim()
-                                .replace(":", "").replace(" ", "")
-                                , "DATA", "DETAILS", arrTenure);
+            jsonSpinner = jsonParser.makeServiceCall(url, ServiceHandler.GET);
+            if (jsonSpinner != null) {
+                try {
+                    object = new JSONObject(jsonSpinner);
+                    array = object.getJSONArray(key.trim().replace(":", "").replace(" ", ""));
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject jsonObject = (JSONObject) array.get(i);
+                        arr += jsonObject.getString("DATA").toString() + ",";
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-
-            return null;
+            return arr;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(String aVoid) {
             super.onPostExecute(aVoid);
-            for(int i = 0; i < arrTenure.size(); i++) {
-                builder.append(arrTenure.get(i) + ",");
-            }
-//            Log.e("EXECUTION", builder.toString());
-        }
-
-        private void getIt(String json, String key, String data1, String data2, ArrayList<InfoFromServer> list)
-        {
-            try {
-                JSONObject object = new JSONObject(json);
-                JSONArray array = object.getJSONArray(key);
-//                list.add(key);
-                for(int i = 0; i < array.length(); i++)
-                {
-                    JSONObject jsonObject = (JSONObject)array.get(i);
-                    InfoFromServer info = new InfoFromServer(jsonObject.getString(data1),
-                            jsonObject.getString(data2));
-//                    String tezt = jsonObject.getString(data1);
-
-                    list.add(info);
-                }
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
+//            arrSpinner = arr;
+            Log.e("EXECUTION", key);
+            Log.e("EXECUTION", aVoid);
+            arrSpinner = aVoid;
         }
     }
 }

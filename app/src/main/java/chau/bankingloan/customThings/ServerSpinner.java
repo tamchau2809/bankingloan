@@ -1,10 +1,13 @@
 package chau.bankingloan.customThings;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 import chau.bankingloan.R;
 
