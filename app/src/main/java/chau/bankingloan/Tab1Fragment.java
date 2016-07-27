@@ -40,9 +40,8 @@ public class Tab1Fragment extends Fragment
 {
     View rootView;
     LinearLayout lnrTab1;
-    String arrSpinner = "";
+    public String arrSpinner = new String();
     public ArrayList<ServerInfo> arrayListTab1;
-    StringBuilder builder = new StringBuilder();
 
     ProgressDialog progressDialog;
     ImageButton imgBtnNext, imgBtnRefresh;
@@ -201,7 +200,7 @@ public class Tab1Fragment extends Fragment
                 catch (JSONException e)
                 {
                     e.printStackTrace();
-                }
+            }
             }
             return null;
         }
@@ -251,12 +250,12 @@ public class Tab1Fragment extends Fragment
                     }
                     if (arrayListTab1.get(i).getType().equals("spinner"))
                     {
+                        arrSpinner = new SpinnerData(arrayListTab1.get(i).getUrl(), arrayListTab1.get(i).getLabel()).execute().get();
                         if(arrayListTab1.get(i).getColumn().equals("1")) {
-                            new SpinnerData(arrayListTab1.get(i).getUrl(),
-                                    arrayListTab1.get(i).getLabel(), arrSpinner).execute();
-                            Log.e("DISPLAY", arrSpinner);
                             arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
                                     arrayListTab1.get(i).getLabel(), arrSpinner);
+                            Log.e("DISPLAY", arrayListTab1.get(i).getLabel());
+                            Log.e("DISPLAY", arrSpinner);
                             l1.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
                         if(arrayListTab1.get(i).getColumn().equals("2")){
@@ -337,17 +336,15 @@ public class Tab1Fragment extends Fragment
         JSONArray array;
         JSONObject object;
 
-        public SpinnerData(String url, String key, String arr) {
+        public SpinnerData(String url, String key) {
             this.url = url;
             this.key = key;
-            this.arr = arr;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             arr = "";
-            builder = new StringBuilder();
         }
 
         @Override
@@ -357,7 +354,8 @@ public class Tab1Fragment extends Fragment
             if (jsonSpinner != null) {
                 try {
                     object = new JSONObject(jsonSpinner);
-                    array = object.getJSONArray(key.trim().replace(":", "").replace(" ", ""));
+                    array = object.getJSONArray(key.trim().replace(":", "")
+                            .replace(" ", ""));
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonObject = (JSONObject) array.get(i);
                         arr += jsonObject.getString("DATA").toString() + ",";
@@ -372,10 +370,8 @@ public class Tab1Fragment extends Fragment
         @Override
         protected void onPostExecute(String aVoid) {
             super.onPostExecute(aVoid);
-//            arrSpinner = arr;
             Log.e("EXECUTION", key);
             Log.e("EXECUTION", aVoid);
-            arrSpinner = aVoid;
         }
     }
 }
