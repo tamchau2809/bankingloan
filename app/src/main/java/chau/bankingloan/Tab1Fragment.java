@@ -49,10 +49,6 @@ public class Tab1Fragment extends Fragment
 
     View.OnClickListener listenerNext, listenerRef;
 
-    String jsonMain, jsonSpinner;
-    JSONObject object;
-    JSONArray array;
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -167,6 +163,10 @@ public class Tab1Fragment extends Fragment
 
     private class GetData extends AsyncTask<Void, Void, Void>
     {
+        String jsonMain;
+        JSONObject object;
+        JSONArray array;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -200,7 +200,7 @@ public class Tab1Fragment extends Fragment
                 catch (JSONException e)
                 {
                     e.printStackTrace();
-            }
+                }
             }
             return null;
         }
@@ -252,8 +252,16 @@ public class Tab1Fragment extends Fragment
                     {
                         arrSpinner = new SpinnerData(arrayListTab1.get(i).getUrl(), arrayListTab1.get(i).getLabel()).execute().get();
                         if(arrayListTab1.get(i).getColumn().equals("1")) {
-                            arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
-                                    arrayListTab1.get(i).getLabel(), arrSpinner);
+                            if(arrSpinner == "")
+                            {
+                                arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
+                                        arrayListTab1.get(i).getLabel()
+                                        , arrayListTab1.get(i).getValue());
+                                Toast.makeText(getContext(), "Can not get " + arrayListTab1.get(i).getLabel().replace(":", "") + " from Server!", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                                arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
+                                        arrayListTab1.get(i).getLabel(), arrSpinner);
                             Log.e("DISPLAY", arrayListTab1.get(i).getLabel());
                             Log.e("DISPLAY", arrSpinner);
                             l1.addView((View) arrayListTab1.get(i).obj, layoutParams);
@@ -335,6 +343,7 @@ public class Tab1Fragment extends Fragment
         String arr;
         JSONArray array;
         JSONObject object;
+        String jsonSpinner;
 
         public SpinnerData(String url, String key) {
             this.url = url;
@@ -350,19 +359,26 @@ public class Tab1Fragment extends Fragment
         @Override
         protected String doInBackground(Void... strings) {
             ServiceHandler jsonParser = new ServiceHandler();
-            jsonSpinner = jsonParser.makeServiceCall(url, ServiceHandler.GET);
-            if (jsonSpinner != null) {
-                try {
-                    object = new JSONObject(jsonSpinner);
-                    array = object.getJSONArray(key.trim().replace(":", "")
-                            .replace(" ", ""));
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject jsonObject = (JSONObject) array.get(i);
-                        arr += jsonObject.getString("DATA").toString() + ",";
+            if(url.isEmpty())
+            {
+                arr = "";
+            }
+            else {
+                jsonSpinner = jsonParser.makeServiceCall(url, ServiceHandler.GET);
+                if (jsonSpinner != null) {
+                    try {
+                        object = new JSONObject(jsonSpinner);
+                        array = object.getJSONArray(key.trim().replace(":", "")
+                                .replace(" ", ""));
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject jsonObject = (JSONObject) array.get(i);
+                            arr += jsonObject.getString("DATA").toString() + ",";
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
+                else arr = "";
             }
             return arr;
         }

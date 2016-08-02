@@ -34,13 +34,17 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 
 import chau.bankingloan.customThings.ConstantStuff;
+import chau.bankingloan.customThings.InfoFromServer;
 
 /**
  * Created on 28-Apr-16 by com08.
@@ -144,6 +148,26 @@ public class Tab5Fragment extends Fragment {
             e.printStackTrace();
         }
         return file;
+    }
+
+    public void getDataFromSP(SharedPreferences pref, String tab, String name)
+    {
+        pref = this.getActivity().getSharedPreferences(tab, Context.MODE_APPEND);
+        Set<String> set = pref.getStringSet(name, null);
+        if (set != null) {
+            for(String s : set)
+            {
+                try
+                {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String value = jsonObject.getString("value");
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

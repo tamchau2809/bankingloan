@@ -46,10 +46,6 @@ public class Tab2Fragment extends Fragment
 
     View.OnClickListener listenerRefresh, listenerNext, listenerPre;
 
-    String json;
-    JSONObject object;
-    JSONArray array;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -110,6 +106,10 @@ public class Tab2Fragment extends Fragment
 
     private class GetData extends AsyncTask<Void, Void, Void>
     {
+        String json;
+        JSONObject object;
+        JSONArray array;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -265,6 +265,53 @@ public class Tab2Fragment extends Fragment
             {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public class SpinnerData extends AsyncTask<Void, Void, String> {
+        String url;
+        String key;
+        String arr;
+        JSONArray array;
+        JSONObject object;
+        String jsonSpinner;
+
+        public SpinnerData(String url, String key) {
+            this.url = url;
+            this.key = key;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            arr = "";
+        }
+
+        @Override
+        protected String doInBackground(Void... strings) {
+            ServiceHandler jsonParser = new ServiceHandler();
+            jsonSpinner = jsonParser.makeServiceCall(url, ServiceHandler.GET);
+            if (jsonSpinner != null) {
+                try {
+                    object = new JSONObject(jsonSpinner);
+                    array = object.getJSONArray(key.trim().replace(":", "")
+                            .replace(" ", ""));
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject jsonObject = (JSONObject) array.get(i);
+                        arr += jsonObject.getString("DATA") + ",";
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return arr;
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            Log.e("EXECUTION", key);
+            Log.e("EXECUTION", aVoid);
         }
     }
 
