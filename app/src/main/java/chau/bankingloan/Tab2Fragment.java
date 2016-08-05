@@ -342,7 +342,7 @@ public class Tab2Fragment extends Fragment
             for(i = 0; i < serverInfos.size(); i++)
             {
                 String fieldValue = (String) serverInfos.get(i).getData();
-                Log.e("ChauVu", serverInfos.get(i).getLabel() + " is [" + fieldValue + "]" + "\n------------------------");
+//                Log.e("ChauVu", serverInfos.get(i).getLabel() + " is [" + fieldValue + "]" + "\n------------------------");
                 if (serverInfos.get(i).isRequired()) {
                     if (fieldValue == null) {
                         good = false;

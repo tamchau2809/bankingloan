@@ -47,13 +47,16 @@ public class ConfirmFragment extends Fragment
 {
     private static String PIN_SERVER = null;
     List<String> test;
+    String loanAmount, lastPayment, maxInterest, loanPurpose,
+            loanType, monthlyPayment, tenure;
 
     JustifyTextView jtvCondition;
 
     View rootView;
     CheckBox cbAccept;
     ImageButton imgBtnPreTab6, imgBtnNextTab6;
-    SharedPreferences personalPreferences, contactPreferences, employmentPreferences, loanPreferences;
+    SharedPreferences personalPreferences, contactPreferences,
+            employmentPreferences, tab1;
 
     ProgressDialog progressDialog;
 
@@ -70,7 +73,16 @@ public class ConfirmFragment extends Fragment
 //        loadFromContact(contactPreferences);
         employmentPreferences = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
 //        loadFromEmployment(employmentPreferences);
-        loanPreferences = this.getActivity().getSharedPreferences("LOAN_DETAILS", Context.MODE_APPEND);
+        tab1 = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
+//        loanAmount = tab1.getString("LoanAmount", "");
+        getData(tab1, "TAB1");
+        Log.e("LoanAmount", loanAmount);
+        Log.e("LastPayment", lastPayment);
+        Log.e("MaxInterest", maxInterest);
+        Log.e("Tenure", tenure);
+        Log.e("LoanPurpose", loanPurpose);
+        Log.e("MonthlyPayment", monthlyPayment);
+        Log.e("LoanType", loanType);
 
         cbAccept.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -210,6 +222,18 @@ public class ConfirmFragment extends Fragment
         jtvCondition = (JustifyTextView)rootView.findViewById(R.id.jtvConditionConfirm);
     }
 
+    public void getData(SharedPreferences pref, String tab)
+    {
+        pref = this.getActivity().getSharedPreferences(tab, Context.MODE_APPEND);
+        loanAmount = pref.getString("LoanAmount", "");
+        lastPayment = pref.getString("LastPayment", "");
+        maxInterest = pref.getString("MaxInterest", "");
+        loanPurpose = pref.getString("LoanPurpose", "");
+        loanType = pref.getString("LoanType", "");
+        monthlyPayment = pref.getString("MonthlyPayment", "");
+        tenure = pref.getString("Tenure", "");
+    }
+
     private class SendInfo extends AsyncTask<Void, Float, String>
     {
         @Override
@@ -241,9 +265,9 @@ public class ConfirmFragment extends Fragment
                     }
                 };
 
-                builder.addPart("LOAN_TYPE", new StringBody(loanPreferences.getString("loan_type",""), ContentType.TEXT_PLAIN));
-                builder.addPart("TENURE", new StringBody(loanPreferences.getString("tenure",""), ContentType.TEXT_PLAIN));
-                builder.addPart("LOAN_PURPOSE", new StringBody(loanPreferences.getString("loan_purpose",""), ContentType.TEXT_PLAIN));
+                builder.addPart("LOAN_TYPE", new StringBody(tab1.getString("LoanType",""), ContentType.TEXT_PLAIN));
+                builder.addPart("TENURE", new StringBody(tab1.getString("Tenure",""), ContentType.TEXT_PLAIN));
+                builder.addPart("LOAN_PURPOSE", new StringBody(tab1.getString("LoanPurpose",""), ContentType.TEXT_PLAIN));
 
                 httpPost.setEntity(new UploadProgress2(builder.build(), lis));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
