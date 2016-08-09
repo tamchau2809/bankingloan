@@ -63,9 +63,9 @@ public class ServerInfo {
         return this.url;
     }
 
-    public Object getNumber()
+    public String getNumber()
     {
-        if(type.equals("edPlusNumber"))
+        if(type.equals("edPlusNumberA"))
         {
             if(obj != null)
             {
@@ -74,6 +74,14 @@ public class ServerInfo {
             }
         }
         return null;
+    }
+
+    public void setData()
+    {
+        if(type.equals("edPlusResultA"))
+        {
+
+        }
     }
 
     public Object getData()
@@ -86,7 +94,9 @@ public class ServerInfo {
                 return serverSpinner.getValue();
             }
         }
-        if(type.equals("edittext") || type.equals("edittextnumber") || type.equals("edittextemail"))
+        if(type.equals("edittext") || type.equals("edittextnumber")
+                || type.equals("edittextemail")
+                || type.equals("edPlusNumberA"))
         {
             if(obj != null)
             {

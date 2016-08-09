@@ -139,6 +139,7 @@ public class Tab1Fragment extends Fragment
         try
         {
             int i;
+            int t = 0;
             boolean good = true;
             for (i=0; i< arrayListTab1.size(); i++) {
                 String fieldValue = (String) arrayListTab1.get(i).getData();
@@ -151,7 +152,12 @@ public class Tab1Fragment extends Fragment
                         }
                     }
                 }
+                if(arrayListTab1.get(i).getType().equals("edPlusNumberA"))
+                {
+                    t = t+Integer.valueOf((String)arrayListTab1.get(i).getData());
+                }
             }
+            Log.e("NUMBER", String.valueOf(t));
             return good;
         }
         catch (Exception e)
@@ -323,6 +329,16 @@ public class Tab1Fragment extends Fragment
                         }
                         if(arrayListTab1.get(i).getColumn().equals("2")){
                             arrayListTab1.get(i).obj = new ServerCheckbox(getContext(), arrayListTab1.get(i).getLabel());
+                            l2.addView((View) arrayListTab1.get(i).obj, layoutParams);
+                        }
+                    }
+                    if (arrayListTab1.get(i).getType().equals("edPlusNumberA")) {
+                        if(arrayListTab1.get(i).getColumn().equals("1")) {
+                            arrayListTab1.get(i).obj = new ServerEditText(getContext(), arrayListTab1.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            l1.addView((View) arrayListTab1.get(i).obj, layoutParams);
+                        }
+                        if(arrayListTab1.get(i).getColumn().equals("2")){
+                            arrayListTab1.get(i).obj = new ServerEditText(getContext(), arrayListTab1.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                             l2.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
                     }

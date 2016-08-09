@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     {
                         JSONObject obj = (JSONObject) arrLink.get(i);
                         InfoFromServer info = new InfoFromServer(obj.getString("id"),
-                                obj.getString("name"));
+                                obj.getString("link"));
                         serverArrayList.add(info);
                     }
                     TAB_1_LINK = serverArrayList.get(0).getData();
