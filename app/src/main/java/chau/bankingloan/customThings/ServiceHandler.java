@@ -46,8 +46,9 @@ public class ServiceHandler {
 	 * @method - http request method
 	 * @params - http request params
 	 * */
+	@SuppressWarnings("deprecation")
 	public String makeServiceCall(String url, int method,
-			List<NameValuePair> params) {
+								  List<NameValuePair> params) {
 		try {
 			// http client
 			HttpClient httpClient = new DefaultHttpClient();
@@ -79,6 +80,7 @@ public class ServiceHandler {
 				httpResponse = httpClient.execute(httpGet);
 
 			}
+			assert httpResponse != null;
 			httpEntity = httpResponse.getEntity();
 			is = httpEntity.getContent();
 

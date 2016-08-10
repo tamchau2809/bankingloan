@@ -199,6 +199,7 @@ public class UploadFragment2 extends Fragment
         }
     }
 
+    @SuppressWarnings("deprecation")
     private class UploadFile extends AsyncTask<Void, Float, String>
     {
         @Override

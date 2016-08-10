@@ -229,6 +229,7 @@ public class Tab5Fragment extends Fragment {
         imgBtnCamera.setEnabled(show);
     }
 
+    @SuppressWarnings("deprecation")
     private class UploadFile extends AsyncTask<Void, Float, String>
     {
         @Override

@@ -234,6 +234,7 @@ public class ConfirmFragment extends Fragment
         tenure = pref.getString("Tenure", "");
     }
 
+    @SuppressWarnings("deprecation")
     private class SendInfo extends AsyncTask<Void, Float, String>
     {
         @Override

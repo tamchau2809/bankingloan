@@ -76,11 +76,15 @@ public class ServerInfo {
         return null;
     }
 
-    public void setData()
+    public void setData(int data)
     {
         if(type.equals("edPlusResultA"))
         {
-
+            if(obj != null)
+            {
+                ServerEditText serverEditText = (ServerEditText)obj;
+                serverEditText.setValue(String.valueOf(data));
+            }
         }
     }
 

@@ -41,7 +41,7 @@ import chau.bankingloan.customThings.ConstantStuff;
 /**
  * Created on 25-Apr-16 by com08
  */
-public class    LoanFragment2  extends Fragment implements View.OnClickListener
+public class LoanFragment2  extends Fragment implements View.OnClickListener
 {
     View rootView;
 

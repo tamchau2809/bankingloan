@@ -158,6 +158,13 @@ public class Tab1Fragment extends Fragment
                 }
             }
             Log.e("NUMBER", String.valueOf(t));
+            for(int j = 0; j<arrayListTab1.size(); i++)
+            {
+                if(arrayListTab1.get(i).getType().equals("edPlusNumberA"))
+                {
+
+                }
+            }
             return good;
         }
         catch (Exception e)
