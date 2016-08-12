@@ -298,6 +298,7 @@ public class ConfirmFragment extends Fragment
         }
     }
 
+    @SuppressWarnings("deprecation")
     private class PINCreate extends AsyncTask<Void, Void, String>
     {
         @Override

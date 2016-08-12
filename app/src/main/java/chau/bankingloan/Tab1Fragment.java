@@ -40,12 +40,14 @@ public class Tab1Fragment extends Fragment
 {
     View rootView;
     LinearLayout lnrTab1;
-    public String arrSpinner = new String();
+    public String arrSpinner = "";
     public ArrayList<ServerInfo> arrayListTab1;
 
     ProgressDialog progressDialog;
     ImageButton imgBtnNext, imgBtnRefresh;
     SharedPreferences preferences;
+
+    ServerEditText edResult;
 
     View.OnClickListener listenerNext, listenerRef;
 
@@ -63,7 +65,6 @@ public class Tab1Fragment extends Fragment
 
         imgBtnNext.setOnClickListener(listenerNext);
         imgBtnRefresh.setOnClickListener(listenerRef);
-
         return rootView;
     }
 
@@ -90,7 +91,8 @@ public class Tab1Fragment extends Fragment
                 }
                 else
                 {
-                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
+                    android.support.v7.app.AlertDialog.Builder builder =
+                            new android.support.v7.app.AlertDialog.Builder(getContext());
                     builder.setMessage("Please Fill In The Blank...");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -121,7 +123,7 @@ public class Tab1Fragment extends Fragment
             for (i = 0; i < arrayListTab1.size(); i++) {
                 if (!arrayListTab1.get(i).getType().equals("textviewColumn")) {
                     String fieldValue = (String) arrayListTab1.get(i).getData();
-                    editor.putString(arrayListTab1.get(i).getLabel().toString().trim().replace(" ", "").replace(":", ""), fieldValue);
+                    editor.putString(arrayListTab1.get(i).getLabel().trim().replace(" ", "").replace(":", ""), fieldValue);
                     set.add(arrayListTab1.get(i).jsonObject().toString());
                 }
             }
@@ -157,13 +159,9 @@ public class Tab1Fragment extends Fragment
                     t = t+Integer.valueOf((String)arrayListTab1.get(i).getData());
                 }
             }
-            Log.e("NUMBER", String.valueOf(t));
-            for(int j = 0; j<arrayListTab1.size(); i++)
-            {
-                if(arrayListTab1.get(i).getType().equals("edPlusNumberA"))
-                {
-
-                }
+            if(t > 0) {
+                Log.e("NUMBER", String.valueOf(t));
+                edResult.setValue(String.valueOf(t));
             }
             return good;
         }
@@ -265,7 +263,7 @@ public class Tab1Fragment extends Fragment
                     {
                         arrSpinner = new SpinnerData(arrayListTab1.get(i).getUrl(), arrayListTab1.get(i).getLabel()).execute().get();
                         if(arrayListTab1.get(i).getColumn().equals("1")) {
-                            if(arrSpinner == "")
+                            if(arrSpinner.equals(""))
                             {
                                 arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
                                         arrayListTab1.get(i).getLabel()
@@ -349,6 +347,21 @@ public class Tab1Fragment extends Fragment
                             l2.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
                     }
+                    if (arrayListTab1.get(i).getType().equals("edPlusResultA")) {
+                        if(arrayListTab1.get(i).getColumn().equals("1")) {
+                            edResult = new ServerEditText(getContext(), "10",
+                                    InputType.TYPE_CLASS_NUMBER
+                                            | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        }
+                        if(arrayListTab1.get(i).getColumn().equals("2")){
+                            edResult = new ServerEditText(getContext(), arrayListTab1.get(i).getLabel(),
+                                    InputType.TYPE_CLASS_NUMBER
+                                            | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+//                            edResult.setValue("tr");
+                            edResult.setEnabled(false);
+                            l2.addView(edResult, layoutParams);
+                        }
+                    }
                 }
                 lnrTab1.addView(l1);
                 lnrTab1.addView(l2);
@@ -395,7 +408,7 @@ public class Tab1Fragment extends Fragment
                                 .replace(" ", ""));
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject jsonObject = (JSONObject) array.get(i);
-                            arr += jsonObject.getString("DATA").toString() + ",";
+                            arr += jsonObject.getString("DATA") + ",";
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

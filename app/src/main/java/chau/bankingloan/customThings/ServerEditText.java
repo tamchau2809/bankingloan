@@ -14,7 +14,7 @@ import chau.bankingloan.R;
  * Created on 13-Jun-16 by com08.
  */
 public class ServerEditText extends LinearLayout {
-    EditText edLabel;
+    EditText edLabel = new EditText(getContext());
     ServerBoldTextview serverBoldTextview;
 
     public ServerEditText(Context ctx)
@@ -25,7 +25,6 @@ public class ServerEditText extends LinearLayout {
     public ServerEditText(Context ctx, String label, int type)
     {
         super(ctx);
-        edLabel = new EditText(getContext());
         edLabel.setInputType(type);
         edLabel.setTextSize(18);
         edLabel.setGravity(Gravity.CENTER);
@@ -42,6 +41,12 @@ public class ServerEditText extends LinearLayout {
     public void setValue(String a)
     {
         edLabel.setText(a);
+    }
+
+    public void setEnabled(boolean isEnabled)
+    {
+        edLabel.setEnabled(isEnabled);
+        edLabel.setFocusable(false);
     }
 
     public String getValue() {
