@@ -1,7 +1,5 @@
 package chau.bankingloan.customThings;
 
-import java.util.ArrayList;
-
 /**
  * Created on 02-Jun-16 by com08.
  */

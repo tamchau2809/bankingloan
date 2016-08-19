@@ -146,18 +146,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 5:
                     return new ConfirmFragment();
                 case 6:
-                    return new PrintFragment();
-                case 7:
                     return new ApproveFragment();
                 default:
-                    return new LoanFragment2();
+                    return new Tab1Fragment();
             }
         }
 
         @Override
         public int getCount() {
             // Show 8 total pages.
-            return 8;
+            return 7;
         }
 
         @Override
@@ -181,8 +179,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 5:
                     return "CONFIRM";
                 case 6:
-                    return "PRINT";
-                case 7:
                     return "APPROVE";
             }
             return null;
@@ -280,10 +276,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return null;
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(Void aVoid) throws NullPointerException {
             super.onPostExecute(aVoid);
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 7; i++) {
                 int j = i + 1;
                 tabLayout.getTabAt(i).setText(j + "." + list.get(i).getData());
             }

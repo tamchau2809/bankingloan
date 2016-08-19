@@ -13,7 +13,7 @@ import chau.bankingloan.R;
 /**
  * Created on 13-Jun-16 by com08.
  */
-public class ServerEditText extends LinearLayout {
+public class    ServerEditText extends LinearLayout {
     EditText edLabel = new EditText(getContext());
     ServerBoldTextview serverBoldTextview;
 

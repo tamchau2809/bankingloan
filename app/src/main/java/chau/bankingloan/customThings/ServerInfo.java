@@ -100,7 +100,8 @@ public class ServerInfo {
         }
         if(type.equals("edittext") || type.equals("edittextnumber")
                 || type.equals("edittextemail")
-                || type.equals("edPlusNumberA"))
+                || type.equals("edPlusNumberA")
+                || type.equals("edPlusResultA"))
         {
             if(obj != null)
             {

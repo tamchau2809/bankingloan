@@ -124,7 +124,12 @@ public class Tab1Fragment extends Fragment
                 if (!arrayListTab1.get(i).getType().equals("textviewColumn")) {
                     String fieldValue = (String) arrayListTab1.get(i).getData();
                     editor.putString(arrayListTab1.get(i).getLabel().trim().replace(" ", "").replace(":", ""), fieldValue);
+
                     set.add(arrayListTab1.get(i).jsonObject().toString());
+                }
+                if(arrayListTab1.get(i).getType().equals("edPlusResultA"))
+                {
+                    editor.putString(arrayListTab1.get(i).getLabel().trim().replace(" ", "").replace(":", ""), edResult.getValue());
                 }
             }
             editor.putStringSet("tab1", set);
@@ -278,7 +283,18 @@ public class Tab1Fragment extends Fragment
                             l1.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
                         if(arrayListTab1.get(i).getColumn().equals("2")){
-                            arrayListTab1.get(i).obj = new ServerSpinner(getContext(), arrayListTab1.get(i).getLabel(), arrayListTab1.get(i).getValue());
+                            if(arrSpinner.equals(""))
+                            {
+                                arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
+                                        arrayListTab1.get(i).getLabel()
+                                        , arrayListTab1.get(i).getValue());
+                                Toast.makeText(getContext(), "Can not get " + arrayListTab1.get(i).getLabel().replace(":", "") + " from Server!", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                                arrayListTab1.get(i).obj = new ServerSpinner(getContext(),
+                                        arrayListTab1.get(i).getLabel(), arrSpinner);
+                            Log.e("DISPLAY", arrayListTab1.get(i).getLabel());
+                            Log.e("DISPLAY", arrSpinner);
                             l2.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
                     }
@@ -357,7 +373,6 @@ public class Tab1Fragment extends Fragment
                             edResult = new ServerEditText(getContext(), arrayListTab1.get(i).getLabel(),
                                     InputType.TYPE_CLASS_NUMBER
                                             | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-//                            edResult.setValue("tr");
                             edResult.setEnabled(false);
                             l2.addView(edResult, layoutParams);
                         }

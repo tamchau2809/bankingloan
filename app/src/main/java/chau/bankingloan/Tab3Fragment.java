@@ -134,7 +134,7 @@ public class Tab3Fragment extends Fragment
             for(i = 0; i < serverInfos.size(); i++)
             {
                 String fieldValue = (String) serverInfos.get(i).getData();
-//                Log.e("ChauVu", serverInfos.get(i).getLabel() + " is [" + fieldValue + "]" + "\n------------------------");
+//                Log.e("ChauVu", arrayListTab4.get(i).getLabel() + " is [" + fieldValue + "]" + "\n------------------------");
                 if (serverInfos.get(i).isRequired()) {
                     if (fieldValue == null) {
                         good = false;
@@ -303,15 +303,15 @@ public class Tab3Fragment extends Fragment
                             l2.addView((View) serverInfos.get(i).obj, layoutParams);
                         }
                     }
-//                    if (serverInfos.get(i).getType().equals("textviewSum"))
+//                    if (arrayListTab4.get(i).getType().equals("textviewSum"))
 //                    {
-//                        if(serverInfos.get(i).getColumn().equals("1")){
-//                            serverInfos.get(i).obj = new ServerTvSum(getContext(), serverInfos.get(i).getLabel());
-//                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
+//                        if(arrayListTab4.get(i).getColumn().equals("1")){
+//                            arrayListTab4.get(i).obj = new ServerTvSum(getContext(), arrayListTab4.get(i).getLabel());
+//                            l1.addView((View) arrayListTab4.get(i).obj, layoutParams);
 //                        }
-//                        if(serverInfos.get(i).getColumn().equals("2")){
-//                            serverInfos.get(i).obj = new ServerTvSum(getContext(), serverInfos.get(i).getLabel());
-//                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
+//                        if(arrayListTab4.get(i).getColumn().equals("2")){
+//                            arrayListTab4.get(i).obj = new ServerTvSum(getContext(), arrayListTab4.get(i).getLabel());
+//                            l2.addView((View) arrayListTab4.get(i).obj, layoutParams);
 //                        }
 //                    }
                 }

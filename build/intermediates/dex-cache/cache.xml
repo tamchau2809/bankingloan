@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.1.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f62e763609f65e47dc6c498760a4accf02776788">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.1.1_22055260aacf455999583190c327c1a63c4778db\classes.dex" />
+    </item>
+    <item
         jar="C:\Users\com08\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\24.1.1\3af19f153122737b372622fa6c81dd11a1c6b999\support-annotations-24.1.1.jar"
         jumboMode="true"
         revision="23.0.3"
@@ -23,41 +30,6 @@
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.6.0_3624fc73dc67a691011d027c1fae54a15ec04ae3\classes.dex" />
     </item>
     <item
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\design\24.1.1\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="e195bd694d5389acfba27ff4fdfa64c4c65b2c05">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.1.1_8eb3f75838c48d2291af36bc8065633b5758d583\classes.dex" />
-    </item>
-    <item
-        jar="D:\Android\StudioProjects\BankingLoan\app\libs\httpclient-4.0.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="54fed37cb28b52bfad6d7a5ca80e7d6b98959a34">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpclient-4.0_895aa75d4443a89b1b4289e8c699c1ea1ed5f2c9\classes.dex" />
-    </item>
-    <item
-        jar="D:\Android\StudioProjects\BankingLoan\app\libs\httpmime-4.3.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="5b0002c5fb66867ca919be0fbd86de1cfaf76da7">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpmime-4.3_173467043af435b8b38f643a31254a0b53dbe673\classes.dex" />
-    </item>
-    <item
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\libs\internal_impl-24.1.1.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="f78c2f395cb096f9dc1dc07e729922b8fcd3c4f5">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.1.1_936090484f1c67af583c8bae850c97f56a5bfe6c\classes.dex" />
-    </item>
-    <item
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.1.1\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="f62e763609f65e47dc6c498760a4accf02776788">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.1.1_22055260aacf455999583190c327c1a63c4778db\classes.dex" />
-    </item>
-    <item
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.1.1\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
@@ -65,11 +37,25 @@
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.1.1_7b863b84e1a661d8ac0af4864a3963cb5a1e87f9\classes.dex" />
     </item>
     <item
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\design\24.1.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="e195bd694d5389acfba27ff4fdfa64c4c65b2c05">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.1.1_8eb3f75838c48d2291af36bc8065633b5758d583\classes.dex" />
+    </item>
+    <item
         jar="D:\Android\StudioProjects\BankingLoan\app\libs\httpcore-4.4.4.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="b31526a230871fbe285fbcbe2813f9c0839ae9b0">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpcore-4.4.4_28040267a7fe6493da4dc7ad8513e029649a07b3\classes.dex" />
+    </item>
+    <item
+        jar="D:\Android\StudioProjects\BankingLoan\app\libs\httpclient-4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="54fed37cb28b52bfad6d7a5ca80e7d6b98959a34">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpclient-4.0_895aa75d4443a89b1b4289e8c699c1ea1ed5f2c9\classes.dex" />
     </item>
     <item
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.1.1\jars\classes.jar"
@@ -86,17 +72,31 @@
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.1.1_42cb2d27a417567e980c595579b16d45eab05964\classes.dex" />
     </item>
     <item
+        jar="D:\Android\StudioProjects\BankingLoan\app\libs\httpmime-4.3.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="5b0002c5fb66867ca919be0fbd86de1cfaf76da7">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpmime-4.3_173467043af435b8b38f643a31254a0b53dbe673\classes.dex" />
+    </item>
+    <item
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\libs\internal_impl-24.1.1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f78c2f395cb096f9dc1dc07e729922b8fcd3c4f5">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.1.1_936090484f1c67af583c8bae850c97f56a5bfe6c\classes.dex" />
+    </item>
+    <item
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="bef8c118540023092aa970c62990152271984ae5">
+        sha1="6f6634966685a14e223829f80ae8628a85cbfef9">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e126b08c4a8458df253538bdb339ec632a90b051\classes.dex" />
     </item>
     <item
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="3b2aca12fa73c4a959068303d577ac95f627e0d9">
+        sha1="b484532f7ab943be87c0acced44906d7eef7891a">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4d116cffc592bbe3711e107b4b0c66ee4ee81394\classes.dex" />
     </item>
     <item
