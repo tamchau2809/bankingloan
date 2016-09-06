@@ -17,11 +17,30 @@
         android:stretchMode="columnWidth"
         android:gravity="center"/>
 
-    <Button
-        android:id="@+id/btnSelect"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_horizontal|center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select"
-        android:layout_marginTop="5dp"/>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnSelect"
+            android:background="@color/multiple_image_select_primary"
+            android:textColor="@color/multiple_image_select_primaryLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select"
+            android:layout_marginTop="5dp"/>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btnSetPermission"
+            android:layout_width="wrap_content"
+            android:background="@color/multiple_image_select_primary"
+            android:textColor="@color/multiple_image_select_primaryLight"
+            android:layout_height="wrap_content"
+            android:text="@string/set_permission"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
 
 </LinearLayout>

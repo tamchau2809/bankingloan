@@ -76,14 +76,17 @@ public class ServerInfo {
         return null;
     }
 
-    public void setData(int data)
+    public void setData(String data)
     {
-        if(type.equals("edPlusResultA"))
+        if(type.equals("edittext") || type.equals("edittextnumber")
+                || type.equals("edittextemail")
+                || type.equals("edPlusNumberA")
+                || type.equals("edPlusResultA"))
         {
             if(obj != null)
             {
                 ServerEditText serverEditText = (ServerEditText)obj;
-                serverEditText.setValue(String.valueOf(data));
+                serverEditText.setValue(data);
             }
         }
     }

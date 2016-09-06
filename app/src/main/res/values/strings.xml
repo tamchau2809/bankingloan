@@ -83,4 +83,5 @@
     <string name="image">Image</string>
     <string name="refresh">Refresh</string>
     <string name="tezt">Công nghệ nhận dạng là một trong các công nghệ đang được áp dụng cho các thiết bị di động hiện nay. Nhận dạng có thể bao gồm nhận dạng âm thanh, hình ảnh. Các đối tượng nhận dạng có nhiều kiểu như tiếng nói, chữ viết, khuôn mặt, mã vạch … và biển báo giao thông cũng là một trong số đó. Chương trình nhận dạng biển báo giao thông thường phức tạp và được cài đặt trên những hệ thống có bộ xử lý lớn, camera chất lượng cao. Mục tiêu của khóa luận là cải tiến công nghệ nhận dạng này và mang nó cài đặt trên các thiết bị di động, giúp chúng ta phát hiện biển báo và nhận dạng nó một cách nhanh nhất.</string>
+    <string name="set_permission">SET PERMISSION</string>
 </resources>

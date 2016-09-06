@@ -5,4 +5,6 @@
     <color name="colorAccent">#CB0E00</color>
     <color name="test">#008800</color>
     <color name="C0">#C0C0C0</color>
+    <color name="multiple_image_select_primary">#2E7D32</color>
+    <color name="multiple_image_select_primaryLight">#C8E6C9</color>
 </resources>

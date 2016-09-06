@@ -1,12 +1,24 @@
 package chau.bankingloan;
 
+import android.*;
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.ContentObserver;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +29,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +41,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
+import chau.bankingloan.customThings.ConstantStuff;
+import chau.bankingloan.customThings.MyLocation;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerInfo;
@@ -36,18 +56,30 @@ import chau.bankingloan.customThings.ServerTvDate;
 /**
  * Created on 13-Jun-16 by com08.
  */
-public class Tab1Fragment extends Fragment
+public class Tab1Fragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        com.google.android.gms.location.LocationListener
 {
     View rootView;
     LinearLayout lnrTab1;
     public String arrSpinner = "";
     public ArrayList<ServerInfo> arrayListTab1;
 
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLocation;
+    private LocationManager locationManager;
+    private LocationRequest mLocationRequest;
+
     ProgressDialog progressDialog;
     ImageButton imgBtnNext, imgBtnRefresh;
     SharedPreferences preferences;
+    Handler handler;
+    ContentObserver contentObserver;
 
     ServerEditText edResult;
+
+    private final String[] requiredPermissions = new String[]{ Manifest.permission.ACCESS_FINE_LOCATION };
+
 
     View.OnClickListener listenerNext, listenerRef;
 
@@ -59,13 +91,39 @@ public class Tab1Fragment extends Fragment
         initWidget();
         initListener();
 
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
         preferences = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
 
         new GetData().execute();
 
         imgBtnNext.setOnClickListener(listenerNext);
         imgBtnRefresh.setOnClickListener(listenerRef);
+
+
         return rootView;
+    }
+
+    private void checkIfPermissionGranted() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission();
+            return;
+        }
+
+        Message message = handler.obtainMessage();
+        message.what = ConstantStuff.PERMISSION_GRANTED;
+        message.sendToTarget();
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(getActivity(),
+                requiredPermissions,
+                ConstantStuff.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE);
     }
 
     public void initWidget()
@@ -167,6 +225,7 @@ public class Tab1Fragment extends Fragment
             if(t > 0) {
                 Log.e("NUMBER", String.valueOf(t));
                 edResult.setValue(String.valueOf(t));
+//                arrayListTab1.get(3).setData("a");
             }
             return good;
         }
@@ -174,6 +233,123 @@ public class Tab1Fragment extends Fragment
         {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Resuming the periodic location updates
+        if (mGoogleApiClient.isConnected()) {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        handler = new Handler()
+        {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case ConstantStuff.PERMISSION_GRANTED:
+                    {
+                        mGoogleApiClient.connect();
+                        displayLocation();
+                        break;
+                    }
+//                    case ConstantStuff.PERMISSION_DENIED:
+//                    {
+//
+//                        break;
+//                    }
+                    default:
+                        super.handleMessage(msg);
+                }
+            }
+        };
+        checkIfPermissionGranted();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == ConstantStuff.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE) {
+            Message message = handler.obtainMessage();
+            message.what = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ?
+                    ConstantStuff.PERMISSION_GRANTED : ConstantStuff.PERMISSION_DENIED;
+            message.sendToTarget();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if(mLocation == null){
+            startLocationUpdates();
+        }
+        if (mLocation != null) {
+            double latitude = mLocation.getLatitude();
+            double longitude = mLocation.getLongitude();
+
+            Log.e("GPS", latitude + "," + longitude);
+        } else {
+            // Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    protected void startLocationUpdates() {
+        int UPDATE_INTERVAL = 10000;
+        int FASTEST_INTERVAL = 5000;
+        // Create the location request
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL)
+                .setFastestInterval(FASTEST_INTERVAL);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                mLocationRequest, this);
+        int DISPLACEMENT = 5;
+        mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
+        Log.d("reque", "--->>>>");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i("GPS", "Connection Suspended");
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i("GPS", "Connection failed. Error: " + connectionResult.getErrorCode());
+    }
+
+    public void displayLocation()
+    {
+        mLocation = LocationServices.FusedLocationApi
+                .getLastLocation(mGoogleApiClient);
+        if (mLocation != null) {
+            double latitude = mLocation.getLatitude();
+            double longitude = mLocation.getLongitude();
+
+            Log.e("GPS", String.valueOf(latitude) + String.valueOf(longitude));
+
+        } else {
+
         }
     }
 
@@ -360,6 +536,7 @@ public class Tab1Fragment extends Fragment
                         }
                         if(arrayListTab1.get(i).getColumn().equals("2")){
                             arrayListTab1.get(i).obj = new ServerEditText(getContext(), arrayListTab1.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
                             l2.addView((View) arrayListTab1.get(i).obj, layoutParams);
                         }
                     }

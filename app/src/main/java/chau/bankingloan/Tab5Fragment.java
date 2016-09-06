@@ -10,17 +10,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -49,14 +59,14 @@ import chau.bankingloan.customThings.InfoFromServer;
 /**
  * Created on 28-Apr-16 by com08.
  */
-public class Tab5Fragment extends Fragment {
+public class Tab5Fragment extends Fragment
+{
     View rootView;
 
     private LinearLayout lnrImages;
     SharedPreferences tab2Pref;
 
-
-    ImageButton imgBtnAdd, imgBtnCamera, imgBtnUpload, imgBtnBack, imgBtnNext;
+    ImageButton imgBtnAdd, imgBtnCamera, imgBtnUpload, imgBtnBack;
 
     private ArrayList<String> imagesPathList;
     ProgressDialog pDialog;
@@ -109,14 +119,6 @@ public class Tab5Fragment extends Fragment {
             }
         });
 
-        imgBtnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity act = (MainActivity) getActivity();
-                act.switchTab(5);
-            }
-        });
-
         return rootView;
     }
 
@@ -127,7 +129,6 @@ public class Tab5Fragment extends Fragment {
         imgBtnCamera = (ImageButton) rootView.findViewById(R.id.imgBtnCameraTab5);
         imgBtnUpload = (ImageButton) rootView.findViewById(R.id.imgBtnUploadTab5);
         imgBtnBack = (ImageButton) rootView.findViewById(R.id.imgBtnPreTab5);
-        imgBtnNext = (ImageButton)rootView.findViewById(R.id.imgBtnNextTab5);
     }
 
     public File saveImage(Bitmap myBitmap, String name, Context context) {
@@ -266,7 +267,7 @@ public class Tab5Fragment extends Fragment {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             try
             {
-                UploadProgress2.ProgressListener lis = new UploadProgress2.ProgressListener() {
+                UploadProgress2.ProgressListener progressListener = new UploadProgress2.ProgressListener() {
 
                     @Override
                     public void transferred(float num) {
@@ -287,7 +288,7 @@ public class Tab5Fragment extends Fragment {
                 builder.addPart("NAME_ID", new StringBody(name, ContentType.TEXT_PLAIN));
                 builder.addPart("ID_NUM", new StringBody(ID, ContentType.TEXT_PLAIN));
 
-                httpPost.setEntity(new UploadProgress2(builder.build(), lis));
+                httpPost.setEntity(new UploadProgress2(builder.build(), progressListener));
 
                 HttpResponse httpResponse = httpClient.execute(httpPost);
                 HttpEntity httpEntity = httpResponse.getEntity();

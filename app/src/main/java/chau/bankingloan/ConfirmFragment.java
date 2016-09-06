@@ -5,8 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +21,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -43,7 +52,9 @@ import chau.bankingloan.customThings.JustifyTextView;
 /**
  * Created on 04-May-16 by com08.
  */
-public class ConfirmFragment extends Fragment
+public class ConfirmFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        com.google.android.gms.location.LocationListener
 {
     private static String PIN_SERVER = null;
     List<String> test;
@@ -51,6 +62,13 @@ public class ConfirmFragment extends Fragment
             loanType, monthlyPayment, tenure;
 
     JustifyTextView jtvCondition;
+
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLocation;
+    private LocationManager locationManager;
+    private LocationRequest mLocationRequest;
+    double latitude;
+    double longitude;
 
     View rootView;
     CheckBox cbAccept;
@@ -83,6 +101,13 @@ public class ConfirmFragment extends Fragment
         Log.e("LoanPurpose", loanPurpose);
         Log.e("MonthlyPayment", monthlyPayment);
         Log.e("LoanType", loanType);
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        locationManager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
 
         cbAccept.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -122,6 +147,77 @@ public class ConfirmFragment extends Fragment
         test = loadData(tezt, "tab1");
         Log.e("TEST", test.toString());
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Resuming the periodic location updates
+        if (mGoogleApiClient.isConnected()) {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if(mLocation == null){
+            startLocationUpdates();
+        }
+        if (mLocation != null) {
+            latitude = mLocation.getLatitude();
+            longitude = mLocation.getLongitude();
+
+            Log.e("GPS", latitude + "," + longitude);
+        } else {
+            // Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    protected void startLocationUpdates() {
+        int UPDATE_INTERVAL = 10000;
+        int FASTEST_INTERVAL = 5000;
+        // Create the location request
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL)
+                .setFastestInterval(FASTEST_INTERVAL);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                mLocationRequest, this);
+        int DISPLACEMENT = 5;
+        mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
+        Log.d("reque", "--->>>>");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i("GPS", "Connection Suspended");
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
 //    public void loadFromPersonal(SharedPreferences personal)
@@ -269,6 +365,8 @@ public class ConfirmFragment extends Fragment
                 builder.addPart("LOAN_TYPE", new StringBody(tab1.getString("LoanType",""), ContentType.TEXT_PLAIN));
                 builder.addPart("TENURE", new StringBody(tab1.getString("Tenure",""), ContentType.TEXT_PLAIN));
                 builder.addPart("LOAN_PURPOSE", new StringBody(tab1.getString("LoanPurpose",""), ContentType.TEXT_PLAIN));
+                builder.addPart("LATITUDE", new StringBody(String.valueOf(latitude), ContentType.TEXT_PLAIN));
+                builder.addPart("LONGITUDE", new StringBody(String.valueOf(longitude), ContentType.TEXT_PLAIN));
 
                 httpPost.setEntity(new UploadProgress2(builder.build(), lis));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
