@@ -1,19 +1,20 @@
 package chau.bankingloan;
 
-import android.*;
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.ContentObserver;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.provider.Settings;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -29,10 +30,20 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,47 +52,40 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-import chau.bankingloan.customThings.ConstantStuff;
-import chau.bankingloan.customThings.MyLocation;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
-import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerEditText;
-import chau.bankingloan.customThings.ServiceHandler;
+import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServerTvDate;
+import chau.bankingloan.customThings.ServiceHandler;
 
 /**
  * Created on 13-Jun-16 by com08.
  */
-public class Tab1Fragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        com.google.android.gms.location.LocationListener
+public class Tab1Fragment extends Fragment
 {
     View rootView;
     LinearLayout lnrTab1;
     public String arrSpinner = "";
     public ArrayList<ServerInfo> arrayListTab1;
-
-    private GoogleApiClient mGoogleApiClient;
-    private Location mLocation;
-    private LocationManager locationManager;
-    private LocationRequest mLocationRequest;
-
     ProgressDialog progressDialog;
     ImageButton imgBtnNext, imgBtnRefresh;
     SharedPreferences preferences;
-    Handler handler;
-    ContentObserver contentObserver;
 
     ServerEditText edResult;
 
-    private final String[] requiredPermissions = new String[]{ Manifest.permission.ACCESS_FINE_LOCATION };
-
-
     View.OnClickListener listenerNext, listenerRef;
+
+    GoogleApiClient client;
+    LocationRequest mLocationRequest;
+    PendingResult<LocationSettingsResult> result;
+
+    static final Integer LOCATION = 0x1;
+    static final Integer GPS_SETTINGS = 0x7;
+
+    BottomBar bottomBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -91,47 +95,127 @@ public class Tab1Fragment extends Fragment implements GoogleApiClient.Connection
         initWidget();
         initListener();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
+        statusCheck();
 
         preferences = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
+
+        client = new GoogleApiClient.Builder(getActivity())
+                .addApi(AppIndex.API)
+                .addApi(LocationServices.API)
+                .build();
 
         new GetData().execute();
 
         imgBtnNext.setOnClickListener(listenerNext);
         imgBtnRefresh.setOnClickListener(listenerRef);
 
+        askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION);
 
         return rootView;
     }
 
-    private void checkIfPermissionGranted() {
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
-            return;
+    public void statusCheck()
+    {
+        final LocationManager manager = (LocationManager) getContext().getSystemService( Context.LOCATION_SERVICE );
+
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            buildAlertMessageNoGps();
         }
-
-        Message message = handler.obtainMessage();
-        message.what = ConstantStuff.PERMISSION_GRANTED;
-        message.sendToTarget();
+    }
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Your GPS seems to be disabled, Please turn it on!")
+                .setCancelable(false)
+                .setPositiveButton("OK, I got it!", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog,  final int id) {
+                        Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        getContext().startActivity(myIntent);
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(getActivity(),
-                requiredPermissions,
-                ConstantStuff.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE);
+    @Override
+    public void onResume() {
+        super.onResume();
+        statusCheck();
     }
+
+    public void askForPermission(String permission, Integer requestCode)
+    {
+        if (ContextCompat.checkSelfPermission(this.getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
+
+        // Should we show an explanation?
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), permission)) {
+
+            //This is called if user has denied the permission before
+            //In this case I am just asking the permission again
+            ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
+
+        } else {
+
+            ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
+        }
+    } else
+        {
+            Toast.makeText(this.getActivity(), "" + permission + " is already granted.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(ActivityCompat.checkSelfPermission(this.getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED){
+            switch (requestCode) {
+                //Location
+                case 1:
+                    askForGPS();
+                    break;
+            }
+            Toast.makeText(this.getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this.getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void askForGPS(){
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(30 * 1000);
+        mLocationRequest.setFastestInterval(5 * 1000);
+        final LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
+        builder.setAlwaysShow(true);
+        result = LocationServices.SettingsApi.checkLocationSettings(client, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            status.startResolutionForResult(getActivity(), GPS_SETTINGS);
+                        } catch (IntentSender.SendIntentException e) {
+
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        break;
+                }
+            }
+        });
+    }
+
 
     public void initWidget()
     {
         lnrTab1 = (LinearLayout)rootView.findViewById(R.id.lnrTab1);
         imgBtnNext = (ImageButton) rootView.findViewById(R.id.imgBtnNextTab1);
         imgBtnRefresh = (ImageButton) rootView.findViewById(R.id.imgBtnRefreshTab1);
-
+        bottomBar = (BottomBar)rootView.findViewById(R.id.bottomBar);
+        bottomBar.clearFocus();
         arrayListTab1 = new ArrayList<>();
     }
 
@@ -237,120 +321,15 @@ public class Tab1Fragment extends Fragment implements GoogleApiClient.Connection
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        // Resuming the periodic location updates
-        if (mGoogleApiClient.isConnected()) {
-            startLocationUpdates();
-        }
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
-        handler = new Handler()
-        {
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case ConstantStuff.PERMISSION_GRANTED:
-                    {
-                        mGoogleApiClient.connect();
-                        displayLocation();
-                        break;
-                    }
-//                    case ConstantStuff.PERMISSION_DENIED:
-//                    {
-//
-//                        break;
-//                    }
-                    default:
-                        super.handleMessage(msg);
-                }
-            }
-        };
-        checkIfPermissionGranted();
+        client.connect();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == ConstantStuff.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE) {
-            Message message = handler.obtainMessage();
-            message.what = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ?
-                    ConstantStuff.PERMISSION_GRANTED : ConstantStuff.PERMISSION_DENIED;
-            message.sendToTarget();
-        }
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(mLocation == null){
-            startLocationUpdates();
-        }
-        if (mLocation != null) {
-            double latitude = mLocation.getLatitude();
-            double longitude = mLocation.getLongitude();
-
-            Log.e("GPS", latitude + "," + longitude);
-        } else {
-            // Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    protected void startLocationUpdates() {
-        int UPDATE_INTERVAL = 10000;
-        int FASTEST_INTERVAL = 5000;
-        // Create the location request
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(UPDATE_INTERVAL)
-                .setFastestInterval(FASTEST_INTERVAL);
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                mLocationRequest, this);
-        int DISPLACEMENT = 5;
-        mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
-        Log.d("reque", "--->>>>");
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Log.i("GPS", "Connection Suspended");
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.i("GPS", "Connection failed. Error: " + connectionResult.getErrorCode());
-    }
-
-    public void displayLocation()
-    {
-        mLocation = LocationServices.FusedLocationApi
-                .getLastLocation(mGoogleApiClient);
-        if (mLocation != null) {
-            double latitude = mLocation.getLatitude();
-            double longitude = mLocation.getLongitude();
-
-            Log.e("GPS", String.valueOf(latitude) + String.valueOf(longitude));
-
-        } else {
-
-        }
+        client.disconnect();
     }
 
     private class GetData extends AsyncTask<Void, Void, Void>
@@ -564,6 +543,8 @@ public class Tab1Fragment extends Fragment implements GoogleApiClient.Connection
             }
         }
     }
+
+
 
     public class SpinnerData extends AsyncTask<Void, Void, String> {
         String url;

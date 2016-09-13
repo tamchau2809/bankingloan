@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:baselineAligned="false"
-    android:background="@color/colorPrimary"
+<LinearLayout android:baselineAligned="false"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:background="@color/C0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="235dp">
+        android:layout_height="250dp">
         <LinearLayout
             android:orientation="horizontal"
             android:id="@+id/lnrTab1"
@@ -42,5 +42,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bi_right"/>
     </LinearLayout>
+
+    <com.roughike.bottombar.BottomBar
+        android:visibility="gone"
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        app:bb_tabXmlResource="@xml/bottom_bar"
+        app:bb_behavior="underNavbar"/>
 
 </LinearLayout>

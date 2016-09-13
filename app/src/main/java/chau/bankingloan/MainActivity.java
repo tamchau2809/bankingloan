@@ -20,6 +20,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.roughike.bottombar.BottomBar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,16 +1,20 @@
 package chau.bankingloan;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,8 +58,7 @@ import chau.bankingloan.customThings.JustifyTextView;
  */
 public class ConfirmFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        com.google.android.gms.location.LocationListener
-{
+        com.google.android.gms.location.LocationListener {
     private static String PIN_SERVER = null;
     List<String> test;
     String loanAmount, lastPayment, maxInterest, loanPurpose,
@@ -107,12 +110,12 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-        locationManager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
         cbAccept.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if ( isChecked ) {
+                if (isChecked) {
                     cbAccept.setError(null);
                 } else {
                     cbAccept.setError("Please Read The Terms and Conditions!");
@@ -123,12 +126,9 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         imgBtnNextTab6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!cbAccept.isChecked())
-                {
+                if (!cbAccept.isChecked()) {
                     cbAccept.setError("Please Read The Terms and Conditions!");
-                }
-                else
-                {
+                } else {
                     showDialog();
                     new PINCreate().execute();
                 }
@@ -175,8 +175,18 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(mLocation == null){
+        if (mLocation == null) {
             startLocationUpdates();
         }
         if (mLocation != null) {
@@ -184,19 +194,30 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
             longitude = mLocation.getLongitude();
 
             Log.e("GPS", latitude + "," + longitude);
-        } else {
-            // Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
         }
     }
 
     protected void startLocationUpdates() {
-        int UPDATE_INTERVAL = 10000;
+        int UPDATE_INTERVAL = 30*1000;
         int FASTEST_INTERVAL = 5000;
         // Create the location request
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL);
+        if (ActivityCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
         int DISPLACEMENT = 5;
@@ -247,7 +268,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
     public void showDialog()
     {
         LayoutInflater factory = LayoutInflater.from(getContext());
-        final View alertDialogView = factory.inflate(R.layout.otp_dialog, null);
+        @SuppressLint("InflateParams") final View alertDialogView = factory.inflate(R.layout.otp_dialog, null);
         final EditText edPIN = (EditText) alertDialogView.findViewById(R.id.edConfirmString);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.NUMBER_YOU_VE_BEEN_RECEIVED))
