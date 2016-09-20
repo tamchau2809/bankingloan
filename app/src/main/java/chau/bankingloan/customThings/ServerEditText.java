@@ -2,7 +2,6 @@ package chau.bankingloan.customThings;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import chau.bankingloan.R;
  * Created on 13-Jun-16 by com08.
  */
 public class ServerEditText extends LinearLayout {
-    EditText edInput = new EditText(getContext());
+    EditText editText = new EditText(getContext());
     ServerBoldTextview tvLabel;
 
     public ServerEditText(Context ctx)
@@ -27,36 +26,53 @@ public class ServerEditText extends LinearLayout {
     public ServerEditText(Context ctx, String label, int type)
     {
         super(ctx);
-        edInput.setInputType(type);
-        edInput.setTextSize(18);
-        edInput.setGravity(Gravity.CENTER);
-        edInput.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        edInput.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        edInput.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        editText.setInputType(type);
+        editText.setTextSize(18);
+        editText.setGravity(Gravity.CENTER);
+        editText.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        editText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        editText.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 
         tvLabel = new ServerBoldTextview(ctx, label, false);
         this.addView(tvLabel);
 
-        this.addView(edInput);
+        this.addView(editText);
+    }
+
+    public ServerEditText(Context ctx, String label, int type, TextWatcher watcher)
+    {
+        super(ctx);
+        editText.setInputType(type);
+        editText.setTextSize(18);
+        editText.setGravity(Gravity.CENTER);
+        editText.addTextChangedListener(watcher);
+        editText.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        editText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        editText.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        tvLabel = new ServerBoldTextview(ctx, label, false);
+        this.addView(tvLabel);
+
+        this.addView(editText);
     }
 
     public void setValue(String a)
     {
-        edInput.setText(a);
+        editText.setText(a);
     }
 
     public void setEnabled(boolean isEnabled)
     {
-        edInput.setEnabled(isEnabled);
-        edInput.setFocusable(false);
+        editText.setEnabled(isEnabled);
+        editText.setFocusable(false);
     }
 
     public String getValue() {
-        return edInput.getText().toString();
+        return editText.getText().toString();
     }
 
-    public void AddTextChangeListener(TextWatcher textWatcher)
+    public void AddTextChangeListener(CustomTextwatcher textWatcher)
     {
-        edInput.addTextChangedListener(textWatcher);
+        editText.addTextChangedListener(textWatcher);
     }
 }

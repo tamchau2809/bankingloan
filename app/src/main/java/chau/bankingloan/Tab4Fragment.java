@@ -7,7 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import chau.bankingloan.customThings.CustomTextwatcher;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerEditText;
@@ -51,6 +56,7 @@ public class Tab4Fragment extends Fragment {
     String json;
     JSONObject object;
     JSONArray array;
+    TextWatcher textWatcher;
 
     @Nullable
     @Override
@@ -60,6 +66,34 @@ public class Tab4Fragment extends Fragment {
         initListener();
 
         new GetData().execute();
+
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int t = 0;
+                try {
+                    for (int j = 0; i < arrayListTab4.size(); i++) {
+                        if(arrayListTab4.get(i).getType().equals("edPlusNumberA"))
+                        {
+                            t = t+Integer.valueOf((String)arrayListTab4.get(i).getData());
+                        }
+                        edResult.setValue(String.valueOf(t));
+                    }
+                }
+                catch (Exception e)
+                {}
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
 
         imgBtnNext.setOnClickListener(listenerNext);
         imgBtnPre.setOnClickListener(listenerPre);
@@ -86,6 +120,7 @@ public class Tab4Fragment extends Fragment {
                 if (CheckFields())
                 {
                     SaveData();
+                    Log.e("ChauVu", preferences.getAll().toString());
                     Toast.makeText(getContext(), "Tezuka", Toast.LENGTH_SHORT).show();
                     MainActivity act = (MainActivity) getActivity();
                     act.switchTab(4);
@@ -112,11 +147,21 @@ public class Tab4Fragment extends Fragment {
         try {
             int i;
             SharedPreferences.Editor editor = preferences.edit();
+            Set<String> set = new HashSet<>();
             editor.clear().apply();
             for (i = 0; i < arrayListTab4.size(); i++) {
-                String fieldValue = (String) arrayListTab4.get(i).getData();
-                editor.putString(arrayListTab4.get(i).getLabel().trim().replace(" ", "").replace(":",""), fieldValue);
+                if (!arrayListTab4.get(i).getType().equals("textviewColumn")) {
+                    String fieldValue = (String) arrayListTab4.get(i).getData();
+                    editor.putString(arrayListTab4.get(i).getLabel().trim().replace(" ", "").replace(":", ""), fieldValue);
+
+//                    set.add(arrayListTab4.get(i).jsonObject().toString());
+                }
+                if(arrayListTab4.get(i).getType().equals("edPlusResultA"))
+                {
+                    editor.putString(arrayListTab4.get(i).getLabel().trim().replace(" ", "").replace(":", ""), edResult.getValue());
+                }
             }
+//            editor.putStringSet("tab4", set);
             editor.apply();
         }
         catch (Exception e)
@@ -326,17 +371,17 @@ public class Tab4Fragment extends Fragment {
                     }
                     if (arrayListTab4.get(i).getType().equals("edPlusNumberA")) {
                         if(arrayListTab4.get(i).getColumn().equals("1")) {
-                            arrayListTab4.get(i).obj = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            arrayListTab4.get(i).obj = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL, textWatcher);
                             l1.addView((View) arrayListTab4.get(i).obj, layoutParams);
                         }
                         if(arrayListTab4.get(i).getColumn().equals("2")){
-                            arrayListTab4.get(i).obj = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            arrayListTab4.get(i).obj = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL, textWatcher);
                             l2.addView((View) arrayListTab4.get(i).obj, layoutParams);
                         }
                     }
                     if (arrayListTab4.get(i).getType().equals("edPlusResultA")) {
                         if(arrayListTab4.get(i).getColumn().equals("1")) {
-                            edResult = new ServerEditText(getContext(), "10",
+                            edResult = new ServerEditText(getContext(), "0",
                                     InputType.TYPE_CLASS_NUMBER
                                             | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                         }
