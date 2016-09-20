@@ -9,6 +9,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../sdk/extras/android/m2repository/com/android/support/design/24.1.0/design-24.1.0-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/design/24.1.0/59310f22868d1984037e1ac3520290fbb4b61f1a/design-24.1.0-sources.jar!/" />
     </SOURCES>
   </library>

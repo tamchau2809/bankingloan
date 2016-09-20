@@ -5,7 +5,7 @@
     android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
     <ScrollView
         android:background="@color/C0"
@@ -42,14 +42,5 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bi_right"/>
     </LinearLayout>
-
-    <com.roughike.bottombar.BottomBar
-        android:visibility="gone"
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        app:bb_tabXmlResource="@xml/bottom_bar"
-        app:bb_behavior="underNavbar"/>
 
 </LinearLayout>
