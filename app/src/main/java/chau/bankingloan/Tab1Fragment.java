@@ -215,8 +215,6 @@ public class Tab1Fragment extends Fragment
             public void onClick(View v) {
                 if(CheckFields()) {
                     SaveData();
-                    Log.e("ChauVu", preferences.getAll().toString());
-                    Toast.makeText(getContext(), "Tezuka", Toast.LENGTH_SHORT).show();
                     MainActivity act = (MainActivity) getActivity();
                     act.switchTab(1);
                 }

@@ -195,15 +195,6 @@ public class Tab4Fragment extends Fragment {
                         }
                     }
                 }
-
-                if(arrayListTab4.get(i).getType().equals("edPlusNumberA"))
-                {
-                    t = t+Integer.valueOf((String)arrayListTab4.get(i).getData());
-                }
-            }
-            if(t > 0) {
-                Log.e("NUMBER", String.valueOf(t));
-                edResult.setValue(String.valueOf(t));
             }
             return good;
         }

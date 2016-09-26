@@ -8,10 +8,8 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -31,17 +29,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,16 +55,13 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
     JustifyTextView jtvCondition;
 
     private GoogleApiClient mGoogleApiClient;
-    private Location mLocation;
-    private LocationManager locationManager;
-    private LocationRequest mLocationRequest;
     double latitude;
     double longitude;
 
     View rootView;
     CheckBox cbAccept;
     ImageButton imgBtnPreTab6, imgBtnNextTab6;
-    SharedPreferences personalPreferences, contactPreferences,
+    SharedPreferences personalPreferences, tab3,
             employmentPreferences, tab1;
 
     ProgressDialog progressDialog;
@@ -91,27 +75,20 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         initWidget();
         personalPreferences = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
 //        loadFromPersonal(personalPreferences);
-        contactPreferences = this.getActivity().getSharedPreferences("CONTACT", Context.MODE_APPEND);
-//        loadFromContact(contactPreferences);
+        tab3 = this.getActivity().getSharedPreferences("TAB3", Context.MODE_APPEND);
+//        loadFromContact(tab3);
         employmentPreferences = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
 //        loadFromEmployment(employmentPreferences);
         tab1 = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
 //        loanAmount = tab1.getString("LoanAmount", "");
-        getData(tab1, "TAB1");
-        Log.e("LoanAmount", loanAmount);
-        Log.e("LastPayment", lastPayment);
-        Log.e("MaxInterest", maxInterest);
-        Log.e("Tenure", tenure);
-        Log.e("LoanPurpose", loanPurpose);
-        Log.e("MonthlyPayment", monthlyPayment);
-        Log.e("LoanType", loanType);
+        getData("TAB1");
 
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+//        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
         cbAccept.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -186,7 +163,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        Location mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLocation == null) {
             startLocationUpdates();
         }
@@ -202,7 +179,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         int UPDATE_INTERVAL = 30*1000;
         int FASTEST_INTERVAL = 5000;
         // Create the location request
-        mLocationRequest = LocationRequest.create()
+        LocationRequest mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL);
@@ -316,9 +293,9 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         jtvCondition = (JustifyTextView)rootView.findViewById(R.id.jtvConditionConfirm);
     }
 
-    public void getData(SharedPreferences pref, String tab)
+    public void getData(String tab)
     {
-        pref = this.getActivity().getSharedPreferences(tab, Context.MODE_APPEND);
+        SharedPreferences pref = this.getActivity().getSharedPreferences(tab, Context.MODE_APPEND);
         loanAmount = pref.getString("LoanAmount", "");
         lastPayment = pref.getString("LastPayment", "");
         maxInterest = pref.getString("MaxInterest", "");
@@ -378,10 +355,12 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
                 }
             }
             catch (IOException ex) {
-                System.err.println(ex);
+                ex.printStackTrace();
             }
             return result;
         }
+
+
 
         @Override
         protected void onPostExecute(String s) {
@@ -391,7 +370,6 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         }
     }
 
-    @SuppressWarnings("deprecation")
     private class PINCreate extends AsyncTask<Void, Void, String>
     {
         @Override
@@ -405,36 +383,42 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
 
         @Override
         protected String doInBackground(Void... params) {
-            String response = null;
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpParams test = httpClient.getParams();
-            HttpConnectionParams.setConnectionTimeout(test, 5000);
-            HttpConnectionParams.setSoTimeout(test, 5000);
-            HttpPost httpPost = new HttpPost(ConstantStuff.PIN_GENERATE);
-            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             try {
-                String email = contactPreferences.getString("email","");
-                builder.addPart("EMAIL", new StringBody(email, ContentType.TEXT_PLAIN));
-                httpPost.setEntity(builder.build());
-
-                HttpResponse httpResponse = httpClient.execute(httpPost);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                int statusCode = httpResponse.getStatusLine().getStatusCode();
-                if(statusCode == 200)
-                {
-                    response = EntityUtils.toString(httpEntity);
-                }
-                else
-                {
-                    response = "Error: + " + statusCode;
-                }
+                return uploadData(ConstantStuff.PIN_GENERATE);
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
+            return null;
+        }
 
-            return response;
+        private String uploadData(String requestURL)
+        {
+            String charset = "UTF-8";
+            String result = "";
+            try
+            {
+                UploadFile multipart = new UploadFile(requestURL, charset);
+
+                multipart.addHeaderField("User-Agent", "CodeJava");
+                multipart.addHeaderField("Test-Header", "Header-Value");
+
+                multipart.addFormField("EMAIL", tab3.getString("Email",""));
+
+                List<String> response = multipart.finish();
+
+                System.out.println("SERVER REPLIED:");
+
+                for (String line : response) {
+                    System.out.println(line);
+                    result = line;
+                }
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return result;
         }
 
         @Override

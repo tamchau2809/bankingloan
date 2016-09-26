@@ -57,15 +57,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\libs\httpmime-4.3.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="5b0002c5fb66867ca919be0fbd86de1cfaf76da7">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpmime-4.3_173467043af435b8b38f643a31254a0b53dbe673\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -126,15 +117,6 @@
         revision="23.0.3"
         sha1="7ea53c4458b80e8ea71f7fd6831fa184c501377b">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-api-9.4.0_2469fd639ac4becf9de83715ef5acd97fd077b99\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\libs\httpcore-4.4.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="b31526a230871fbe285fbcbe2813f9c0839ae9b0">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpcore-4.4.4_28040267a7fe6493da4dc7ad8513e029649a07b3\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -250,7 +232,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="65ec93666e2a2e8070ff39569e981a1322d57106">
+        sha1="910ea80f274296d7c76b1f5af4967c0d9237d91c">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4d116cffc592bbe3711e107b4b0c66ee4ee81394\classes.dex" />
     </item>
     <item
@@ -597,15 +579,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\libs\httpclient-4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="54fed37cb28b52bfad6d7a5ca80e7d6b98959a34">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpclient-4.0_895aa75d4443a89b1b4289e8c699c1ea1ed5f2c9\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -628,7 +601,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="dcf230f675633202ddbb8842f3a0b803a5ba88e3">
+        sha1="be35f17b5ccb981b63e3b87b8a7fba6e95e43fbf">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e126b08c4a8458df253538bdb339ec632a90b051\classes.dex" />
     </item>
     <item

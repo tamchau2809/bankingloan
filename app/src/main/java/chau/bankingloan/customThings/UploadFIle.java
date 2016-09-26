@@ -86,7 +86,7 @@ public class UploadFile {
 
         FileInputStream inputStream = new FileInputStream(uploadFile);
         byte[] buffer = new byte[4096];
-        int bytesRead = -1;
+        int bytesRead;
         while ((bytesRead = inputStream.read(buffer)) != -1) {
             outputStream.write(buffer, 0, bytesRead);
         }
@@ -117,7 +117,7 @@ public class UploadFile {
      * @throws IOException
      */
     public List<String> finish() throws IOException {
-        List<String> response = new ArrayList<String>();
+        List<String> response = new ArrayList<>();
 
         writer.append(LINE_FEED).flush();
         writer.append("--").append(boundary).append("--").append(LINE_FEED);

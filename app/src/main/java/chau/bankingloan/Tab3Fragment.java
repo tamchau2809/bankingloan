@@ -43,7 +43,7 @@ public class Tab3Fragment extends Fragment
     ImageButton imgBtnNext, imgBtnPre, imgBtnRefresh;
     View.OnClickListener listenerNext, listenerPre, listenerRef;
 
-    SharedPreferences preferences;
+    SharedPreferences tab3;
 
     String json;
     JSONObject object;
@@ -72,7 +72,7 @@ public class Tab3Fragment extends Fragment
         imgBtnPre = (ImageButton)rootView.findViewById(R.id.imgBtnPreTab3);
         imgBtnRefresh = (ImageButton)rootView.findViewById(R.id.imgBtnRefreshTab3);
         serverInfos = new ArrayList<>();
-        preferences = this.getActivity().getSharedPreferences("TAB3", Context.MODE_APPEND);
+        tab3 = this.getActivity().getSharedPreferences("TAB3", Context.MODE_APPEND);
     }
 
     private void initListener()
@@ -83,7 +83,6 @@ public class Tab3Fragment extends Fragment
                 if (CheckFields())
                 {
                     SaveData();
-                    Toast.makeText(getContext(), "Tezuka", Toast.LENGTH_SHORT).show();
                     MainActivity act = (MainActivity) getActivity();
                     act.switchTab(3);
                 }
@@ -110,7 +109,7 @@ public class Tab3Fragment extends Fragment
     {
         try {
             int i;
-            SharedPreferences.Editor editor = preferences.edit();
+            SharedPreferences.Editor editor = tab3.edit();
             editor.clear().apply();
             for (i = 0; i < serverInfos.size(); i++) {
                 String fieldValue = (String) serverInfos.get(i).getData();
