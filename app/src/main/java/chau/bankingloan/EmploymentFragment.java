@@ -36,8 +36,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.InfoFromServer;
-import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.ConstantStuff;
 
 /**
@@ -331,8 +331,8 @@ public class EmploymentFragment extends Fragment implements View.OnClickListener
 
         @Override
         protected Void doInBackground(Void... params) {
-            ServiceHandler serviceHandler = new ServiceHandler();
-            String json = serviceHandler.makeServiceCall(ConstantStuff.GET_DATA_EMPLOYMENT, ServiceHandler.GET);
+            ConnectURL serviceHandler = new ConnectURL();
+            String json = serviceHandler.makeServiceCall(ConstantStuff.GET_DATA_EMPLOYMENT, ConnectURL.GET);
             if(json != null)
             {
                 getIt(json, "tbworkingstatus", "STATUS", "DETAILS", arrWorkingStt);

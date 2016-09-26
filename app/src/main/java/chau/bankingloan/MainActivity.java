@@ -27,8 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.InfoFromServer;
-import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.ConstantStuff;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -242,8 +242,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         protected Void doInBackground(Void... params) {
-            ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(ConstantStuff.GET_TOOLBAR_TEXT, ServiceHandler.GET);
+            ConnectURL sh = new ConnectURL();
+            String jsonStr = sh.makeServiceCall(ConstantStuff.GET_TOOLBAR_TEXT, ConnectURL.GET);
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     e.printStackTrace();
                 }
             } else {
-                Log.e("ServiceHandler", "Couldn't get any data from the url");
+                Log.e("ConnectURL", "Couldn't get any data from the url");
             }
             return null;
         }

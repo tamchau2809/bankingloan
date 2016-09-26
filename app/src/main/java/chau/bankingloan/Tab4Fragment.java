@@ -24,17 +24,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+//import java.util.HashSet;
+//import java.util.Set;
 
-import chau.bankingloan.customThings.CustomTextwatcher;
+import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerEditText;
 import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServerTvDate;
-import chau.bankingloan.customThings.ServiceHandler;
 
 /**
  * Created on 01-07-2016 by com08.
@@ -77,16 +76,23 @@ public class Tab4Fragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int t = 0;
                 try {
-                    for (int j = 0; i < arrayListTab4.size(); i++) {
-                        if(arrayListTab4.get(i).getType().equals("edPlusNumberA"))
+                    for (int j = 0; j < arrayListTab4.size(); j++) {
+                        if(arrayListTab4.get(j).getType().equals("edPlusNumberA"))
                         {
-                            t = t+Integer.valueOf((String)arrayListTab4.get(i).getData());
+                            if(!arrayListTab4.get(j).getData().toString().trim().isEmpty())
+                                t = t + Integer.valueOf(arrayListTab4.get(j).getData()
+                                            .toString().trim());
                         }
-                        edResult.setValue(String.valueOf(t));
                     }
+                    if(t == 0)
+                        edResult.setValue(String.valueOf(0));
+                    else
+                        edResult.setValue(String.valueOf(t));
                 }
                 catch (Exception e)
-                {}
+                {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -147,7 +153,7 @@ public class Tab4Fragment extends Fragment {
         try {
             int i;
             SharedPreferences.Editor editor = preferences.edit();
-            Set<String> set = new HashSet<>();
+//            Set<String> set = new HashSet<>();
             editor.clear().apply();
             for (i = 0; i < arrayListTab4.size(); i++) {
                 if (!arrayListTab4.get(i).getType().equals("textviewColumn")) {
@@ -223,8 +229,8 @@ public class Tab4Fragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(MainActivity.TAB_4_LINK, ServiceHandler.GET);
+            ConnectURL connectURL = new ConnectURL();
+            json = connectURL.makeServiceCall(MainActivity.TAB_4_LINK, ConnectURL.GET);
             if(json!= null)
             {
                 try
@@ -381,15 +387,18 @@ public class Tab4Fragment extends Fragment {
                     }
                     if (arrayListTab4.get(i).getType().equals("edPlusResultA")) {
                         if(arrayListTab4.get(i).getColumn().equals("1")) {
-                            edResult = new ServerEditText(getContext(), "0",
+                            edResult = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(),
                                     InputType.TYPE_CLASS_NUMBER
                                             | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            edResult.setValue(String.valueOf(0));
+                            l1.addView(edResult, layoutParams);
                         }
                         if(arrayListTab4.get(i).getColumn().equals("2")){
                             edResult = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(),
                                     InputType.TYPE_CLASS_NUMBER
                                             | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                             edResult.setEnabled(false);
+                            edResult.setValue(String.valueOf(0));
                             l2.addView(edResult, layoutParams);
                         }
                     }
@@ -412,7 +421,7 @@ public class Tab4Fragment extends Fragment {
         JSONObject object;
         String jsonSpinner;
 
-        public SpinnerData(String url, String key) {
+        SpinnerData(String url, String key) {
             this.url = url;
             this.key = key;
         }
@@ -425,13 +434,13 @@ public class Tab4Fragment extends Fragment {
 
         @Override
         protected String doInBackground(Void... strings) {
-            ServiceHandler jsonParser = new ServiceHandler();
+            ConnectURL jsonParser = new ConnectURL();
             if(url.isEmpty())
             {
                 arr = "";
             }
             else {
-                jsonSpinner = jsonParser.makeServiceCall(url, ServiceHandler.GET);
+                jsonSpinner = jsonParser.makeServiceCall(url, ConnectURL.GET);
                 if (jsonSpinner != null) {
                     try {
                         object = new JSONObject(jsonSpinner);

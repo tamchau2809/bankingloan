@@ -9,14 +9,11 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -31,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -41,9 +37,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabReselectListener;
-import com.roughike.bottombar.OnTabSelectListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,13 +46,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerEditText;
 import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServerTvDate;
-import chau.bankingloan.customThings.ServiceHandler;
 
 /**
  * Created on 13-Jun-16 by com08.
@@ -84,8 +77,6 @@ public class Tab1Fragment extends Fragment
 
     static final Integer LOCATION = 0x1;
     static final Integer GPS_SETTINGS = 0x7;
-
-    BottomBar bottomBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -214,8 +205,6 @@ public class Tab1Fragment extends Fragment
         lnrTab1 = (LinearLayout)rootView.findViewById(R.id.lnrTab1);
         imgBtnNext = (ImageButton) rootView.findViewById(R.id.imgBtnNextTab1);
         imgBtnRefresh = (ImageButton) rootView.findViewById(R.id.imgBtnRefreshTab1);
-        bottomBar = (BottomBar)rootView.findViewById(R.id.bottomBar);
-        bottomBar.clearFocus();
         arrayListTab1 = new ArrayList<>();
     }
 
@@ -344,15 +333,15 @@ public class Tab1Fragment extends Fragment
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setMessage("Getting Data...");
             progressDialog.setCancelable(false);
-            progressDialog.show();
+//            progressDialog.show();
             lnrTab1.removeAllViews();
             arrayListTab1.clear();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            ServiceHandler sh = new ServiceHandler();
-            jsonMain = sh.makeServiceCall(MainActivity.TAB_1_LINK, ServiceHandler.GET);
+            ConnectURL connectURL = new ConnectURL();
+            jsonMain = connectURL.makeServiceCall(MainActivity.TAB_1_LINK, ConnectURL.GET);
             if(jsonMain != null)
             {
                 try
@@ -567,13 +556,13 @@ public class Tab1Fragment extends Fragment
 
         @Override
         protected String doInBackground(Void... strings) {
-            ServiceHandler jsonParser = new ServiceHandler();
+            ConnectURL connectURL = new ConnectURL();
             if(url.isEmpty())
             {
                 arr = "";
             }
             else {
-                jsonSpinner = jsonParser.makeServiceCall(url, ServiceHandler.GET);
+                jsonSpinner = connectURL.makeServiceCall(url, ConnectURL.GET);
                 if (jsonSpinner != null) {
                     try {
                         object = new JSONObject(jsonSpinner);

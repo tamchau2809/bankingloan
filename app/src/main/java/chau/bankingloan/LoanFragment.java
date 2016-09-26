@@ -29,8 +29,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.InfoFromServer;
-import chau.bankingloan.customThings.ServiceHandler;
 
 /**
  * Created on 20/04/2016 by com08.
@@ -224,8 +224,8 @@ public class LoanFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             // TODO Auto-generated method stub
 
-            ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(GET_MKH_URL, ServiceHandler.GET);
+            ConnectURL jsonParser = new ConnectURL();
+            String json = jsonParser.makeServiceCall(GET_MKH_URL, ConnectURL.GET);
             if(json != null)
             {
                 try
@@ -265,8 +265,8 @@ public class LoanFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             // TODO Auto-generated method stub
 
-            ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(GET_MNV_URL, ServiceHandler.GET);
+            ConnectURL jsonParser = new ConnectURL();
+            String json = jsonParser.makeServiceCall(GET_MNV_URL, ConnectURL.GET);
             if(json != null)
             {
                 try

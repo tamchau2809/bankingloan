@@ -24,17 +24,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import chau.bankingloan.customThings.UploadFile;
 
 /**
  * Created on 11-May-16 by com08.
@@ -44,7 +42,7 @@ public class UploadFragment extends Fragment {
 
     private LinearLayout lnrImages;
 
-    final String FILE_UPLOAD_URL = "http://192.168.1.17/chauvu/up.php";
+    final String FILE_UPLOAD_URL = "http://192.168.1.12/chauvu/up.php";
 
     FloatingActionButton fab2, fab3, fab4, fab5;
 
@@ -81,7 +79,7 @@ public class UploadFragment extends Fragment {
                 if (imagesPathList == null) {
                     showAlert("Không Có Hình Ảnh Để Upload!");
                 } else {
-                    new BackgroundUploader(FILE_UPLOAD_URL).execute();
+                    new BackgroundUploader(imagesPathList).execute();
                 }
             }
         });
@@ -183,21 +181,14 @@ public class UploadFragment extends Fragment {
             }
         }
     }
-    class BackgroundUploader extends AsyncTask<Void, Integer, Void> implements DialogInterface.OnCancelListener {
+
+    class BackgroundUploader extends AsyncTask<Void, Void, Void> implements DialogInterface.OnCancelListener {
 
         private ProgressDialog progressDialog;
-        private String url;
-        private File file;
+        ArrayList<String> arrayList;
 
-        public BackgroundUploader(String url, File file) {
-            this.url = url;
-            this.file = file;
-        }
-
-        public BackgroundUploader(String url) {
-            this.url = url;
-            Bitmap bitmap = BitmapFactory.decodeFile(imagesPathList.get(0));
-            file = saveImage(bitmap, "test", getContext());
+        public BackgroundUploader(ArrayList<String> strings) {
+            this.arrayList = strings;
         }
 
         @Override
@@ -210,79 +201,52 @@ public class UploadFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... v) {
-            HttpURLConnection.setFollowRedirects(false);
-            HttpURLConnection connection = null;
-            String fileName = file.getName();
             try {
-                connection = (HttpURLConnection) new URL(url).openConnection();
-                connection.setRequestMethod("POST");
-//                String boundary = "---------------------------boundary";
-//                String tail = "\r\n--" + boundary + "--\r\n";
-//                connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-                connection.setDoOutput(true);
-
-//                String metadataPart = "--" + boundary + "\r\n"
-//                        + "Content-Disposition: form-data; name=\"metadata\"\r\n\r\n"
-//                        + "" + "\r\n";
-
-//                String fileHeader1 = "--" + boundary + "\r\n"
-//                        + "Content-Disposition: form-data; name=\"uploadfile\"; filename=\""
-//                        + fileName + "\"\r\n"
-//                        + "Content-Type: application/octet-stream\r\n"
-//                        + "Content-Transfer-Encoding: binary\r\n";
-
-//                long fileLength = file.length() + tail.length();
-//                String fileHeader2 = "Content-length: " + fileLength + "\r\n";
-//                String fileHeader = fileHeader1 + fileHeader2 + "\r\n";
-//                String stringData = metadataPart + fileHeader;
-
-//                long requestLength = stringData.length() + fileLength;
-//                connection.setRequestProperty("Content-length", "" + requestLength);
-//                connection.setFixedLengthStreamingMode((int) requestLength);
-                connection.connect();
-
-                DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-//                out.writeBytes(stringData);
-                out.flush();
-
-                int progress = 0;
-                int bytesRead;
-                byte buf[] = new byte[1024];
-                BufferedInputStream bufInput = new BufferedInputStream(new FileInputStream(file));
-                while ((bytesRead = bufInput.read(buf)) != -1) {
-                    // write output
-                    out.write(buf, 0, bytesRead);
-                    out.flush();
-                    progress += bytesRead;
-                    // update progress bar
-                    publishProgress(progress);
-                }
-
-                // Write closing boundary and close stream
-//                out.writeBytes(tail);
-                out.flush();
-                out.close();
-
-                // Get server response
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line;
-                StringBuilder builder = new StringBuilder();
-                while((line = reader.readLine()) != null) {
-                    builder.append(line);
-                }
-
+                uploadFile(arrayList);
             } catch (Exception e) {
                 // Exception
-            } finally {
-                if (connection != null) connection.disconnect();
             }
 
             return null;
         }
 
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            progressDialog.setProgress(progress[0]);
+        public void uploadFile(ArrayList<String> imgPaths) {
+
+            String charset = "UTF-8";
+
+            File sourceFile[] = new File[imgPaths.size()];
+            for (int i=0;i<imgPaths.size();i++){
+                sourceFile[i] = new File(imgPaths.get(i));
+            }
+
+            String requestURL = "http://192.168.1.12/chauvu/up.php";
+
+            try {
+                UploadFile multipart = new UploadFile(requestURL, charset);
+
+                multipart.addHeaderField("User-Agent", "CodeJava");
+                multipart.addHeaderField("Test-Header", "Header-Value");
+
+                multipart.addFormField("description", "Cool Pictures");
+                multipart.addFormField("keywords", "Java,upload,Spring");
+
+                for (int i=0;i<imgPaths.size();i++){
+                    multipart.addFilePart("uploaded_file[]", sourceFile[0]);
+                }
+
+            /*multipart.addFilePart("fileUpload", uploadFile1);
+            multipart.addFilePart("fileUpload", uploadFile2);*/
+
+                List<String> response = multipart.finish();
+
+                System.out.println("SERVER REPLIED:");
+
+                for (String line : response) {
+                    System.out.println(line);
+                }
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
         }
 
         @Override
@@ -292,8 +256,7 @@ public class UploadFragment extends Fragment {
 
         @Override
         public void onCancel(DialogInterface dialog) {
-            cancel(true);
-            dialog.dismiss();
+
         }
     }
 }

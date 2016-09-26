@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +22,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerEditText;
-import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServerTvDate;
 
@@ -123,8 +122,8 @@ public class Tab2Fragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(MainActivity.TAB_2_LINK, ServiceHandler.GET);
+            ConnectURL connectURL = new ConnectURL();
+            json = connectURL.makeServiceCall(MainActivity.TAB_2_LINK, ConnectURL.GET);
             if(json!= null)
             {
                 try
@@ -265,53 +264,6 @@ public class Tab2Fragment extends Fragment
             {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public class SpinnerData extends AsyncTask<Void, Void, String> {
-        String url;
-        String key;
-        String arr;
-        JSONArray array;
-        JSONObject object;
-        String jsonSpinner;
-
-        public SpinnerData(String url, String key) {
-            this.url = url;
-            this.key = key;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            arr = "";
-        }
-
-        @Override
-        protected String doInBackground(Void... strings) {
-            ServiceHandler jsonParser = new ServiceHandler();
-            jsonSpinner = jsonParser.makeServiceCall(url, ServiceHandler.GET);
-            if (jsonSpinner != null) {
-                try {
-                    object = new JSONObject(jsonSpinner);
-                    array = object.getJSONArray(key.trim().replace(":", "")
-                            .replace(" ", ""));
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject jsonObject = (JSONObject) array.get(i);
-                        arr += jsonObject.getString("DATA") + ",";
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            return arr;
-        }
-
-        @Override
-        protected void onPostExecute(String aVoid) {
-            super.onPostExecute(aVoid);
-            Log.e("EXECUTION", key);
-            Log.e("EXECUTION", aVoid);
         }
     }
 

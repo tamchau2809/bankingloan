@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +22,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.ServerBoldTextview;
 import chau.bankingloan.customThings.ServerCheckbox;
 import chau.bankingloan.customThings.ServerEditText;
 import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerSpinner;
-import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.ServerTvDate;
 
 /**
@@ -169,8 +168,8 @@ public class Tab3Fragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            ServiceHandler sh = new ServiceHandler();
-            json = sh.makeServiceCall(MainActivity.TAB_3_LINK, ServiceHandler.GET);
+            ConnectURL connectURL = new ConnectURL();
+            json = connectURL.makeServiceCall(MainActivity.TAB_3_LINK, ConnectURL.GET);
             if(json!= null)
             {
                 try
@@ -303,17 +302,6 @@ public class Tab3Fragment extends Fragment
                             l2.addView((View) serverInfos.get(i).obj, layoutParams);
                         }
                     }
-//                    if (arrayListTab4.get(i).getType().equals("textviewSum"))
-//                    {
-//                        if(arrayListTab4.get(i).getColumn().equals("1")){
-//                            arrayListTab4.get(i).obj = new ServerTvSum(getContext(), arrayListTab4.get(i).getLabel());
-//                            l1.addView((View) arrayListTab4.get(i).obj, layoutParams);
-//                        }
-//                        if(arrayListTab4.get(i).getColumn().equals("2")){
-//                            arrayListTab4.get(i).obj = new ServerTvSum(getContext(), arrayListTab4.get(i).getLabel());
-//                            l2.addView((View) arrayListTab4.get(i).obj, layoutParams);
-//                        }
-//                    }
                 }
                 lnrTab3.addView(l1);
                 lnrTab3.addView(l2);

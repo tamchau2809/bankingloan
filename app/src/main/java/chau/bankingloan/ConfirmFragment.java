@@ -52,6 +52,7 @@ import java.util.Set;
 
 import chau.bankingloan.customThings.ConstantStuff;
 import chau.bankingloan.customThings.JustifyTextView;
+import chau.bankingloan.customThings.UploadFile;
 
 /**
  * Created on 04-May-16 by com08.
@@ -241,30 +242,6 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
 
     }
 
-//    public void loadFromPersonal(SharedPreferences personal)
-//    {
-//        tvConfirmName.setText(personal.getString("name", ""));
-//        tvConfirmDoB.setText(personal.getString("birthday", ""));
-//        tvConfirmId.setText(personal.getString("identityNum", ""));
-//    }
-//
-//    @SuppressLint("SetTextI18n")
-//    public void loadFromContact(SharedPreferences contact)
-//    {
-//        tvConfirmTelephone.setText(contact.getString("telephone", ""));
-//        tvConfirmMobile.setText(contact.getString("mobile", ""));
-//        tvConfirmEmail.setText(contact.getString("email", ""));
-//        tvConfirmAdd.setText(contact.getString("street", "") + ", "
-//                + contact.getString("city", ""));
-//    }
-//
-//    public void loadFromEmployment(SharedPreferences employment)
-//    {
-//        tvConfirmWorkingStt.setText(employment.getString("workingStt", ""));
-//        tvConfirmEmployer.setText(employment.getString("employer", ""));
-//        tvConfirmEmployerAdd.setText(employment.getString("employerAdd", ""));
-//    }
-
     public void showDialog()
     {
         LayoutInflater factory = LayoutInflater.from(getContext());
@@ -351,8 +328,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         tenure = pref.getString("Tenure", "");
     }
 
-    @SuppressWarnings("deprecation")
-    private class SendInfo extends AsyncTask<Void, Float, String>
+    class SendInfo extends AsyncTask<Void, Void, String>
     {
         @Override
         protected void onPreExecute() {
@@ -365,48 +341,46 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
 
         @Override
         protected String doInBackground(Void... params) {
-            String response = null;
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpParams test = httpClient.getParams();
-            HttpConnectionParams.setConnectionTimeout(test, 5000);
-            HttpConnectionParams.setSoTimeout(test, 5000);
-            HttpPost httpPost = new HttpPost(ConstantStuff.URL_UPLOAD);
-            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            try {
+                return uploadData(ConstantStuff.FILE_UPLOAD_URL);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        private String uploadData(String requestURL)
+        {
+            String charset = "UTF-8";
+            String result = "";
             try
             {
-                UploadProgress2.ProgressListener lis = new UploadProgress2.ProgressListener() {
+                UploadFile multipart = new UploadFile(requestURL, charset);
 
-                    @Override
-                    public void transferred(float num) {
-                        // TODO Auto-generated method stub
-                        publishProgress((num));
-                    }
-                };
+                multipart.addHeaderField("User-Agent", "CodeJava");
+                multipart.addHeaderField("Test-Header", "Header-Value");
 
-                builder.addPart("LOAN_TYPE", new StringBody(tab1.getString("LoanType",""), ContentType.TEXT_PLAIN));
-                builder.addPart("TENURE", new StringBody(tab1.getString("Tenure",""), ContentType.TEXT_PLAIN));
-                builder.addPart("LOAN_PURPOSE", new StringBody(tab1.getString("LoanPurpose",""), ContentType.TEXT_PLAIN));
-                builder.addPart("LATITUDE", new StringBody(String.valueOf(latitude), ContentType.TEXT_PLAIN));
-                builder.addPart("LONGITUDE", new StringBody(String.valueOf(longitude), ContentType.TEXT_PLAIN));
+                multipart.addFormField("LOAN_TYPE", (tab1.getString("LoanType","")));
+                multipart.addFormField("TENURE", (tab1.getString("Tenure","")));
+                multipart.addFormField("LOAN_PURPOSE", (tab1.getString("LoanPurpose","")));
+                multipart.addFormField("LATITUDE", String.valueOf(latitude));
+                multipart.addFormField("LONGITUDE", String.valueOf(longitude));
 
-                httpPost.setEntity(new UploadProgress2(builder.build(), lis));
-                HttpResponse httpResponse = httpClient.execute(httpPost);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                int statusCode = httpResponse.getStatusLine().getStatusCode();
-                if(statusCode == 200)
-                {
-                    response = EntityUtils.toString(httpEntity);
+                List<String> response = multipart.finish();
+
+                System.out.println("SERVER REPLIED:");
+
+                for (String line : response) {
+                    System.out.println(line);
+                    result = line;
                 }
-                else
-                {
-                    response = "Error: + " + statusCode;
-                }
-            } catch (IOException e) {
-                response = e.toString();
             }
-            catch(Exception ignored)
-            {}
-            return response;
+            catch (IOException ex) {
+                System.err.println(ex);
+            }
+            return result;
         }
 
         @Override

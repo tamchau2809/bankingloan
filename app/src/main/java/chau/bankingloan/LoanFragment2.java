@@ -34,8 +34,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.InfoFromServer;
-import chau.bankingloan.customThings.ServiceHandler;
 import chau.bankingloan.customThings.ConstantStuff;
 
 /**
@@ -281,8 +281,8 @@ public class LoanFragment2  extends Fragment implements View.OnClickListener
         protected Void doInBackground(Void... params) {
             // TODO Auto-generated method stub
 
-            ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(ConstantStuff.GET_DATA_LOAN, ServiceHandler.GET);
+            ConnectURL jsonParser = new ConnectURL();
+            String json = jsonParser.makeServiceCall(ConstantStuff.GET_DATA_LOAN, ConnectURL.GET);
             if(json != null)
             {
                 getIt(json, "tenure", "DATA", "DETAILS", arrTenure);

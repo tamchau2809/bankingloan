@@ -10,16 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,23 +22,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,10 +29,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import chau.bankingloan.customThings.ConstantStuff;
-import chau.bankingloan.customThings.InfoFromServer;
+import chau.bankingloan.customThings.UploadFile;
 
 /**
  * Created on 28-Apr-16 by com08.
@@ -69,9 +48,7 @@ public class Tab5Fragment extends Fragment
     ImageButton imgBtnAdd, imgBtnCamera, imgBtnUpload, imgBtnBack;
 
     private ArrayList<String> imagesPathList;
-    ProgressDialog pDialog;
     private final int PICK_IMAGE_MULTIPLE = 1;
-    File sourceFile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,7 +83,7 @@ public class Tab5Fragment extends Fragment
                 }
                 else
                 {
-                    new UploadFile().execute();
+                    new BackgroundUploader(imagesPathList).execute();
                 }
             }
         });
@@ -131,6 +108,13 @@ public class Tab5Fragment extends Fragment
         imgBtnBack = (ImageButton) rootView.findViewById(R.id.imgBtnPreTab5);
     }
 
+    /**
+     * Dùng để nén hình ảnh
+     * @param myBitmap - Hình ảnh
+     * @param name - Đổi tên
+     * @param context - getContext
+     * @return hình ảnh được nén
+     */
     public File saveImage(Bitmap myBitmap, String name, Context context) {
 
         File myDir = new File( Environment.getExternalStorageDirectory(), context.getPackageName());
@@ -230,114 +214,87 @@ public class Tab5Fragment extends Fragment
         imgBtnCamera.setEnabled(show);
     }
 
-    @SuppressWarnings("deprecation")
-    private class UploadFile extends AsyncTask<Void, Float, String>
+    class BackgroundUploader extends AsyncTask<Void, Void, String>
     {
+
+        private ProgressDialog progressDialog;
+        ArrayList<String> arrayList;
+
+        public BackgroundUploader(ArrayList<String> strings) {
+            this.arrayList = strings;
+        }
+
         @Override
         protected void onPreExecute() {
-            // setting progress bar to zero
-            pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage("Uploading...");
-            pDialog.setCancelable(false);
-            pDialog.show();
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Uploading...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
             setEnabled(false);
-            super.onPreExecute();
         }
 
         @Override
-        protected void onProgressUpdate(Float... values) {
-            // TODO Auto-generated method stub
-            pDialog.setMessage("Uploading..." + String.valueOf(values[0]) + "%");
+        protected String doInBackground(Void... v) {
+            try {
+                return uploadFile(arrayList, ConstantStuff.FILE_UPLOAD_URL);
+            } catch (Exception e) {
+                // Exception
+            }
+
+            return null;
+        }
+
+        private String uploadFile(ArrayList<String> imgPaths, String requestURL) {
+
+            String charset = "UTF-8";
+            String result = "";
+
+            File sourceFile[] = new File[imgPaths.size()];
+            for (int i=0;i<imgPaths.size();i++){
+                sourceFile[i] = new File(imgPaths.get(i));
+            }
+
+            try {
+                UploadFile multipart = new UploadFile(requestURL, charset);
+
+                multipart.addHeaderField("User-Agent", "CodeJava");
+                multipart.addHeaderField("Test-Header", "Header-Value");
+
+                multipart.addFormField("description", "Cool Pictures");
+                multipart.addFormField("keywords", "Java,upload,Spring");
+
+                for (int i=0;i<imgPaths.size();i++){
+                    multipart.addFilePart("uploaded_file[]", sourceFile[0]);
+                }
+
+                List<String> response = multipart.finish();
+
+                System.out.println("SERVER REPLIED:");
+
+                for (String line : response) {
+                    System.out.println(line);
+                    result = line;
+                }
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+            return result;
         }
 
         @Override
-        protected String doInBackground(Void... params) {
-            // TODO Auto-generated method stub
-            return uploadFile();
-        }
-
-        private String uploadFile()
-        {
-            String response = null;
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpParams test = httpClient.getParams();
-            HttpConnectionParams.setConnectionTimeout(test, 5000);
-            HttpConnectionParams.setSoTimeout(test, 5000);
-            HttpPost httpPost = new HttpPost(ConstantStuff.FILE_UPLOAD_URL);
-            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-            try
+        protected void onPostExecute(String v) {
+            progressDialog.dismiss();
+            if(v.startsWith("2"))
             {
-                UploadProgress2.ProgressListener progressListener = new UploadProgress2.ProgressListener() {
-
-                    @Override
-                    public void transferred(float num) {
-                        // TODO Auto-generated method stub
-                        publishProgress((num));
-                    }
-                };
-                for(int i = 0; i < imagesPathList.size(); i++)
-                {
-                    int x = i + 1;
-                    final Bitmap bitmap = BitmapFactory.decodeFile(imagesPathList.get(i));
-                    sourceFile = saveImage(bitmap, String.valueOf(x), getContext());
-                    builder.addPart("image" + x, new FileBody(sourceFile));
-                }
-
-                String ID = tab2Pref.getString("IdentityCardNum", "");
-                String name = tab2Pref.getString("Name", "");
-                builder.addPart("NAME_ID", new StringBody(name, ContentType.TEXT_PLAIN));
-                builder.addPart("ID_NUM", new StringBody(ID, ContentType.TEXT_PLAIN));
-
-                httpPost.setEntity(new UploadProgress2(builder.build(), progressListener));
-
-                HttpResponse httpResponse = httpClient.execute(httpPost);
-                HttpEntity httpEntity = httpResponse.getEntity();
-
-                int statusCode = httpResponse.getStatusLine().getStatusCode();
-                if(statusCode == 200)
-                {
-                    response = EntityUtils.toString(httpEntity);
-                }
-                else
-                {
-                    response = "Error: + " + statusCode;
-                }
-            } catch (IOException e) {
-                response = e.toString();
+                showAlert("Thất Bại!" + v);
             }
-            catch(Exception ignored)
-            {}
-            return response;
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            // TODO Auto-generated method stub
-            File myDir=new File( Environment.getExternalStorageDirectory(), getContext().getPackageName());
-            if(!myDir.exists()){
-                myDir.mkdir();
-            }
-            if(result == null)
-            {
-                showAlert("Thất Bại!" + result);
-            }
-            else if(result.equals("11111") || result.equals("1111")
-                    || result.equals("111") || result.equals("11")
-                    || result.equals("1"))
+            else if(v.startsWith("1"))
             {
                 showAlert("Uploads Completed!");
                 MainActivity act = (MainActivity) getActivity();
                 act.switchTab(5);
             }
-            else
-            {
-                showAlert("Thất Bại!" + result);
-            }
             setEnabled(true);
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-            super.onPostExecute(result);
         }
     }
 }
