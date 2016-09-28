@@ -1,6 +1,5 @@
-package chau.bankingloan;
+package chau.bankingloan.customThings;
 
-import android.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -31,7 +30,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import chau.bankingloan.customThings.ConstantStuff;
+import chau.bankingloan.R;
 
 public class CustomPhotoGalleryActivity extends Activity {
 
@@ -59,7 +58,7 @@ public class CustomPhotoGalleryActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_custom_gallery);
+        setContentView(chau.bankingloan.R.layout.activity_upload_custom_gallery);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         grdImages = (GridView) findViewById(R.id.grdImages);

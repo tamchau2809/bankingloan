@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 import chau.bankingloan.customThings.ConstantStuff;
+import chau.bankingloan.customThings.CustomPhotoGalleryActivity;
 import chau.bankingloan.customThings.UploadFile;
 
 /**
