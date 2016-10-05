@@ -1,6 +1,7 @@
 package chau.bankingloan;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -78,11 +80,20 @@ public class Tab1Fragment extends Fragment
     static final Integer LOCATION = 0x1;
     static final Integer GPS_SETTINGS = 0x7;
 
+    int PERMISSION_ALL = 1;
+    String[] PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION};
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_tab_1, container, false);
+
+        if(!hasPermissions(getContext(), PERMISSIONS)){
+            ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, PERMISSION_ALL);
+        }
+        hasDeniedPermissions(getActivity(), getContext(), PERMISSIONS);
+
         initWidget();
         initListener();
 
@@ -100,7 +111,7 @@ public class Tab1Fragment extends Fragment
         imgBtnNext.setOnClickListener(listenerNext);
         imgBtnRefresh.setOnClickListener(listenerRef);
 
-        askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION);
+//        askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION);
 
         return rootView;
     }
@@ -113,6 +124,32 @@ public class Tab1Fragment extends Fragment
             buildAlertMessageNoGps();
         }
     }
+
+    public boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void hasDeniedPermissions(Activity activity, Context context, String... permissions)
+    {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[] {permission}, PERMISSION_ALL);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Your GPS seems to be disabled, Please turn it on!")
@@ -156,17 +193,35 @@ public class Tab1Fragment extends Fragment
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(ActivityCompat.checkSelfPermission(this.getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED){
-            switch (requestCode) {
-                //Location
-                case 1:
-                    askForGPS();
-                    break;
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if(ActivityCompat.checkSelfPermission(this.getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED){
+//            switch (requestCode) {
+//                //Location
+//                case 1:
+//                    askForGPS();
+//                    break;
+//            }
+//            Toast.makeText(this.getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
+//        }else{
+//            Toast.makeText(this.getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
+//        }
+        if (requestCode == PERMISSION_ALL) {
+            // for each permission check if the user grantet/denied them
+            // you may want to group the rationale in a single dialog,
+            // this is just an example
+            for (int i = 0, len = permissions.length; i < len; i++) {
+                String permission = permissions[i];
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    boolean showRationale = shouldShowRequestPermissionRationale( permission );
+                    if (showRationale) {
+                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            for (String perm : PERMISSIONS) {
+                                ActivityCompat.requestPermissions(getActivity(), new String[] {perm}, PERMISSION_ALL);
+                            }
+                        }
+                    }
+                }
             }
-            Toast.makeText(this.getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this.getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -180,7 +235,7 @@ public class Tab1Fragment extends Fragment
         result = LocationServices.SettingsApi.checkLocationSettings(client, builder.build());
         result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
             @Override
-            public void onResult(LocationSettingsResult result) {
+            public void onResult(@NonNull LocationSettingsResult result) {
                 final Status status = result.getStatus();
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
@@ -189,7 +244,7 @@ public class Tab1Fragment extends Fragment
                         try {
                             status.startResolutionForResult(getActivity(), GPS_SETTINGS);
                         } catch (IntentSender.SendIntentException e) {
-
+                            e.printStackTrace();
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
@@ -371,7 +426,7 @@ public class Tab1Fragment extends Fragment
             DisplayForm();
         }
 
-        public void DisplayForm()
+        void DisplayForm()
         {
             try
             {
@@ -541,7 +596,7 @@ public class Tab1Fragment extends Fragment
         JSONObject object;
         String jsonSpinner;
 
-        public SpinnerData(String url, String key) {
+        SpinnerData(String url, String key) {
             this.url = url;
             this.key = key;
         }

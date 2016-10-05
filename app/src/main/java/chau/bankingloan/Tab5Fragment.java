@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +23,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Random;
 
 import chau.bankingloan.customThings.ConstantStuff;
 import chau.bankingloan.customThings.CustomPhotoGalleryActivity;
@@ -109,52 +110,25 @@ public class Tab5Fragment extends Fragment
         imgBtnBack = (ImageButton) rootView.findViewById(R.id.imgBtnPreTab5);
     }
 
-    /**
-     * Dùng để nén hình ảnh
-     * @param myBitmap - Hình ảnh
-     * @param name - Đổi tên
-     * @param context - getContext
-     * @return hình ảnh được nén
-     */
-    public File saveImage(Bitmap myBitmap, String name, Context context) {
-
-        File myDir = new File( Environment.getExternalStorageDirectory(), context.getPackageName());
-        if(!myDir.exists()){
-            myDir.mkdir();
-        }
-        File file = new File (myDir, name);
-        if (file.exists ()) file.delete ();
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            myBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
-            out.flush();
-            out.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
-
-    public void getDataFromSP(SharedPreferences pref, String tab, String name)
-    {
-        pref = this.getActivity().getSharedPreferences(tab, Context.MODE_APPEND);
-        Set<String> set = pref.getStringSet(name, null);
-        if (set != null) {
-            for(String s : set)
-            {
-                try
-                {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String value = jsonObject.getString("value");
-                }
-                catch(JSONException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+//    public void getDataFromSP(SharedPreferences pref, String tab, String name)
+//    {
+//        pref = this.getActivity().getSharedPreferences(tab, Context.MODE_APPEND);
+//        Set<String> set = pref.getStringSet(name, null);
+//        if (set != null) {
+//            for(String s : set)
+//            {
+//                try
+//                {
+//                    JSONObject jsonObject = new JSONObject(s);
+//                    String value = jsonObject.getString("value");
+//                }
+//                catch(JSONException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -215,13 +189,14 @@ public class Tab5Fragment extends Fragment
         imgBtnCamera.setEnabled(show);
     }
 
+    @SuppressWarnings({"ResultOfMethodCallIgnored", "ThrowablePrintedToSystemOut"})
     class BackgroundUploader extends AsyncTask<Void, Void, String>
     {
 
         private ProgressDialog progressDialog;
         ArrayList<String> arrayList;
 
-        public BackgroundUploader(ArrayList<String> strings) {
+        BackgroundUploader(ArrayList<String> strings) {
             this.arrayList = strings;
         }
 
@@ -251,8 +226,12 @@ public class Tab5Fragment extends Fragment
             String result = "";
 
             File sourceFile[] = new File[imgPaths.size()];
-            for (int i=0;i<imgPaths.size();i++){
-                sourceFile[i] = new File(imgPaths.get(i));
+            for (int i=0;i<imgPaths.size();i++)
+            {
+                Bitmap bitmap = BitmapFactory.decodeFile(imgPaths.get(i));
+                String a = randomName(3);
+                sourceFile[i] = compressImage(bitmap, a, getContext());
+//                sourceFile[i] = new File(imgPaths.get(i));
             }
 
             try {
@@ -265,7 +244,7 @@ public class Tab5Fragment extends Fragment
                 multipart.addFormField("keywords", "Java,upload,Spring");
 
                 for (int i=0;i<imgPaths.size();i++){
-                    multipart.addFilePart("uploaded_file[]", sourceFile[0]);
+                    multipart.addFilePart("uploaded_file[]", sourceFile[i]);
                 }
 
                 List<String> response = multipart.finish();
@@ -280,6 +259,41 @@ public class Tab5Fragment extends Fragment
                 System.err.println(ex);
             }
             return result;
+        }
+
+        /**
+         * Dùng để nén hình ảnh
+         * @param bitmap - Hình ảnh
+         * @param context - getContext
+         * @return hình ảnh được nén
+         */
+        File compressImage(Bitmap bitmap, String name, Context context)
+        {
+            File myDir=new File( Environment.getExternalStorageDirectory(), context.getPackageName());
+            if(!myDir.exists()) myDir.mkdir();
+            File file = new File (myDir, name);
+            if (file.exists ()) {
+                file.delete();
+            }
+            try
+            {
+                FileOutputStream out = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+                out.flush();
+                out.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return file;
+        }
+
+        String randomName(int length)
+        {
+            Random random = new SecureRandom();
+            return String.format("%"+length+"s", new BigInteger(length*5/*base 32,2^5*/, random)
+                    .toString(32)).replace('\u0020', '0');
         }
 
         @Override

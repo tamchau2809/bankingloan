@@ -28,28 +28,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import chau.bankingloan.R;
 
 public class CustomPhotoGalleryActivity extends Activity {
 
     private String[] arrPath;
-    private boolean[] thumbnailsselection;
+    private boolean[] thumbnailsSelection;
     private int ids[];
     private int count;
-    Cursor imagecursor;
+    Cursor imageCursor;
     GridView grdImages;
     Button btnSelect;
-
-    final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
-    final String orderBy = MediaStore.Images.Media._ID;
-
-    private TextView requestPermission;
     private Button btnPermission;
     private final String[] requiredPermissions = new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE };
     private Handler handler;
-    private ContentObserver observer;
 
 
     /**
@@ -69,10 +62,10 @@ public class CustomPhotoGalleryActivity extends Activity {
 
             public void onClick(View v) {
                 String selectImages = "";
-                final int len = thumbnailsselection.length;
+                final int len = thumbnailsSelection.length;
                 int cnt = 0;
                 for (int i = 0; i < len; i++) {
-                    if (thumbnailsselection[i]) {
+                    if (thumbnailsSelection[i]) {
                         cnt++;
                         selectImages = selectImages + arrPath[i] + "|";
                     }
@@ -126,7 +119,7 @@ public class CustomPhotoGalleryActivity extends Activity {
                 }
             }
         };
-        observer = new ContentObserver(handler) {
+        ContentObserver observer = new ContentObserver(handler) {
             @Override
             public void onChange(boolean selfChange) {
                 LoadImages();
@@ -171,17 +164,17 @@ public class CustomPhotoGalleryActivity extends Activity {
         final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
         final String orderBy = MediaStore.Images.Media._ID;
 
-        imagecursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy);
-        int image_column_index = imagecursor.getColumnIndex(MediaStore.Images.Media._ID);
-        count = imagecursor.getCount();
+        imageCursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy);
+        int image_column_index = imageCursor.getColumnIndex(MediaStore.Images.Media._ID);
+        count = imageCursor.getCount();
         arrPath = new String[count];
         ids = new int[count];
-        thumbnailsselection = new boolean[count];
+        thumbnailsSelection = new boolean[count];
         for (int i = 0; i < count; i++) {
-            imagecursor.moveToPosition(i);
-            ids[i] = imagecursor.getInt(image_column_index);
-            int dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.DATA);
-            arrPath[i] = imagecursor.getString(dataColumnIndex);
+            imageCursor.moveToPosition(i);
+            ids[i] = imageCursor.getInt(image_column_index);
+            int dataColumnIndex = imageCursor.getColumnIndex(MediaStore.Images.Media.DATA);
+            arrPath[i] = imageCursor.getString(dataColumnIndex);
         }
 
         ImageAdapter imageAdapter = new ImageAdapter();
@@ -203,9 +196,9 @@ public class CustomPhotoGalleryActivity extends Activity {
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        if(imagecursor != null)
+        if(imageCursor != null)
         {
-            imagecursor.close();
+            imageCursor.close();
         }
     }
 
@@ -272,12 +265,12 @@ public class CustomPhotoGalleryActivity extends Activity {
                 public void onClick(View v) {
                     CheckBox cb = (CheckBox) v;
                     int id = cb.getId();
-                    if (thumbnailsselection[id]) {
+                    if (thumbnailsSelection[id]) {
                         cb.setChecked(false);
-                        thumbnailsselection[id] = false;
+                        thumbnailsSelection[id] = false;
                     } else {
                         cb.setChecked(true);
-                        thumbnailsselection[id] = true;
+                        thumbnailsSelection[id] = true;
                     }
                 }
             });
@@ -285,12 +278,12 @@ public class CustomPhotoGalleryActivity extends Activity {
 
                 public void onClick(View v) {
                     int id = holder.chkImage.getId();
-                    if (thumbnailsselection[id]) {
+                    if (thumbnailsSelection[id]) {
                         holder.chkImage.setChecked(false);
-                        thumbnailsselection[id] = false;
+                        thumbnailsSelection[id] = false;
                     } else {
                         holder.chkImage.setChecked(true);
-                        thumbnailsselection[id] = true;
+                        thumbnailsSelection[id] = true;
                     }
                 }
             });
@@ -299,7 +292,7 @@ public class CustomPhotoGalleryActivity extends Activity {
             } catch (Throwable e) {
                 e.printStackTrace();
             }
-            holder.chkImage.setChecked(thumbnailsselection[position]);
+            holder.chkImage.setChecked(thumbnailsSelection[position]);
             holder.id = position;
             return convertView;
         }

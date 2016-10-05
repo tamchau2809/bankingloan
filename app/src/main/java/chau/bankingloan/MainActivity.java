@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                case 1:
 //                    return new UploadFragment2();
                 case 0:
-                    return new Tab1Fragment();
+                    return new Tab5Fragment();
                 case 1:
                     return new Tab2Fragment();
                 case 2:
@@ -247,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
-                    // Getting JSON Array node
                     arrToolbar = jsonObj.getJSONArray("toolbar");
                     for(int i = 0; i < arrToolbar.length(); i++)
                     {

@@ -368,11 +368,13 @@ public class Tab4Fragment extends Fragment {
                     }
                     if (arrayListTab4.get(i).getType().equals("edPlusNumberA")) {
                         if(arrayListTab4.get(i).getColumn().equals("1")) {
-                            arrayListTab4.get(i).obj = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL, textWatcher);
+                            arrayListTab4.get(i).obj = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(),
+                                    InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL, textWatcher);
                             l1.addView((View) arrayListTab4.get(i).obj, layoutParams);
                         }
                         if(arrayListTab4.get(i).getColumn().equals("2")){
-                            arrayListTab4.get(i).obj = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL, textWatcher);
+                            arrayListTab4.get(i).obj = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(),
+                                    InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL, textWatcher);
                             l2.addView((View) arrayListTab4.get(i).obj, layoutParams);
                         }
                     }
