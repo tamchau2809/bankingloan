@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="4b6d9b70f93bbeb872d0948bc064ae3f3f2bcbac">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-messaging-9.4.0_bf7f5ef29a15da000a3b9850bdf70171652f8ad6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -21,21 +12,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="3b7173b3df4c7029699919414400041f64519e34">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-iid-9.4.0_0cbd3415c839ae95fda541a8d031d053c1bb11c9\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="147edbec6bcea71fd675ecc63cae3319637ec2b4">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-lite-9.4.0_bba7eadb75a1f2ec90e652b9f3d1835acda5f233\classes.dex" />
+        sha1="c4394d46152165cd3256fb711ac94f66a28fbae1">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-9.6.1_a3832e3382e436e98aeaf149db45842c1a664e1e\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -57,15 +39,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ece40b09e9d4d488bc270cf6af5a9af73bc1cfa3">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-9.4.0_6dd292e92fa24c4a036fd8d0be4aa384611dfa68\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -75,66 +48,57 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="e454c414a069241ee08444d187f2dd3a702596b5">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-9.4.0_194ec6b81842239b5be37ef0aa810519195da74f\classes.dex" />
+        sha1="47bbb3ec4b31ba71e125241c090dabe70cbb4de7">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-9.6.1_7d89ffdc036a057f4cf7c96bc4e4698b681245c4\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="461e4257888c25ec05abcd91e758fe7f4949230a">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-9.4.0_755b9cc0901e4440122bc80c0215e9d0c7c5f59a\classes.dex" />
+        sha1="d45c048bb1c55cf963899190e507065aea8e5be9">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-9.6.1_4bf2914038fa14e04e95200107fe3b5225494d19\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-module\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="6bc41d9d6fd12d2ef23c785a259011001f4a1a5b">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-module-9.4.0_223237c92ceae3b6a93e1c94e9f4e4ea18c3bfba\classes.dex" />
+        sha1="eccaaa9ffa6bb4bfbd2e870f01aaf69655d353be">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.6.1_1e24c62d77964572f049953461c61f71bef66d68\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\com08\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.2.0\f7873a2ebde246a45c2a8d6f3247108b4c88a879\okhttp-3.2.0.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.2.0_9724968d8dafe907951972d5e224d0baf0416516\classes.dex" />
+        sha1="79f521967ad7f49b34748db89df02852c2b2f87b">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-9.6.1_059765628193db60795138d5cfe5017ce2fab361\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="7ea53c4458b80e8ea71f7fd6831fa184c501377b">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-api-9.4.0_2469fd639ac4becf9de83715ef5acd97fd077b99\classes.dex" />
+        sha1="ee61ace5f3e488fc610e1c67693c49186a441f32">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-9.6.1_b559eac10971fbda4137ded686e9f7aa062f93c5\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth-base\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="a432629397351d3ec7f27a23d258b229b81af08f">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-9.4.0_a8f5990454ed852b1a0c84792aa271169342a3bc\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="e35002351f2d415093a9b564652d4b56be6a0593">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-9.4.0_02f367cb71a3422985dff8a6fb48d237b5056fdb\classes.dex" />
+        sha1="465f40f840e583f8b7421a3aacf3fbf08c28f00a">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-base-9.6.1_813c7f8ae3000c248048297262ef5660799b9351\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -144,6 +108,24 @@
         revision="23.0.3"
         sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_9c1ac888dd0c26ea3477e460931c9d298ed99ff0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="1e14ebe1cda8491f152083e752ca5bf73cd37bff">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-iid-9.6.1_56c9bd1a95655391bb8edfbe125f999c1d90294f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="4df40545c9b875855f3dd9d4928e5d07f07c20ba">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-9.6.1_e1329df113259d73246a61c067e8cb56ba168008\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -165,48 +147,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="b1acf13f1b7d8232af78a30833f9a966d1394c84">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-9.4.0_ac76f7c180c821521749d22c394025939bab4175\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics-impl\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="0ad33eb600f3d80bdff5ce355c90d5533ade652a">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-impl-9.4.0_287be91bed89c5a1221358836d16f4891e35f6ac\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="98e97da89d4df8e2f6eba63498d3d46a587372f2">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-9.4.0_46e82bbb6a3b8696692f9d0cc743a95d5ede36f6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_87890659de651cbc2ede6f0e47243b01ea31c74e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="8ce5e7a4a146dddd1d9e66b09c714a6c149916d8">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-9.4.0_2004d9cf168524ca9e2ecdcd4e1748f25efa3ff7\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -219,147 +165,120 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="736d8893fb702f128a153c9d87c9c29724d37872">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-9.4.0_016569c651ac874911d3c9d9903116be20702b8b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="389e3ce54a58cd1f9cd39532a921957a051c160d">
+        sha1="c0b623dffcab19eacb4d161a56618ce66b930b14">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4d116cffc592bbe3711e107b4b0c66ee4ee81394\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="dd51b31890731591729f046d7a09c4fe4e483ed1">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-9.4.0_8530ceea1ca790126d2d718e9de4b890994f0bba\classes.dex" />
+        sha1="6ff796a3173787afe2e712f3aec6f5b99796118e">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-lite-9.6.1_0415f7f703cdbfdeb231670a2188872fe5c57cb5\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="7bc6ea2bcfd6de4b7085e0f3a01616c5c8e0e2ad">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-9.4.0_89da9a04bdd7c6810675be38920ebc67f934b796\classes.dex" />
+        sha1="ad7706f8bb4a985656a8d2142f74021c8b0e03d8">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-9.6.1_3c68e3b598ce5358eb224797e54acbea09e5952e\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="a440fb3fec30ff925e9f601cc458fb6671834cb2">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-9.4.0_df3bc61b57ce3c0481c489c7e96084cc0549f7c3\classes.dex" />
+        sha1="b75ecdd04a37d31b4a0da2729fc5c558962a529b">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-9.6.1_aef093879c489f60e9ad71400abab8932817eb12\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\com08\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="98476622f10715998eacf9240d6b479f12c66143">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.6.0_3624fc73dc67a691011d027c1fae54a15ec04ae3\classes.dex" />
+        sha1="f6aa7c76cbaa867e05dbad0afab1ef0e65c4e55f">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-9.6.1_5827c1935c0376666ad2e506da1079c9f10e16cc\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="0e4d53465cc141bec58f18a894e4c4e80633fa32">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-9.4.0_bc7e7ddefb812a97edee9d4c7216822c7e567183\classes.dex" />
+        sha1="1810ae0df0a1b9b539ce97df54e96f2bf8f5ff94">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-9.6.1_9bbb12e31e34436512acfbdd133ae7f64090ee77\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="0b060160e7daee343f5315b3da91b0ff2d7eed89">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-9.4.0_240da6e36a5ceab516bf4b8e7c047d901a1311ea\classes.dex" />
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-24.0.0_230e05cef3e67cad20a296c7c4841b85e6272084\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="88848548ab56d4fbf3d2d1b0c85bf1ff9b4c1f4b">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-9.4.0_89d15bf0baa95d25e95a7328cff6131a72ef2884\classes.dex" />
+        sha1="a136366045678579300d161de97c2211c4c4f7a0">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-9.6.1_6e43fa354a6f42ad543b1dbb5ee47960de6636dd\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="d463d8eec1e6c1feef2cec6675ccb47e37c12ee1">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-9.4.0_bf438b4eefda7290b330ad4e5936bda04f0d35a5\classes.dex" />
+        sha1="2a18547ea91d258866d132c2a763185f15b01b25">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-9.6.1_c9e8719939ac4f7c318a4b86ab9edde27090ed6b\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth-base\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="58c9f5ee817fdb8b658fd7455fadfb74119f7ee9">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-base-9.4.0_5b6a08d66b8020d1d03af9db95dca424bb138b6a\classes.dex" />
+        sha1="9c0cf3d4f9d7d076f301e110b92e18ae23da12c2">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-9.6.1_0c570cdec0f7dddf89cabb8d0eb089218b4c50e9\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.4.0_2852f770cc4fdb3602540dcb257d85a5121d5af3\classes.dex" />
+        sha1="0cae6511c5705869cacf199f8abb0ea84cd10157">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-vision-9.6.1_72aedfdb059c9b16e3afc9f73e74cddfaef21484\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="18b5697c65c4fe5b7381613b8b8ae9ac52e26fa7">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.4.0_65598c75a2ac09ca4781fb1134cba401cc69785b\classes.dex" />
+        sha1="0efd1b44f47c134fb245914a1d54a55adbfc2f8d">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-9.6.1_2ef3540c1af6f8972c7939af24aa9f5e03a118de\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-23.0.0_b5f51afc08a5ccf301dd0ece8dc067a0c6df68e2\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ba47b210d36301e237ccfea860eaada04590f12a">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-9.4.0_04b666cb290898532e4eec70ce71bdc0c35d26f7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-common\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="34762013d39dbe6c656050589c44e8b61b9a2c5d">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-common-9.4.0_80a819f94fc3835d0ad87185aa133935ace37d01\classes.dex" />
+        sha1="526f4b02f1771fa7607ff1b89fe2e9bd0344fee8">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-9.6.1_f75e7d8d0da9539887dd7f99b0813a9c89b26d68\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -372,6 +291,24 @@
     </item>
     <item
         is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="159494eb362396d073d8c922b77e40c0da5fc5bc">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-9.6.1_4a2adb71de4e85326039165cbd9c895e54e2f0d6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8ebae43cd06058e99e08c8b4d305b72f2b9927c6">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-9.6.1_51521acbc8c058ec37e01b615012bb2a0fe8cc40\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="D:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
         jumboMode="true"
         optimize="true"
@@ -381,21 +318,48 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="03829a2618892d438a1f59c6286699ca1f476e93">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-9.4.0_ba7cde60af611c5b3a64a0d1835159bf56a13bbc\classes.dex" />
+        sha1="a76a6983a23788b3689524d4bed763955afbd306">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-fitness-9.6.1_b877ee0cfebc7aa03511262954d4ae2b6fdd029a\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="dab6944860c986980dcc6002a5ca2f127b587317">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-config-9.4.0_dece9cfaf86743786bde614aa1af8860682713ba\classes.dex" />
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-24.0.0_c2de20cc32521710854b68faf49434d0a3ac4ad8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ac8365c87591065db07f7bac8551504504832cd4">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-9.6.1_20c64da3adeda88e73597a637b1b1d192bf14504\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f8db47be01cbe8cfa81e9cecce5ff1371ed1ad95">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-9.6.1_d89a6a30a53d81f6006a0e85d5577c5bc8e77b32\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_5971a4dd29479ad17fcb159cf3034a0efc64efb7\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -408,12 +372,66 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="d49118ba67a101c4895f0581f17142cba85b330b">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-9.4.0_f5fcd1c5362fdce4dc2d89245381ef544b1a2ac9\classes.dex" />
+        sha1="62ff84124b89177abc0c27f3e38c9732f2d41617">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-9.6.1_db70cd7c3f6b16bfa8364260477c2b301e6cfad9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="1ef72e72bc0d05602c366582afa9439f58bb31d6">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.6.1_b37b71aaa6a3f6f6b8ee176acb4a7b2e561b1cf6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a1c351dc10b92d638da57f3a6513f87cfbdc9f83">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-9.6.1_379624f7b9b5d7f6e6779db8fa30cee39b2fdf86\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8c6ef5bd4072f8cda2b89d8356ea7d8acd0683aa">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-9.6.1_57fbbb984ab01f6c7fba327fe54b4e1090be2f01\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-module\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6ffe8b28ab61e5ee92ab9431a220379790c71ddf">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-module-9.6.1_80877ffeb48f4db0d75b51686f000123f005da76\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="4a36600281a648769411ef642c331851732bf29e">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.6.1_86e0de54ae074966cb06c868b7933d42889bf7c9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-instantapps\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="babb25794a7599069d34705038744c5760a9a88c">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-instantapps-9.6.1_d68be9d3f211000c4cb722ac5eadd7a7de3b6295\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -426,39 +444,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="4348dd26d83b56c2058b768222c3271bce911724">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-9.4.0_80cb05c95d468a00fff58f9f027ec0215f548140\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="5e04c0b3683ca45b343284d93e5594b5f9044551">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-9.4.0_65345cecbb76bcfe5b79af4d7a9814aa1b2e8156\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.1_dc03a45f97b8a76bd64fa2656f77c5cf0312a806\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-clearcut\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="dd763e0269f2854f5828ae62dd968b80bff6a0db">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-clearcut-9.4.0_b0fd57525263975b8ea24c076c00796bc0692fd4\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -471,48 +462,30 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-clearcut\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="c8f5d56f8f8a287c95e02c542baade138a378048">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-9.4.0_1b4570314f9449a773f3a41ad6e8f5dff41c9d0c\classes.dex" />
+        sha1="ee0ccb43f6ab276191b7f2d77c305fa9beb26db9">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-clearcut-9.6.1_e2a77cd0de24d401db06b1f96ea6b0af2d8c2f2c\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-contextmanager\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-awareness\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="72eacac37fc64e95d53abd2a041bf81a952d8615">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-contextmanager-9.4.0_c70b85d97222838ee64671efbdfd35fe157d4a66\classes.dex" />
+        sha1="90be14317e3f26d18438e8dbf8544500d1dfe07f">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-awareness-9.6.1_57aa3ddec6c46d740f938b434eec658270f76a6a\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="84bf369090a8f7e293817efbd6ccf31ada1be32b">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-9.4.0_c96d9dbe1d415f6a0354f026eb3bf5c07530d250\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="954697ee6ea7bdd596babf4f70e8b7a17ca7649e">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-9.4.0_2f002306de2ffdd86a6607ec6c3d0bf19353b241\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.roughike\bottom-bar\2.0.2\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="32534a05122d0c535cc8b885e45b1e7ce3b0f03e">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.roughike-bottom-bar-2.0.2_4c92cbd096f436ef4c52c1b928241e9f54819014\classes.dex" />
+        sha1="da3f763afd39da1c947d9442847c837e9182a09f">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-9.6.1_d3e88a20de114985ee18fabe0f503663ea6d68b3\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -525,75 +498,84 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="b9d48baf96c7e187991a9befa833bebd181960a9">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-9.4.0_e90d5b81667bf560c15548372ca4ef06c885b13e\classes.dex" />
+        sha1="80dd8bea08bc5fe10b10a3243b8279c856ccc690">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-messaging-9.6.1_cd2ac31f5119c436ae9736e8d5a965c44d56dded\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="4b630471536351be7c3c3100735c75b7ad2cbd84">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-9.4.0_881b0bd80f148134a5ca715a8c38d13072bc19dc\classes.dex" />
+        sha1="cc39b4bcc9e7062891db90d5a752fa9e4986f447">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-9.6.1_ad5bbc6bdd0158f5ca5bce506700138b43cc827d\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="e6e2251f3d3abf4eecd6bf6919d41fc7af497852">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-9.4.0_7c8a9b5883100bd263ea57811aa215a61116326a\classes.dex" />
+        sha1="cdddf21e0a8205e9955661061d1735ed10e44a7b">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-9.6.1_6c1fd2f4d7e22f97d82cbcf09922fc764d54225e\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-iid\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="8197651ce1af4d89b47f4545cc720bc4f8611e7d">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-fitness-9.4.0_f3786d57a901836c51e90f07d84c5b5139381d77\classes.dex" />
+        sha1="0dfc12e4aacf514346ea866560c99807d032bc48">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-iid-9.6.1_6b698c43280bc6fb758266cd059b0727d725e58a\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="670df81539ab71918d49b186598b7eff08ef6563">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-vision-9.4.0_e30e512aebd2d4fd040d50931bd3ceb653bde94d\classes.dex" />
+        sha1="cf2c4e6607c77b0e671dc5ca252c5ea0d9c1ce0d">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-config-9.6.1_4269e47ff1483c80aa646b5745f9c6e153794469\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="b15f898c9047f9d612a63000126b485dd024eaac">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-9.4.0_7e2d96033f14607ff1f8e45ca63dcee5688e7f0a\classes.dex" />
+        sha1="dfcba20b85ef3669a8ced0a8760a6df281cbd7c7">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-9.6.1_d6e304d6b561e3b9bdf881b7b11ee84abf53bee6\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.4.0_994972cc905b20b2eb457c60d58da8f43f8c2521\classes.dex" />
+        sha1="f0e96478ca3147bc588aadb9ae467d85b42473cc">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-api-9.6.1_521034e12cf9fae90273a663d24efe2c2b7a6a6a\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="8a36d229011e75f0caef408e1adf0d3fd4d94e02">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.4.0_58a259777e7525de21d922a72c69e918350af36f\classes.dex" />
+        sha1="ff9be0a1e75a21c372735930d8987a55b5e6065f">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-9.6.1_083292acc4c36dc6429c09447e1feee566cf2f0b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="518adc52081d41724932b41bc132e4d50a352b86">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-9.6.1_8cbd71a7b2bfcfc614fcbb1cb8d479d023f7a9a9\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -601,7 +583,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="24e7824df998ab54d911c7464be8551c61fc5a93">
+        sha1="2dd5abf0f5189a9429bdd62a175f1e4ec982efd4">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e126b08c4a8458df253538bdb339ec632a90b051\classes.dex" />
     </item>
     <item
@@ -615,39 +597,39 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\libs\internal_impl-23.0.0.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.0.0_4268ce318158f559a0db1cc8223ecbd66eb59475\classes.dex" />
+        sha1="0e0e0681c26a1f575d3e4c542182dd59bab75fd6">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-9.6.1_2f27c5703307bb7947fd1511f4cb6966f44287a9\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-iid\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="59a16a4a42d25b2c243dd1e8aea87d06895b4a06">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-iid-9.4.0_97560a661c362913ad38dec2a97ff113a1fd9f27\classes.dex" />
+        sha1="af7582c6b327449c6d32518e6a10307860b7b5d6">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.6.1_244faa284cbb5558ca7e52f403af6aa953de0804\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="c10df7344e31161852c20bb8143fc37319aa10ec">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-9.4.0_914e0b05a6a720c120f5b39758cdff49fd4decaf\classes.dex" />
+        sha1="c828add497d2b7a3de7c047bf72050cd4b7521a1">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-9.6.1_cea1dae997f0024903398dc5b7c5403dd85cc18a\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\9.4.0\jars\classes.jar"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics-impl\9.6.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="e5e8e535d15834e824817bdf5370556f62b4b2a5">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-9.4.0_440c1f90f023381067e7a2dacd0e04513b5a2f48\classes.dex" />
+        sha1="a53ac0560ab915a02c50d2e5c7b003381e6fb5e3">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-impl-9.6.1_1f65bd861d1d3e3ba390eedd8b5fde71924c422c\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -657,6 +639,15 @@
         revision="23.0.3"
         sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.1_f404384bd376ef6742d2eaab98cfcac36b726421\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-common\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="77558e74bb2056ef38516296f13a27c4c4fc3e5c">
+        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-common-9.6.1_546c806e4d71ff0122826732aa431f1f6e8112b4\classes.dex" />
     </item>
 
 </items>
