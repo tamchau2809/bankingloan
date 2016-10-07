@@ -263,8 +263,8 @@ public class Tab5Fragment extends Fragment
 
         /**
          * Dùng để nén hình ảnh
-         * @param bitmap - Hình ảnh
-         * @param context - getContext
+         * @param bitmap Hình ảnh
+         * @param context getContext
          * @return hình ảnh được nén
          */
         File compressImage(Bitmap bitmap, String name, Context context)
