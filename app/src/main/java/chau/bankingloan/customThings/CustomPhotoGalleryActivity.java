@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -183,7 +184,7 @@ public class CustomPhotoGalleryActivity extends Activity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == ConstantStuff.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE) {
             Message message = handler.obtainMessage();
             message.what = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ?

@@ -169,7 +169,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="c0b623dffcab19eacb4d161a56618ce66b930b14">
+        sha1="6e74ba82f7d52ad2299138a120e1b879ad81bba5">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4d116cffc592bbe3711e107b4b0c66ee4ee81394\classes.dex" />
     </item>
     <item
@@ -279,15 +279,6 @@
         revision="23.0.3"
         sha1="526f4b02f1771fa7607ff1b89fe2e9bd0344fee8">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-9.6.1_f75e7d8d0da9539887dd7f99b0813a9c89b26d68\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\com08\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.6.2\f1bc476cc167b18e66c297df599b2377131a8947\gson-2.6.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
-        <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.6.2_73d0d3f0aef68e4952586c0b10666c5aeb0fc645\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -583,7 +574,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="2dd5abf0f5189a9429bdd62a175f1e4ec982efd4">
+        sha1="d2ccdd8444b7a5a11c44e9d9a24b934704e28754">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e126b08c4a8458df253538bdb339ec632a90b051\classes.dex" />
     </item>
     <item
