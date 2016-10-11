@@ -166,6 +166,7 @@ public class CustomPhotoGalleryActivity extends Activity {
         final String orderBy = MediaStore.Images.Media._ID;
 
         imageCursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy);
+        assert imageCursor != null;
         int image_column_index = imageCursor.getColumnIndex(MediaStore.Images.Media._ID);
         count = imageCursor.getCount();
         arrPath = new String[count];
@@ -180,7 +181,6 @@ public class CustomPhotoGalleryActivity extends Activity {
 
         ImageAdapter imageAdapter = new ImageAdapter();
         grdImages.setAdapter(imageAdapter);
-
     }
 
     @Override

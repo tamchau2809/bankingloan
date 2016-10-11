@@ -7,7 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerEditText;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServerTvDate;
+import chau.bankingloan.customThings.SpinnerData;
 
 /**
  * Created on 29-06-2016 by com08.
@@ -37,11 +40,14 @@ public class Tab2Fragment extends Fragment
 {
     View rootView;
     LinearLayout lnrTab2;
-    ArrayList<ServerInfo> serverInfos;
+    ArrayList<ServerInfo> arrayListTab2;
 
     ProgressDialog progressDialog;
     ImageButton imgBtnNext, imgBtnPre, imgBtnRefresh;
     SharedPreferences preferences;
+    ServerEditText edResult;
+    TextWatcher textWatcher;
+    public String arrSpinner = "";
 
     View.OnClickListener listenerRefresh, listenerNext, listenerPre;
 
@@ -56,6 +62,41 @@ public class Tab2Fragment extends Fragment
 
         new GetData().execute();
 
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int t = 0;
+                try {
+                    for (int j = 0; j < arrayListTab2.size(); j++) {
+                        if(arrayListTab2.get(j).getType().equals("edPlusNumberA"))
+                        {
+                            if(!arrayListTab2.get(j).getData().toString().trim().isEmpty())
+                                t = t + Integer.valueOf(arrayListTab2.get(j).getData()
+                                        .toString().trim());
+                        }
+                    }
+                    if(t == 0)
+                        edResult.setValue(String.valueOf(0));
+                    else
+                        edResult.setValue(String.valueOf(t));
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+
         imgBtnRefresh.setOnClickListener(listenerRefresh);
         imgBtnNext.setOnClickListener(listenerNext);
         imgBtnPre.setOnClickListener(listenerPre);
@@ -69,7 +110,7 @@ public class Tab2Fragment extends Fragment
         imgBtnRefresh = (ImageButton)rootView.findViewById(R.id.imgBtnRefreshTab2);
         imgBtnNext = (ImageButton)rootView.findViewById(R.id.imgBtnNextTab2);
         imgBtnPre = (ImageButton)rootView.findViewById(R.id.imgBtnPreTab2);
-        serverInfos = new ArrayList<>();
+        arrayListTab2 = new ArrayList<>();
         preferences = this.getActivity().getSharedPreferences("TAB2", Context.MODE_APPEND);
     }
 
@@ -117,7 +158,7 @@ public class Tab2Fragment extends Fragment
             progressDialog.setCancelable(false);
             progressDialog.show();
             lnrTab2.removeAllViews();
-            serverInfos.clear();
+            arrayListTab2.clear();
         }
 
         @Override
@@ -136,7 +177,7 @@ public class Tab2Fragment extends Fragment
                                 object.getString("type"), object.getString("value"),
                                 object.getString("url"),
                                 object.getString("column"), object.getBoolean("require"));
-                        serverInfos.add(serverInfo);
+                        Tab2Fragment.this.arrayListTab2.add(serverInfo);
                     }
                 }
                 catch (JSONException e)
@@ -177,83 +218,133 @@ public class Tab2Fragment extends Fragment
                 l2.setOrientation(LinearLayout.VERTICAL);
                 l2.setLayoutParams(layoutParams1);
 
-                for (int i = 0; i < serverInfos.size(); i++)
+                for (int i = 0; i < arrayListTab2.size(); i++)
                 {
-                    if(serverInfos.get(i).getType().equals("textviewColumn"))
+                    if(arrayListTab2.get(i).getType().equals("textviewColumn"))
                     {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerBoldTextview(getContext(), serverInfos.get(i).getLabel(), true);
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("1")) {
+                            arrayListTab2.get(i).obj = new ServerBoldTextview(getContext(), arrayListTab2.get(i).getLabel(), true);
+                            l1.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerBoldTextview(getContext(), serverInfos.get(i).getLabel(), true);
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            arrayListTab2.get(i).obj = new ServerBoldTextview(getContext(), arrayListTab2.get(i).getLabel(), true);
+                            l2.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
                     }
-                    if (serverInfos.get(i).getType().equals("spinner"))
+                    if (arrayListTab2.get(i).getType().equals("spinner"))
                     {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerSpinner(getContext(), serverInfos.get(i).getLabel(), serverInfos.get(i).getValue());
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
+                        SpinnerData spinnerData = new SpinnerData(arrayListTab2.get(i).getUrl(), arrayListTab2.get(i).getLabel());
+                        arrSpinner = spinnerData.execute().get();
+                        if(arrayListTab2.get(i).getColumn().equals("1")) {
+                            if(arrSpinner.equals(""))
+                            {
+                                arrayListTab2.get(i).obj = new ServerSpinner(getContext(),
+                                        arrayListTab2.get(i).getLabel()
+                                        , arrayListTab2.get(i).getValue());
+                                Toast.makeText(getContext(), "Can not get " + arrayListTab2.get(i).getLabel().replace(":", "") + " from Server!", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                                arrayListTab2.get(i).obj = new ServerSpinner(getContext(),
+                                        arrayListTab2.get(i).getLabel(), arrSpinner);
+                            l1.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerSpinner(getContext(), serverInfos.get(i).getLabel(), serverInfos.get(i).getValue());
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            if(arrSpinner.equals(""))
+                            {
+                                arrayListTab2.get(i).obj = new ServerSpinner(getContext(),
+                                        arrayListTab2.get(i).getLabel()
+                                        , arrayListTab2.get(i).getValue());
+                                Toast.makeText(getContext(), "Can not get " + arrayListTab2.get(i).getLabel().replace(":", "") + " from Server!", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                                arrayListTab2.get(i).obj = new ServerSpinner(getContext(),
+                                        arrayListTab2.get(i).getLabel(), arrSpinner);
+                            l2.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
                     }
-                    if (serverInfos.get(i).getType().equals("edittext"))
+                    if (arrayListTab2.get(i).getType().equals("edittext"))
                     {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), EditorInfo.TYPE_CLASS_TEXT);
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("1")) {
+                            arrayListTab2.get(i).obj = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(), EditorInfo.TYPE_CLASS_TEXT);
+                            l1.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), EditorInfo.TYPE_CLASS_TEXT);
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            arrayListTab2.get(i).obj = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(), EditorInfo.TYPE_CLASS_TEXT);
+                            l2.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
                     }
-                    if (serverInfos.get(i).getType().equals("edittextnumber"))
+                    if (arrayListTab2.get(i).getType().equals("edittextnumber"))
                     {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("1")) {
+                            arrayListTab2.get(i).obj = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            l1.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            arrayListTab2.get(i).obj = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(), InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            l2.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
                     }
-                    if (serverInfos.get(i).getType().equals("edittextemail"))
+                    if (arrayListTab2.get(i).getType().equals("edittextemail"))
                     {
-                        if(serverInfos.get(i).getColumn().equals("1")) {
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("1")) {
+                            arrayListTab2.get(i).obj = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(), InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                            l1.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerEditText(getContext(), serverInfos.get(i).getLabel(), InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            arrayListTab2.get(i).obj = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(), InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                            l2.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
                     }
-                    if (serverInfos.get(i).getType().equals("textviewDate"))
+                    if (arrayListTab2.get(i).getType().equals("textviewDate"))
                     {
-                        if(serverInfos.get(i).getColumn().equals("1")){
-                            serverInfos.get(i).obj = new ServerTvDate(getContext(), serverInfos.get(i).getLabel(), "Choose Date");
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("1")){
+                            arrayListTab2.get(i).obj = new ServerTvDate(getContext(), arrayListTab2.get(i).getLabel(), "Choose Date");
+                            l1.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerTvDate(getContext(), serverInfos.get(i).getLabel(), "Choose Date");
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            arrayListTab2.get(i).obj = new ServerTvDate(getContext(), arrayListTab2.get(i).getLabel(), "Choose Date");
+                            l2.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
                     }
-                    if (serverInfos.get(i).getType().equals("checkbox"))
+                    if (arrayListTab2.get(i).getType().equals("checkbox"))
                     {
-                        if(serverInfos.get(i).getColumn().equals("1")){
-                            serverInfos.get(i).obj = new ServerCheckbox(getContext(), serverInfos.get(i).getLabel());
-                            l1.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("1")){
+                            arrayListTab2.get(i).obj = new ServerCheckbox(getContext(), arrayListTab2.get(i).getLabel());
+                            l1.addView((View) arrayListTab2.get(i).obj, layoutParams);
                         }
-                        if(serverInfos.get(i).getColumn().equals("2")){
-                            serverInfos.get(i).obj = new ServerCheckbox(getContext(), serverInfos.get(i).getLabel());
-                            l2.addView((View) serverInfos.get(i).obj, layoutParams);
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            arrayListTab2.get(i).obj = new ServerCheckbox(getContext(), arrayListTab2.get(i).getLabel());
+                            l2.addView((View) arrayListTab2.get(i).obj, layoutParams);
+                        }
+                    }
+                    if (arrayListTab2.get(i).getType().equals("edPlusNumberA")) {
+                        if(arrayListTab2.get(i).getColumn().equals("1")) {
+                            arrayListTab2.get(i).obj = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(),
+                                    InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL, textWatcher);
+                            l1.addView((View) arrayListTab2.get(i).obj, layoutParams);
+                        }
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            arrayListTab2.get(i).obj = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(),
+                                    InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL, textWatcher);
+                            l2.addView((View) arrayListTab2.get(i).obj, layoutParams);
+                        }
+                    }
+                    if (arrayListTab2.get(i).getType().equals("edPlusResultA")) {
+                        if(arrayListTab2.get(i).getColumn().equals("1")) {
+                            edResult = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(),
+                                    InputType.TYPE_CLASS_NUMBER
+                                            | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            edResult.setEnabled(false);
+                            edResult.setValue(String.valueOf(0));
+                            l1.addView(edResult, layoutParams);
+                        }
+                        if(arrayListTab2.get(i).getColumn().equals("2")){
+                            edResult = new ServerEditText(getContext(), arrayListTab2.get(i).getLabel(),
+                                    InputType.TYPE_CLASS_NUMBER
+                                            | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            edResult.setEnabled(false);
+                            edResult.setValue(String.valueOf(0));
+                            l2.addView(edResult, layoutParams);
                         }
                     }
                 }
@@ -273,9 +364,9 @@ public class Tab2Fragment extends Fragment
             int i;
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear().apply();
-            for (i = 0; i < serverInfos.size(); i++) {
-                String fieldValue = (String) serverInfos.get(i).getData();
-                editor.putString(serverInfos.get(i).getLabel().trim().replace(" ", "").replace(":",""), fieldValue);
+            for (i = 0; i < arrayListTab2.size(); i++) {
+                String fieldValue = (String) arrayListTab2.get(i).getData();
+                editor.putString(arrayListTab2.get(i).getLabel().trim().replace(" ", "").replace(":",""), fieldValue);
             }
             editor.apply();
         }
@@ -291,11 +382,11 @@ public class Tab2Fragment extends Fragment
         {
             int i;
             boolean good = true;
-            for(i = 0; i < serverInfos.size(); i++)
+            for(i = 0; i < arrayListTab2.size(); i++)
             {
-                String fieldValue = (String) serverInfos.get(i).getData();
-//                Log.e("ChauVu", arrayListTab4.get(i).getLabel() + " is [" + fieldValue + "]" + "\n------------------------");
-                if (serverInfos.get(i).isRequired()) {
+                String fieldValue = (String) arrayListTab2.get(i).getData();
+//                Log.e("ChauVu", arrayListTab2.get(i).getLabel() + " is [" + fieldValue + "]" + "\n------------------------");
+                if (arrayListTab2.get(i).isRequired()) {
                     if (fieldValue == null) {
                         good = false;
                     } else {

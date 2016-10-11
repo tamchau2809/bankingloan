@@ -34,6 +34,7 @@ import chau.bankingloan.customThings.ServerEditText;
 import chau.bankingloan.customThings.ServerInfo;
 import chau.bankingloan.customThings.ServerSpinner;
 import chau.bankingloan.customThings.ServerTvDate;
+import chau.bankingloan.customThings.SpinnerData;
 
 /**
  * Created on 01-07-2016 by com08.
@@ -181,7 +182,6 @@ public class Tab4Fragment extends Fragment {
         try
         {
             int i;
-            int t = 0;
             boolean good = true;
             for(i = 0; i < arrayListTab4.size(); i++)
             {
@@ -290,7 +290,8 @@ public class Tab4Fragment extends Fragment {
                     }
                     if (arrayListTab4.get(i).getType().equals("spinner"))
                     {
-                        arrSpinner = new SpinnerData(arrayListTab4.get(i).getUrl(), arrayListTab4.get(i).getLabel()).execute().get();
+                        SpinnerData spinnerData = new SpinnerData(arrayListTab4.get(i).getUrl(), arrayListTab4.get(i).getLabel());
+                        arrSpinner = spinnerData.execute().get();
                         if(arrayListTab4.get(i).getColumn().equals("1")) {
                             if(arrSpinner.equals(""))
                             {
@@ -383,6 +384,7 @@ public class Tab4Fragment extends Fragment {
                             edResult = new ServerEditText(getContext(), arrayListTab4.get(i).getLabel(),
                                     InputType.TYPE_CLASS_NUMBER
                                             | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                            edResult.setEnabled(false);
                             edResult.setValue(String.valueOf(0));
                             l1.addView(edResult, layoutParams);
                         }
@@ -403,60 +405,6 @@ public class Tab4Fragment extends Fragment {
             {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public class SpinnerData extends AsyncTask<Void, Void, String> {
-        String url;
-        String key;
-        String arr;
-        JSONArray array;
-        JSONObject object;
-        String jsonSpinner;
-
-        SpinnerData(String url, String key) {
-            this.url = url;
-            this.key = key;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            arr = "";
-        }
-
-        @Override
-        protected String doInBackground(Void... strings) {
-            ConnectURL jsonParser = new ConnectURL();
-            if(url.isEmpty())
-            {
-                arr = "";
-            }
-            else {
-                jsonSpinner = jsonParser.makeServiceCall(url, ConnectURL.GET);
-                if (jsonSpinner != null) {
-                    try {
-                        object = new JSONObject(jsonSpinner);
-                        array = object.getJSONArray(key.trim().replace(":", "")
-                                .replace(" ", ""));
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject jsonObject = (JSONObject) array.get(i);
-                            arr += jsonObject.getString("DATA") + ",";
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else arr = "";
-            }
-            return arr;
-        }
-
-        @Override
-        protected void onPostExecute(String aVoid) {
-            super.onPostExecute(aVoid);
-            Log.e("EXECUTION", key);
-            Log.e("EXECUTION", aVoid);
         }
     }
 }
