@@ -76,7 +76,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         personalPreferences = this.getActivity().getSharedPreferences("PERSONAL", Context.MODE_APPEND);
 //        loadFromPersonal(personalPreferences);
         tab3 = this.getActivity().getSharedPreferences("TAB3", Context.MODE_APPEND);
-//        loadFromContact(tab3);
+//        loadFromContact(preferences);
         employmentPreferences = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
 //        loadFromEmployment(employmentPreferences);
         tab1 = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);

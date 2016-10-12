@@ -144,6 +144,34 @@ public class Tab2Fragment extends Fragment
         };
     }
 
+    private boolean CheckFields()
+    {
+        try
+        {
+            int i;
+            boolean good = true;
+            for(i = 0; i < arrayListTab2.size(); i++)
+            {
+                String fieldValue = (String) arrayListTab2.get(i).getData();
+                if (arrayListTab2.get(i).isRequired()) {
+                    if (fieldValue == null) {
+                        good = false;
+                    } else {
+                        if (fieldValue.trim().length() == 0) {
+                            good = false;
+                        }
+                    }
+                }
+            }
+            return good;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private class GetData extends AsyncTask<Void, Void, Void>
     {
         String json;
@@ -365,43 +393,20 @@ public class Tab2Fragment extends Fragment
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear().apply();
             for (i = 0; i < arrayListTab2.size(); i++) {
-                String fieldValue = (String) arrayListTab2.get(i).getData();
-                editor.putString(arrayListTab2.get(i).getLabel().trim().replace(" ", "").replace(":",""), fieldValue);
+                if (!arrayListTab2.get(i).getType().equals("textviewColumn")) {
+                    String fieldValue = (String) arrayListTab2.get(i).getData();
+                    editor.putString(arrayListTab2.get(i).getLabel().trim().replace(" ", "").replace(":", ""), fieldValue);
+                }
+                if(arrayListTab2.get(i).getType().equals("edPlusResultA"))
+                {
+                    editor.putString(arrayListTab2.get(i).getLabel().trim().replace(" ", "").replace(":", ""), edResult.getValue());
+                }
             }
             editor.apply();
         }
         catch (Exception e)
         {
             e.printStackTrace();
-        }
-    }
-
-    private boolean CheckFields()
-    {
-        try
-        {
-            int i;
-            boolean good = true;
-            for(i = 0; i < arrayListTab2.size(); i++)
-            {
-                String fieldValue = (String) arrayListTab2.get(i).getData();
-//                Log.e("ChauVu", arrayListTab2.get(i).getLabel() + " is [" + fieldValue + "]" + "\n------------------------");
-                if (arrayListTab2.get(i).isRequired()) {
-                    if (fieldValue == null) {
-                        good = false;
-                    } else {
-                        if (fieldValue.trim().length() == 0) {
-                            good = false;
-                        }
-                    }
-                }
-            }
-            return good;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return false;
         }
     }
 }

@@ -138,7 +138,7 @@ public class Tab4Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity act = (MainActivity)getActivity();
-                act.switchTab(1);
+                act.switchTab(2);
             }
         };
         listenerRefresh = new View.OnClickListener() {
