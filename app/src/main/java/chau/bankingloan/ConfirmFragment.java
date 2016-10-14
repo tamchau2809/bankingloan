@@ -62,7 +62,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
     CheckBox cbAccept;
     ImageButton imgBtnPreTab6, imgBtnNextTab6;
     SharedPreferences personalPreferences, tab3,
-            employmentPreferences, tab1;
+            tab4, tab1;
 
     ProgressDialog progressDialog;
 
@@ -77,8 +77,8 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
 //        loadFromPersonal(personalPreferences);
         tab3 = this.getActivity().getSharedPreferences("TAB3", Context.MODE_APPEND);
 //        loadFromContact(preferences);
-        employmentPreferences = this.getActivity().getSharedPreferences("EMPLOYMENT", Context.MODE_APPEND);
-//        loadFromEmployment(employmentPreferences);
+        tab4 = this.getActivity().getSharedPreferences("TAB4", Context.MODE_APPEND);
+//        loadFromEmployment(tab4);
         tab1 = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
 //        loanAmount = tab1.getString("LoanAmount", "");
         getData("TAB1");
@@ -342,6 +342,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
                 multipart.addFormField("LOAN_TYPE", (tab1.getString("LoanType","")));
                 multipart.addFormField("TENURE", (tab1.getString("Tenure","")));
                 multipart.addFormField("LOAN_PURPOSE", (tab1.getString("LoanPurpose","")));
+                multipart.addFormField("INDUSTRY", (tab4.getString("Industry","")));
                 multipart.addFormField("LATITUDE", String.valueOf(latitude));
                 multipart.addFormField("LONGITUDE", String.valueOf(longitude));
 
