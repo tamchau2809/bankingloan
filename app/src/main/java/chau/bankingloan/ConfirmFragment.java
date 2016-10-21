@@ -62,9 +62,10 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
     CheckBox cbAccept;
     ImageButton imgBtnPreTab6, imgBtnNextTab6;
     SharedPreferences personalPreferences, tab3,
-            tab4, tab1;
+            tab4, tab1, tab5;
 
     ProgressDialog progressDialog;
+    String img_url = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -82,7 +83,8 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         tab1 = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
 //        loanAmount = tab1.getString("LoanAmount", "");
         getData("TAB1");
-
+        tab5 = this.getActivity().getSharedPreferences("TAB5", Context.MODE_APPEND);
+        Log.e("asd", tab5.getAll().toString());
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -120,11 +122,12 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
                 act.switchTab(4);
             }
         });
-
-        SharedPreferences tezt = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
-        test = loadData(tezt, "tab1");
-        Log.e("TEST", test.toString());
         return rootView;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -343,6 +346,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
                 multipart.addFormField("TENURE", (tab1.getString("Tenure","")));
                 multipart.addFormField("LOAN_PURPOSE", (tab1.getString("LoanPurpose","")));
                 multipart.addFormField("INDUSTRY", (tab4.getString("Industry","")));
+                multipart.addFormField("IMG_URL", (tab5.getString("IMG_URL","")));
                 multipart.addFormField("LATITUDE", String.valueOf(latitude));
                 multipart.addFormField("LONGITUDE", String.valueOf(longitude));
 

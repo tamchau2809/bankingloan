@@ -43,12 +43,14 @@ public class Tab5Fragment extends Fragment
     View rootView;
 
     private LinearLayout lnrImages;
-    SharedPreferences tab2Pref;
+    SharedPreferences preferences;
 
     ImageButton imgBtnAdd, imgBtnCamera, imgBtnUpload, imgBtnBack;
 
     private ArrayList<String> imagesPathList;
     private final int PICK_IMAGE_MULTIPLE = 1;
+
+    public static Bundle myBundle = new Bundle();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class Tab5Fragment extends Fragment
         rootView = inflater.inflate(R.layout.fragment_tab_5, container, false);
         initWidget();
 
-        tab2Pref = this.getActivity().getSharedPreferences("TAB2", Context.MODE_APPEND);
+        preferences = this.getActivity().getSharedPreferences("TAB5", Context.MODE_APPEND);
 
         imgBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,26 +109,6 @@ public class Tab5Fragment extends Fragment
         imgBtnUpload = (ImageButton) rootView.findViewById(R.id.imgBtnUploadTab5);
         imgBtnBack = (ImageButton) rootView.findViewById(R.id.imgBtnPreTab5);
     }
-
-//    public void getDataFromSP(SharedPreferences pref, String tab, String name)
-//    {
-//        pref = this.getActivity().getSharedPreferences(tab, Context.MODE_APPEND);
-//        Set<String> set = pref.getStringSet(name, null);
-//        if (set != null) {
-//            for(String s : set)
-//            {
-//                try
-//                {
-//                    JSONObject jsonObject = new JSONObject(s);
-//                    String value = jsonObject.getString("value");
-//                }
-//                catch(JSONException e)
-//                {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -190,7 +172,7 @@ public class Tab5Fragment extends Fragment
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ThrowablePrintedToSystemOut"})
     class BackgroundUploader extends AsyncTask<Void, Void, String>
     {
-
+        String result = "";
         private ProgressDialog progressDialog;
         ArrayList<String> arrayList;
 
@@ -221,7 +203,6 @@ public class Tab5Fragment extends Fragment
         private String uploadFile(ArrayList<String> imgPaths, String requestURL) {
 
             String charset = "UTF-8";
-            String result = "";
 
             File sourceFile[] = new File[imgPaths.size()];
             for (int i=0;i<imgPaths.size();i++)
@@ -250,9 +231,15 @@ public class Tab5Fragment extends Fragment
                 System.out.println("SERVER REPLIED:");
 
                 for (String line : response) {
-                    System.out.println(line);
-                    result = line;
+//                    System.out.println(line);
+                    result = result + line  + "\r\n";
                 }
+                System.out.println(result);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear().apply();
+                editor.putString("IMG_URL", result);
+                editor.apply();
+
             } catch (IOException ex) {
                 System.err.println(ex);
             }
@@ -301,7 +288,7 @@ public class Tab5Fragment extends Fragment
             {
                 showAlert("Thất Bại!" + v);
             }
-            else if(v.startsWith("1"))
+            else
             {
                 showAlert("Uploads Completed!");
                 MainActivity act = (MainActivity) getActivity();

@@ -236,7 +236,7 @@ public class Tab1Fragment extends Fragment
             for (int i = 0, len = permissions.length; i < len; i++) {
                 String permission = permissions[i];
                 if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                    boolean showRationale = shouldShowRequestPermissionRationale( permission );
+                        boolean showRationale = shouldShowRequestPermissionRationale( permission );
                     if (showRationale) {
                         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             for (String perm : PERMISSIONS) {
