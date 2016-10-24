@@ -154,21 +154,17 @@ public class Tab4Fragment extends Fragment {
         try {
             int i;
             SharedPreferences.Editor editor = preferences.edit();
-//            Set<String> set = new HashSet<>();
             editor.clear().apply();
             for (i = 0; i < arrayListTab4.size(); i++) {
                 if (!arrayListTab4.get(i).getType().equals("textviewColumn")) {
                     String fieldValue = (String) arrayListTab4.get(i).getData();
                     editor.putString(arrayListTab4.get(i).getLabel().trim().replace(" ", "").replace(":", ""), fieldValue);
-
-//                    set.add(arrayListTab4.get(i).jsonObject().toString());
                 }
                 if(arrayListTab4.get(i).getType().equals("edPlusResultA"))
                 {
                     editor.putString(arrayListTab4.get(i).getLabel().trim().replace(" ", "").replace(":", ""), edResult.getValue());
                 }
             }
-//            editor.putStringSet("tab4", set);
             editor.apply();
         }
         catch (Exception e)

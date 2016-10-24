@@ -112,7 +112,7 @@ public class Tab3Fragment extends Fragment
         imgBtnNext = (ImageButton)rootView.findViewById(R.id.imgBtnNextTab2);
         imgBtnPre = (ImageButton)rootView.findViewById(R.id.imgBtnPreTab2);
         arrayListTab3 = new ArrayList<>();
-        preferences = this.getActivity().getSharedPreferences("TAB2", Context.MODE_APPEND);
+        preferences = this.getActivity().getSharedPreferences("TAB3", Context.MODE_APPEND);
     }
 
     public void initListener()

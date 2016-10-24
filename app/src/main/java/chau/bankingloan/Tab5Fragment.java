@@ -50,8 +50,6 @@ public class Tab5Fragment extends Fragment
     private ArrayList<String> imagesPathList;
     private final int PICK_IMAGE_MULTIPLE = 1;
 
-    public static Bundle myBundle = new Bundle();
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
