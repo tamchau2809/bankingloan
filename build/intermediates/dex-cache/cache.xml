@@ -169,7 +169,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="a644b799209f15274a28d4b30b26a3ca9155cbc7">
+        sha1="0d8c04364d49fa27ba05744ce285802f75dc3ac6">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4d116cffc592bbe3711e107b4b0c66ee4ee81394\classes.dex" />
     </item>
     <item
@@ -574,7 +574,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="ae01a80e2cb3d61bdd7cb92810d0c92af6f6d568">
+        sha1="064cdf044969faca09e469d6369895ed4665385f">
         <dex dex="D:\Android\StudioProjects\BankingLoan\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e126b08c4a8458df253538bdb339ec632a90b051\classes.dex" />
     </item>
     <item

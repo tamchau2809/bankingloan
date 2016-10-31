@@ -62,7 +62,6 @@ public class Tab1Fragment extends Fragment
     ServerEditText edResult;
 
     View.OnClickListener listenerNext, listenerRef;
-    LocationManager manager;
 
     AlertDialog alert;
 
@@ -90,7 +89,7 @@ public class Tab1Fragment extends Fragment
         initWidget();
         initListener();
 
-        manager = (LocationManager) getContext().getSystemService( Context.LOCATION_SERVICE );
+        final LocationManager manager = (LocationManager) getContext().getSystemService( Context.LOCATION_SERVICE );
 
         if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
             buildAlertMessageNoGps();
@@ -189,9 +188,6 @@ public class Tab1Fragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            buildAlertMessageNoGps();
-        }
     }
 
     @Override
