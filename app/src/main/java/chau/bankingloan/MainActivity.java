@@ -32,7 +32,6 @@ import chau.bankingloan.customThings.ConstantStuff;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-//    private ProgressDialog pDialog;
     JSONArray arrToolbar = null;
     JSONArray arrLink = null;
     ArrayList<InfoFromServer> list;

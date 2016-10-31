@@ -63,6 +63,8 @@ public class Tab1Fragment extends Fragment
 
     View.OnClickListener listenerNext, listenerRef;
 
+    AlertDialog alert;
+
     GoogleApiClient client;
 //    LocationRequest mLocationRequest;
 //    PendingResult<LocationSettingsResult> result;
@@ -87,7 +89,11 @@ public class Tab1Fragment extends Fragment
         initWidget();
         initListener();
 
-        statusCheck();
+        final LocationManager manager = (LocationManager) getContext().getSystemService( Context.LOCATION_SERVICE );
+
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            buildAlertMessageNoGps();
+        }
 
         preferences = this.getActivity().getSharedPreferences("TAB1", Context.MODE_APPEND);
 
@@ -141,26 +147,17 @@ public class Tab1Fragment extends Fragment
         return rootView;
     }
 
-    public void statusCheck()
-    {
+    private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Your GPS seems to be disabled, Please turn it on!")
+        builder.setMessage("Your GPS seems to be disabled, please turn it on!")
                 .setCancelable(false)
-                .setPositiveButton("OK, I got it!", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog,  final int id) {
-                        Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        getContext().startActivity(myIntent);
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 });
-        final AlertDialog alert = builder.create();
-        final LocationManager manager = (LocationManager) getContext().getSystemService( Context.LOCATION_SERVICE );
-
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            alert.show();
-        }
-        else if (alert.isShowing())
-            alert.dismiss();
-
+        alert = builder.create();
+        alert.show();
     }
 
     public boolean hasPermissions(Context context, String... permissions) {
@@ -191,44 +188,19 @@ public class Tab1Fragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        statusCheck();
     }
 
-//    public void askForPermission(String permission, Integer requestCode)
-//    {
-//        if (ContextCompat.checkSelfPermission(this.getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
-//
-//        // Should we show an explanation?
-//        if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), permission)) {
-//
-//            //This is called if user has denied the permission before
-//            //In this case I am just asking the permission again
-//            ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
-//
-//        } else {
-//
-//            ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
-//        }
-//    } else
-//        {
-//            Toast.makeText(this.getActivity(), "" + permission + " is already granted.", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (alert != null)
+        {
+            alert.dismiss();
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if(ActivityCompat.checkSelfPermission(this.getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED){
-//            switch (requestCode) {
-//                //Location
-//                case 1:
-//                    askForGPS();
-//                    break;
-//            }
-//            Toast.makeText(this.getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
-//        }else{
-//            Toast.makeText(this.getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
-//        }
         if (requestCode == PERMISSION_ALL) {
             // for each permission check if the user grantet/denied them
             // you may want to group the rationale in a single dialog,
@@ -248,36 +220,6 @@ public class Tab1Fragment extends Fragment
             }
         }
     }
-
-//    private void askForGPS(){
-//        mLocationRequest = LocationRequest.create();
-//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-//        mLocationRequest.setInterval(30 * 1000);
-//        mLocationRequest.setFastestInterval(5 * 1000);
-//        final LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
-//        builder.setAlwaysShow(true);
-//        result = LocationServices.SettingsApi.checkLocationSettings(client, builder.build());
-//        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
-//            @Override
-//            public void onResult(@NonNull LocationSettingsResult result) {
-//                final Status status = result.getStatus();
-//                switch (status.getStatusCode()) {
-//                    case LocationSettingsStatusCodes.SUCCESS:
-//                        break;
-//                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-//                        try {
-//                            status.startResolutionForResult(getActivity(), GPS_SETTINGS);
-//                        } catch (IntentSender.SendIntentException e) {
-//                            e.printStackTrace();
-//                        }
-//                        break;
-//                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-//                        break;
-//                }
-//            }
-//        });
-//    }
-
 
     public void initWidget()
     {
