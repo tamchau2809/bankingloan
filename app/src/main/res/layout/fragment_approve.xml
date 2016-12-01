@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/my_background"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
 
-    <WebView
-        android:id="@+id/myWebView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <ScrollView
+        android:background="@color/C0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </ScrollView>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:layout_marginStart="@dimen/fab_margin"
+            android:contentDescription="@string/image"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:id="@+id/imgBtnRefreshTab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bi_refresh"/>
+
+        <ImageButton
+            android:contentDescription="@string/image"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:id="@+id/imgBtnNextTab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bi_right"/>
+    </LinearLayout>
 
 </LinearLayout>

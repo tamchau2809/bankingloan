@@ -72,30 +72,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         if(tabLayout != null) {
             tabLayout.setupWithViewPager(mViewPager);
-//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                mViewPager.setCurrentItem(tab.getPosition());
-//                switch(tab.getPosition())
-//                {
-//                    case 1:
-//                        Toast.makeText(getBaseContext(), MAKH, Toast.LENGTH_SHORT).show();
-//                        break;
-//                    default:
-//                            Toast.makeText(getBaseContext(), "test", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
 
             LinearLayout tabStrip = ((LinearLayout) tabLayout.getChildAt(0));
             tabStrip.setEnabled(false);
@@ -192,13 +168,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.navHome:
                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
-                Uri uri = Uri.parse("http://www.vpbank.com.vn/");
+                Uri uri = Uri.parse("https://southtelecom.vn/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 break;
             case R.id.navAbout:
                 Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
-                Uri uri1 = Uri.parse("http://www.vpbank.com.vn/bai-viet/gioi-thieu-vpbank");
+                Uri uri1 = Uri.parse("https://southtelecom.vn/gioi-thieu/");
                 Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
                 startActivity(intent1);
                 break;
@@ -206,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) ==
                         PackageManager.PERMISSION_GRANTED) {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:0439288869"));
+                    callIntent.setData(Uri.parse("tel:0839390998"));
                     startActivity(callIntent);
                     break;
                 }
@@ -217,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.navEmail:
                 Toast.makeText(getApplicationContext(), "Contact", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.fromParts("mailto","customercare@vpb.com.vn", null));
+                i.setData(Uri.fromParts("mailto","contact@southtelecom.vn", null));
                 startActivity(i);
                 break;
             case R.id.navRefresh:
@@ -244,28 +220,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String jsonStr = sh.makeServiceCall(ConstantStuff.GET_TOOLBAR_TEXT, ConnectURL.GET);
             if (jsonStr != null) {
                 try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    synchronized (this) {
+                        JSONObject jsonObj = new JSONObject(jsonStr);
 
-                    arrToolbar = jsonObj.getJSONArray("toolbar");
-                    for(int i = 0; i < arrToolbar.length(); i++)
-                    {
-                        JSONObject obj = (JSONObject) arrToolbar.get(i);
-                        InfoFromServer info = new InfoFromServer(obj.getString("id"),
-                                obj.getString("name"));
-                        list.add(info);
+                        arrToolbar = jsonObj.getJSONArray("toolbar");
+                        for (int i = 0; i < arrToolbar.length(); i++) {
+                            JSONObject obj = (JSONObject) arrToolbar.get(i);
+                            InfoFromServer info = new InfoFromServer(obj.getString("id"),
+                                    obj.getString("name"));
+                            list.add(info);
+                        }
+                        arrLink = jsonObj.getJSONArray("url");
+                        for (int i = 0; i < arrLink.length(); i++) {
+                            JSONObject obj = (JSONObject) arrLink.get(i);
+                            InfoFromServer info = new InfoFromServer(obj.getString("id"),
+                                    obj.getString("link"));
+                            serverArrayList.add(info);
+                        }
+                        TAB_1_LINK = serverArrayList.get(0).getData();
+                        TAB_2_LINK = serverArrayList.get(1).getData();
+                        TAB_3_LINK = serverArrayList.get(2).getData();
+                        TAB_4_LINK = serverArrayList.get(3).getData();
                     }
-                    arrLink = jsonObj.getJSONArray("url");
-                    for(int i = 0; i < arrLink.length(); i++)
-                    {
-                        JSONObject obj = (JSONObject) arrLink.get(i);
-                        InfoFromServer info = new InfoFromServer(obj.getString("id"),
-                                obj.getString("link"));
-                        serverArrayList.add(info);
-                    }
-                    TAB_1_LINK = serverArrayList.get(0).getData();
-                    TAB_2_LINK = serverArrayList.get(1).getData();
-                    TAB_3_LINK = serverArrayList.get(2).getData();
-                    TAB_4_LINK = serverArrayList.get(3).getData();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

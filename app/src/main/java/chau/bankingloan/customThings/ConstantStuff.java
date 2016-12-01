@@ -11,7 +11,7 @@ public class ConstantStuff {
 
 
     //Link Data
-    public static String GET_DATA_LOAN = "http://192.168.1.15/chauvu/loanData.php";
+    public static String GET_DATA_LOAN = "http://192.168.1.13/chauvu/loanData.php";
     public static String GET_DATA_EMPLOYMENT = "http://192.168.1.17/chauvu/loanData.php";
 
     public static String FILE_UPLOAD_URL = "http://192.168.1.13/chauvu/final/document.php";
