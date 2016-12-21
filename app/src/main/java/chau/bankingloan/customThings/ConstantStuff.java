@@ -12,9 +12,10 @@ public class ConstantStuff {
 
     //Link Data
     public static String GET_DATA_LOAN = "http://192.168.1.13/chauvu/loanData.php";
-    public static String GET_DATA_EMPLOYMENT = "http://192.168.1.17/chauvu/loanData.php";
+    public static String GET_DATA_EMPLOYMENT = "http://192.168.1.13/chauvu/loanData.php";
 
-    public static String FILE_UPLOAD_URL = "http://192.168.1.13/chauvu/final/document.php";
+    public static String INSERT_URL = "http://192.168.1.13/chauvu/final/document.php?insert=true";
+    public static String UPLOAD_URL = "http://192.168.1.13/chauvu/final/document.php?upload=true";
     public static String PIN_GENERATE = "http://192.168.1.13/chauvu/final/PIN.php";
     public static String GET_TOOLBAR_TEXT = "http://192.168.1.13/chauvu/final/toolbar.json";
 }

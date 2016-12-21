@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import chau.bankingloan.R;
 
@@ -24,6 +25,7 @@ public class ServerSpinner extends LinearLayout {
         spinner = new Spinner(getContext());
         spinner.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         String[] arr = value.split(",");
+        Arrays.sort(arr);
         arrayAdapter = new ArrayAdapter<>(ctx,
                 R.layout.custom_spinner_item, arr);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

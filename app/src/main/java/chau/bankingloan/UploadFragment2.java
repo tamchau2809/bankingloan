@@ -42,7 +42,7 @@
 //
 //    private LinearLayout lnrImages;
 //
-//    final String FILE_UPLOAD_URL = "http://192.168.1.17/chauvu/up.php";
+//    final String INSERT_URL = "http://192.168.1.17/chauvu/up.php";
 //
 //    FloatingActionButton fab2, fab3, fab4, fab5;
 //
@@ -222,7 +222,7 @@
 //            HttpParams test = httpClient.getParams();
 //            HttpConnectionParams.setConnectionTimeout(test, 5000);
 //            HttpConnectionParams.setSoTimeout(test, 5000);
-//            HttpPost httpPost = new HttpPost(FILE_UPLOAD_URL);
+//            HttpPost httpPost = new HttpPost(INSERT_URL);
 //            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 //            try
 //            {

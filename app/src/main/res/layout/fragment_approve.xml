@@ -26,18 +26,10 @@
             android:layout_marginStart="@dimen/fab_margin"
             android:contentDescription="@string/image"
             android:layout_marginEnd="@dimen/fab_margin"
-            android:id="@+id/imgBtnRefreshTab1"
+            android:id="@+id/imgBtnPrint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bi_refresh"/>
-
-        <ImageButton
-            android:contentDescription="@string/image"
-            android:layout_marginStart="@dimen/fab_margin"
-            android:id="@+id/imgBtnNextTab1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bi_right"/>
+            android:background="@drawable/print"/>
     </LinearLayout>
 
 </LinearLayout>

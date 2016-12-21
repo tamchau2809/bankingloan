@@ -322,7 +322,7 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         @Override
         protected String doInBackground(Void... params) {
             try {
-                return uploadData(ConstantStuff.FILE_UPLOAD_URL);
+                return uploadData(ConstantStuff.INSERT_URL);
             }
             catch (Exception e)
             {

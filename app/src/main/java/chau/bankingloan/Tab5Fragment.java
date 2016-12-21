@@ -1,30 +1,40 @@
 package chau.bankingloan;
 
+import android.*;
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -56,6 +66,11 @@ public class Tab5Fragment extends Fragment
         rootView = inflater.inflate(R.layout.fragment_tab_5, container, false);
         initWidget();
 
+        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, 2101);
+        }
+
         preferences = this.getActivity().getSharedPreferences("TAB5", Context.MODE_APPEND);
 
         imgBtnAdd.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +84,9 @@ public class Tab5Fragment extends Fragment
         imgBtnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                startActivity(intent);
+//                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+//                startActivity(intent);
+                doTakePhotoAction();
             }
         });
 
@@ -97,6 +113,66 @@ public class Tab5Fragment extends Fragment
         });
 
         return rootView;
+    }
+
+    private void doTakePhotoAction() {
+
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        // 创建目录
+//        File fileDir = new File(Environment.getExternalStorageDirectory()
+//                + "/zuijiao");
+//        if (!fileDir.exists()) {
+//            fileDir.mkdirs();
+//        }
+//        // 拍照后的路径
+//        String imagePath = Environment.getExternalStorageDirectory() + "/zuijiao/"
+//                + System.currentTimeMillis() + ".jpg";
+//        File carmeraFile = new File(imagePath);
+//        Uri imageCarmeraUri = Uri.fromFile(carmeraFile);
+//
+//        intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
+//                imageCarmeraUri);
+
+//        int imageNum = 0;
+//        Intent imageIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//        File imagesFolder = new File(Environment.getExternalStorageDirectory(), "Punch");
+//        imagesFolder.mkdirs(); // <----
+//        String fileName = "image_" + String.valueOf(imageNum) + ".jpg";
+//        File output = new File(imagesFolder, fileName);
+//        while (output.exists()){
+//            imageNum++;
+//            fileName = "image_" + String.valueOf(imageNum) + ".jpg";
+//            output = new File(imagesFolder, fileName);
+//        }
+//        Uri uriSavedImage = Uri.fromFile(output);
+//        imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+//
+//
+//        OutputStream imageFileOS;
+//        try {
+//            imageFileOS = getActivity().getContentResolver().openOutputStream(uriSavedImage);
+//            imageFileOS.write(arg0);
+//            imageFileOS.flush();
+//            imageFileOS.close();
+//
+//            Toast.makeText(getContext(),
+//                    "Image saved: ",
+//                    Toast.LENGTH_LONG).show();
+//
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            intent.putExtra("return-data", true);
+//            startActivityForResult(intent, 2100);
+//        } catch (ActivityNotFoundException e) {
+//            // Do nothing for now
+//        }
     }
 
     public void initWidget()
@@ -190,7 +266,7 @@ public class Tab5Fragment extends Fragment
         @Override
         protected String doInBackground(Void... v) {
             try {
-                return uploadFile(arrayList, ConstantStuff.FILE_UPLOAD_URL);
+                return uploadFile(arrayList, ConstantStuff.UPLOAD_URL);
             } catch (Exception e) {
                 // Exception
             }
@@ -230,8 +306,9 @@ public class Tab5Fragment extends Fragment
 
                 for (String line : response) {
 //                    System.out.println(line);
-                    result = result + line  + "\r\n";
+                    result = result + line  + ",";
                 }
+                result = result.substring(0, result.length() - 1);
                 System.out.println(result);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear().apply();
