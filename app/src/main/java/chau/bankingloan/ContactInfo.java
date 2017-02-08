@@ -2,7 +2,7 @@ package chau.bankingloan;
 
 import java.io.Serializable;
 
-public class ContractInfo implements Serializable
+public class ContactInfo implements Serializable
 {
 	/**
 	 * 
@@ -14,7 +14,7 @@ public class ContractInfo implements Serializable
 	public String urlImage;
 	public String urlImageContract;
 	
-	public ContractInfo(String name, String nv, String num, String urlImage, String url) {
+	public ContactInfo(String name, String nv, String num, String urlImage, String url) {
 		// TODO Auto-generated constructor stub
 		this.MAKH = name;
 		this.MANV = nv;

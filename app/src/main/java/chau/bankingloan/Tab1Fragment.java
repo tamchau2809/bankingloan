@@ -20,6 +20,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import chau.bankingloan.customThings.ConnectURL;
 import chau.bankingloan.customThings.ServerBoldTextview;
@@ -88,6 +90,22 @@ public class Tab1Fragment extends Fragment
 
         initWidget();
         initListener();
+        Log.e("TAG", "SERIAL: " + Build.SERIAL);
+        Log.e("TAG", "S.PORTED: " + Arrays.toString(Build.SUPPORTED_32_BIT_ABIS));
+        Log.e("TAG","MODEL: " + Build.MODEL);
+        Log.e("TAG","ID: " + Build.ID);
+        Log.e("TAG","Manufacture: " + Build.MANUFACTURER);
+        Log.e("TAG","brand: " + Build.BRAND);
+        Log.e("TAG","type: " + Build.TYPE);
+        Log.e("TAG","user: " + Build.USER);
+        Log.e("TAG","BASE: " + Build.VERSION_CODES.BASE);
+        Log.e("TAG","INCREMENTAL " + Build.VERSION.INCREMENTAL);
+        Log.e("TAG","PRODUCT  " + Build.PRODUCT);
+        Log.e("TAG","BOARD: " + Build.BOARD);
+        Log.e("TAG","BRAND " + Build.BRAND);
+        Log.e("TAG","HOST " + Build.HOST);
+        Log.e("TAG","FINGERPRINT: "+Build.FINGERPRINT);
+        Log.e("TAG","Version Code: " + Build.VERSION.RELEASE);
 
         final LocationManager manager = (LocationManager) getContext().getSystemService( Context.LOCATION_SERVICE );
 

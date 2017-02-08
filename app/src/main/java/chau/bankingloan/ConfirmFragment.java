@@ -29,13 +29,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import chau.bankingloan.customThings.ConstantStuff;
 import chau.bankingloan.customThings.JustifyTextView;
@@ -65,7 +60,6 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
             tab4, tab1, tab5;
 
     ProgressDialog progressDialog;
-    String img_url = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -265,27 +259,6 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
         });
     }
 
-    public List<String> loadData(SharedPreferences tezt, String key)
-    {
-        List<String> items = new ArrayList<>();
-        Set<String> set = tezt.getStringSet(key, null);
-        if (set != null) {
-            for(String s : set)
-            {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String name = jsonObject.getString("value");
-                    items.add(name);
-                }
-                catch(JSONException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return items;
-    }
-
     public void initWidget()
     {
         cbAccept = (CheckBox)rootView.findViewById(R.id.cbAcceptConfirm);
@@ -364,8 +337,6 @@ public class ConfirmFragment extends Fragment implements GoogleApiClient.Connect
             }
             return result;
         }
-
-
 
         @Override
         protected void onPostExecute(String s) {

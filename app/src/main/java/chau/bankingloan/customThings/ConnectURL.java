@@ -26,9 +26,9 @@ public class ConnectURL {
             connection.setAllowUserInteraction(false);
             connection.setInstanceFollowRedirects(true);
 
-            int CONNECTION_TIMEOUT = 5000;
+            int CONNECTION_TIMEOUT = 30000;
             connection.setConnectTimeout(CONNECTION_TIMEOUT);
-            int SOCKET_TIMEOUT = 5000;
+            int SOCKET_TIMEOUT = 30000;
             connection.setReadTimeout(SOCKET_TIMEOUT);
 
             if(method == GET) {
