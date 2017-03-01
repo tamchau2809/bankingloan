@@ -24,6 +24,10 @@ public class ServerTvDate extends LinearLayout{
     private DatePickerDialog mDatePickerDialog;
     ServerBoldTextview serverBoldTextview;
 
+    public ServerTvDate(Context ctx)
+    {
+        super(ctx);
+    }
     public ServerTvDate(Context ctx, String label, String content)
     {
         super(ctx);
